@@ -1,78 +1,146 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
+import { ArrowUpDown, ExternalLink } from "lucide-react";
+
 import { CellAction } from "./cell-actions";
+import { Button } from "@/components/ui/button";
+import StatusBadge from "@/components/ui/status-badge";
+import { TooltipWrapper } from "@/components/ui/tooltip-wrapper";
+import Link from "next/link";
 
 export type OrderColumn = {
     id: string;
-    firstName: string;
-    lastName: string;
-    cedula: string;
-    address1: string;
-    address2: string;
-    // concatenatedAddress: string;
-    postalcode: string;
-    departamento: string;
-    city: string;
-    phone: string;
-    email: string;
-    notes: string;
-
-    deliveryMethod: number;
-    deliveryMethodName: string;
-    deliveryMethodShopAddress: string;
-    deliveryMethodCost: string;
-
-    deliveryAddress1: string;
-    deliveryAddress2: string;
-    deliveryCedula: string;
-    deliveryCity: string;
-    deliveryDepartamento: string;
-    deliveryLastname: string;
+    status: string;
+    driverPhone: string;
+    driverName: string;
+    clientId: string;
+    differentAddress: boolean;
+    deliveryZoneName: string;
+    deliveryZoneCost: string;
     deliveryName: string;
     deliveryPhone: string;
-    deliveryPostalcode: string;
-
-    pickupCedula: string;
-    pickupFullName: string;
-
-    TandC: boolean;
-
-    isPaid: boolean;
-    pago: string;
-
-    totalPrice: string; // we used the formatter
-    products: string; // turned into a string using '.join' on the array.
+    deliveryAddress: string;
+    notes: string;
+    payment: string;
+    totalPrice: string;
+    totalPriceNumber: number;
+    updatedAtDate: Date;
+    updatedAt: string;
     createdAt: string;
+    storeId: string;
 }
 
 export const columns: ColumnDef<OrderColumn>[] = [
     {
-        accessorKey: "products",
-        header: "Productos",
+        accessorKey: "status",
+        header: "Estado",
+        cell: ({ row }) => <StatusBadge status={row.original.status as "emitido" | "enviado" | "cancelado"} />
     },
     {
-        accessorKey: "phone",
-        header: "Telefono",
+        accessorKey: "clientId",
+        header: "Cliente",
     },
     {
-        accessorKey: "deliveryMethodName",
-        header: "Envío",
+        accessorKey: "driverName",
+        header: "Repartidor",
+        cell: ({ row }) =>
+            row.original.driverName === "-" ?
+                <>
+                    {row.original.driverName}
+                </>
+                :
+                <TooltipWrapper
+                    content="Historial del repartidor"
+                    icon={<ExternalLink className="h-4 w-4" />}
+                    className="flex flex-row items-center gap-x-2"
+                >
+                    <Link
+                        href={`/${row.original.storeId}/repartidores/${row.original.driverPhone}/historial`}
+                        target="_blank"
+                        className="text-sky-600"
+                    >
+                        {row.original.driverName}
+                    </Link>
+                </TooltipWrapper>
+    },
+    {
+        accessorKey: "deliveryZoneName",
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                >
+                    Zona
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            )
+        },
+    },
+    {
+        accessorKey: "deliveryAddress",
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                >
+                    Dirección del envío
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            )
+        },
     },
     {
         accessorKey: "totalPrice",
-        header: "Total (UYU)",
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                >
+                    Total (UYU)
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            )
+        },
     },
     {
-        accessorKey: "pago",
-        header: "Pago",
+        accessorKey: "payment",
+        header: "Método de pago",
     },
     {
         accessorKey: "createdAt",
-        header: "Fecha",
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                >
+                    Fecha de emisión
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            )
+        },
+    },
+    {
+        accessorKey: "updatedAt",
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                >
+                    Actualización
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            )
+        },
     },
     {
         id: "actions",
         cell: ({ row }) => <CellAction data={row.original} />
     }
 ]
+

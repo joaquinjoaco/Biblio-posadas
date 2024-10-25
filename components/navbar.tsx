@@ -1,5 +1,4 @@
 import { MainNav } from "@/components/main-nav";
-import { redirect } from "next/navigation";
 import { ThemeToggle } from "./theme-toggle";
 
 const Navbar = async () => {

@@ -4,6 +4,8 @@ import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
 import toast from "react-hot-toast";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
+import axios from "axios";
+
 
 import {
     DropdownMenu,
@@ -13,9 +15,7 @@ import {
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-
 import { ProductColumn } from "./columns";
-import axios from "axios";
 import { AlertModal } from "@/components/modals/alert-modal";
 
 interface CellActionProps {
@@ -34,18 +34,24 @@ export const CellAction: React.FC<CellActionProps> = ({
 
     const onCopy = (id: string) => {
         navigator.clipboard.writeText(id);
-        toast.success("ID del producto copiada al portapapeles.")
+        toast.success("Código del producto copiado al portapapeles.")
     }
 
     const onDelete = async () => {
         try {
             setLoading(true);
             await axios.delete(`/api/${params.storeId}/productos/${data.id}`);
-            router.refresh(); // Refresh the component so it refetches the patched data.
+            router.refresh(); // Refresh the component so it refetches the data.
             toast.success("Producto eliminado.");
             router.refresh();
-        } catch (error) {
-            toast.error("Ocurrió un error inesperado.")
+        } catch (error: any) {
+            if (error.response.status === 409) {
+                if (error.response.data === "fk-constraint-failed") {
+                    toast.error("No se puede eliminar el producto. Aparece en pedidos registrados.");
+                } else {
+                    toast.error("Ocurrió un error inesperado.");
+                }
+            }
         } finally {
             setLoading(false);
             setOpen(false);
@@ -54,7 +60,15 @@ export const CellAction: React.FC<CellActionProps> = ({
 
     return (
         <>
-            <AlertModal isOpen={open} onClose={() => setOpen(false)} onConfirm={onDelete} loading={loading} />
+            <AlertModal
+                isOpen={open}
+                onClose={() => setOpen(false)}
+                onConfirm={onDelete}
+                loading={loading}
+                title="¿Borrar producto?"
+                description="Se borrará el producto, esta acción no se puede deshacer."
+                buttonMessage="Confirmar"
+            />
 
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -64,14 +78,13 @@ export const CellAction: React.FC<CellActionProps> = ({
                         <MoreHorizontal className="h-4 w-4" />
                     </Button>
                 </DropdownMenuTrigger>
-
                 <DropdownMenuContent align="end">
                     <DropdownMenuLabel>
                         Acciones
                     </DropdownMenuLabel>
                     <DropdownMenuItem onClick={() => onCopy(data.id)}>
                         <Copy className="mr-2 h-4 w-4" />
-                        Copiar ID
+                        Copiar código
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => router.push(`/${params.storeId}/productos/${data.id}`)}>
                         <Edit className="mr-2 h-4 w-4" />

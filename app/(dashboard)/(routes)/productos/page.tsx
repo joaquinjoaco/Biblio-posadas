@@ -5,6 +5,12 @@ import { formatter } from "@/lib/utils";
 
 import { ProductClient } from "./components/client";
 import { ProductColumn } from "./components/columns";
+import { es } from "date-fns/locale";
+
+
+export const metadata = {
+    title: "Productos",
+}
 
 const ProductsPage = async ({
     params
@@ -16,11 +22,6 @@ const ProductsPage = async ({
         where: {
             storeId: params.storeId
         },
-        include: {
-            category: true,
-            size: true,
-            color: true,
-        },
         orderBy: {
             createdAt: 'desc'
         }
@@ -30,16 +31,13 @@ const ProductsPage = async ({
         id: item.id,
         name: item.name,
         description: item.description,
-        isFeatured: item.isFeatured,
         isArchived: item.isArchived,
-        isFeaturedText: item.isFeatured ? "Si" : "No",
-        isArchivedText: item.isArchived ? "Si" : "No",
+        isArchivedText: item.isArchived ? "Archivado" : "-",
         price: formatter.format(item.price.toNumber()),
-        category: item.category.name,
-        size: item.size.name,
-        color: item.color.value,
-        colorName: item.color.name,
-        createdAt: format(item.createdAt, "MMMM do, yyyy")
+        iva: item.iva.toNumber(),
+
+        createdAt: format(item.createdAt, "dd MMMM, yyyy", { locale: es }),
+        updatedAt: format(item.updatedAt, "dd MMMM, yyyy", { locale: es })
     }));
 
     return (

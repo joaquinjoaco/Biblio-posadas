@@ -2,63 +2,120 @@
 
 import { ColumnDef } from "@tanstack/react-table"
 import { CellAction } from "./cell-actions"
+import { Button } from "@/components/ui/button";
+import { ArrowUpDown } from "lucide-react";
 
 export type ProductColumn = {
     id: string;
     name: string;
     description: string;
-    price: string; // we formatted it into a string.
-    size: string;
-    category: string;
-    color: string;
-    colorName: string;
-    isFeatured: boolean;
+    price: string; // we format it into a string.
+    iva: number;
     isArchived: boolean;
-    isFeaturedText: string;
     isArchivedText: string;
+
     createdAt: string;
+    updatedAt: string;
 }
 
 export const columns: ColumnDef<ProductColumn>[] = [
     {
+        accessorKey: "id",
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                >
+                    Código
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            )
+        },
+    },
+    {
         accessorKey: "name",
-        header: "Nombre",
-    },
-    {
-        accessorKey: "isArchivedText",
-        header: "Archivado",
-    },
-    {
-        accessorKey: "isFeaturedText",
-        header: "Destacado",
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                >
+                    Nombre
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            )
+        },
     },
     {
         accessorKey: "price",
-        header: "Precio (UYU)",
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                >
+                    Precio (UYU)
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            )
+        },
     },
     {
-        accessorKey: "category",
-        header: "Categoría",
+        accessorKey: "iva",
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                >
+                    IVA (%)
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            )
+        },
     },
     {
-        accessorKey: "size",
-        header: "Talle",
-    },
-    {
-        accessorKey: "color",
-        header: "Color",
-        cell: ({ row }) => (
-            <div className="flex items-center gap-x-2">
-                <div
-                    className="h-6 w-6 rounded-full border"
-                    style={{ backgroundColor: row.original.color }}
-                />
-            </div>
-        )
+        accessorKey: "isArchivedText",
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                >
+                    Archivado
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            )
+        },
     },
     {
         accessorKey: "createdAt",
-        header: "Fecha",
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                >
+                    Creación
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            )
+        },
+    },
+    {
+        accessorKey: "updatedAt",
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                >
+                    Actualización
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            )
+        },
     },
     {
         id: "actions",

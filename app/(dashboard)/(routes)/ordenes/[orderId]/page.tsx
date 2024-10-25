@@ -1,11 +1,11 @@
 import prismadb from "@/lib/prismadb";
-import OrderView from "./components/order-view";
+import OrderForm from "./components/order-form";
 
 
 const OrderViewPage = async ({
     params
 }: {
-    params: { orderId: string }
+    params: { storeId: string, orderId: string }
 }) => {
 
     const order = await prismadb.order.findUnique({
@@ -15,23 +15,55 @@ const OrderViewPage = async ({
         include: {
             orderItems: {
                 include: {
-                    product: {
-                        include: {
-                            color: true,
-                            size: true,
-                        }
-                    }
+                    product: true,
                 }
-            }
+            },
+            client: {
+                include: {
+                    addresses: {
+                        include: { zone: true }
+                    },
+                }
+            },
+            driver: true
+        }
+    });
+
+    const clients = await prismadb.client.findMany({
+        where: {
+            storeId: params.storeId,
+            isArchived: false,
+        },
+        include: {
+            addresses: {
+                include: { zone: true }
+            },
+        },
+        orderBy: {
+            createdAt: 'asc',
+        }
+    });
+
+    const products = await prismadb.product.findMany({
+        where: {
+            storeId: params.storeId,
+            isArchived: false,
+        }
+    });
+
+    const zones = await prismadb.zone.findMany({
+        where: {
+            storeId: params.storeId,
+        },
+        orderBy: {
+            cost: 'asc'
         }
     })
-
-    const products = order?.orderItems ? order.orderItems.map((orderItem) => orderItem.product) : [];
 
     return (
         <div className="flex-col">
             <div className="flex-1 space-y-4 p-8 pt-6">
-                <OrderView data={order} items={products} />
+                <OrderForm initialData={order} products={products} clients={clients} zones={zones} />
             </div>
         </div>
     );
