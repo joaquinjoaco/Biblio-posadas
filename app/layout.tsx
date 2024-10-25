@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { GeistSans } from "geist/font/sans";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { ToasterProvider } from "@/providers/toast-provider";
 
 
 export const metadata: Metadata = {
@@ -21,7 +23,10 @@ export default function RootLayout({
         className={`${GeistSans.className} antialiased`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
+          <TooltipProvider delayDuration={100}>
+            <ToasterProvider />
+            {children}
+          </TooltipProvider>
         </ThemeProvider>
       </body>
     </html>
