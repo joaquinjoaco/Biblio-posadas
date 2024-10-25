@@ -6,11 +6,13 @@ import { Button } from "@/components/ui/button";
 import { ArrowUpDown } from "lucide-react";
 
 export type BookColumn = {
-    id: string;
-    name: string;
-    description: string;
-    price: string; // we format it into a string.
-    iva: number;
+    inventario: number;
+    colocacion: string;
+    autor: string;
+    titulo: string;
+    pais: string;
+    descriptores: string;
+
     isArchived: boolean;
     isArchivedText: string;
 
@@ -20,56 +22,84 @@ export type BookColumn = {
 
 export const columns: ColumnDef<BookColumn>[] = [
     {
-        accessorKey: "id",
+        accessorKey: "inventario",
         header: ({ column }) => {
             return (
                 <Button
                     variant="ghost"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
-                    Código
+                    Inventario
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
             )
         },
     },
     {
-        accessorKey: "name",
+        accessorKey: "colocacion",
         header: ({ column }) => {
             return (
                 <Button
                     variant="ghost"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
-                    Nombre
+                    Colocacion
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
             )
         },
     },
     {
-        accessorKey: "price",
+        accessorKey: "autor",
         header: ({ column }) => {
             return (
                 <Button
                     variant="ghost"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
-                    Precio (UYU)
+                    Autor
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
             )
         },
     },
     {
-        accessorKey: "iva",
+        accessorKey: "titulo",
         header: ({ column }) => {
             return (
                 <Button
                     variant="ghost"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
-                    IVA (%)
+                    Titulo
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            )
+        },
+    },
+    {
+        accessorKey: "pais",
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                >
+                    País
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            )
+        },
+    },
+    {
+        accessorKey: "descriptores",
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                >
+                    Descriptores
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
             )
@@ -97,7 +127,7 @@ export const columns: ColumnDef<BookColumn>[] = [
                     variant="ghost"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
-                    Creación
+                    Registro
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
             )

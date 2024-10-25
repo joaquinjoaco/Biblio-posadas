@@ -31,7 +31,7 @@ export function MainNav({
             href: `/libros/nuevo`,
             label: 'Nuevo libro',
             // active: pathname === `/${params.storeId}/ordenes/nuevo`,
-            desc: 'Registra un nuevo libro en el sistema. Podrás encontrarlo en la vista general de los libros.',
+            desc: 'Registra un nuevo libro en el biblioteca. Podrás encontrarlo en la vista general de los libros.',
             icon: <BookPlus className="h-6 w-6" />,
         },
         {
@@ -80,7 +80,7 @@ export function MainNav({
             href: `/socios/nuevo`,
             label: 'Nuevo usuario',
             // active: pathname === `/users?type=beneficiary`,
-            desc: 'Registra un nuevo socio en el sistema. Podrás encontrarlo en la vista general de los socios.',
+            desc: 'Registra un nuevo socio en el biblioteca. Podrás encontrarlo en la vista general de los socios.',
             icon: <UserPlus className="h-6 w-6" />,
         },
         {
@@ -125,7 +125,7 @@ export function MainNav({
             href: `/lendings`,
             label: 'Todos los préstamos',
             // active: pathname === `/${params.storeId}/repartidores`,
-            desc: 'Vista de todos los préstamos del sistema.',
+            desc: 'Vista de todos los préstamos de la biblioteca.',
             icon: <Gift className="h-4 w-4" />,
         }
     ];

@@ -23,13 +23,15 @@ const BooksPage = async ({
     });
 
     const formattedBooks: BookColumn[] = books.map((book) => ({
-        id: book.id,
-        name: book.name,
-        description: book.description,
+        inventario: book.inventario,
+        colocacion: book.colocacion,
+        autor: book.autor,
+        titulo: book.titulo,
+        pais: book.pais,
+        descriptores: book.descriptores,
+
         isArchived: book.isArchived,
         isArchivedText: book.isArchived ? "Archivado" : "-",
-        price: formatter.format(book.price.toNumber()),
-        iva: book.iva.toNumber(),
 
         createdAt: format(book.createdAt, "dd MMMM, yyyy", { locale: es }),
         updatedAt: format(book.updatedAt, "dd MMMM, yyyy", { locale: es })
