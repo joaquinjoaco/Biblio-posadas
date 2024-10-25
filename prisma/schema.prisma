@@ -1,0 +1,120 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Neighbourhood {
+  CIUDAD_VIEJA
+  CORDON
+  PARQUE_RODO
+  CENTRO
+  PALERMO
+}
+
+enum BeneficiaryStatus {
+  ACTIVO
+  SUSPENDIDO
+}
+
+enum DistributionStatus {
+  PENDIENTE
+  EN_CAMINO
+  ENTREGADO
+}
+
+// ==== Distribution ====
+model Distribution {
+  id              Int                @id @default(autoincrement())
+  preparationDate DateTime
+  deliveryDate    DateTime? // may be null depending on the DistributionStatus.
+  status          DistributionStatus
+
+  beneficiaryId Int
+  beneficiary   Beneficiary @relation(fields: [beneficiaryId], references: [id])
+
+  driverId Int
+  driver   Driver @relation(fields: [driverId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ===== Donations ===== 
+model Donation {
+  id        Int      @id @default(autoincrement())
+  entryDate DateTime
+
+  // Optional relations to both Food and Item
+  foodId Int?  @unique // Make it unique to ensure only one Food per Donation
+  food   Food? @relation(fields: [foodId], references: [id])
+
+  itemId Int?  @unique // Make it unique to ensure only one Item per Donation
+  item   Item? @relation(fields: [itemId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Add a check constraint to ensure only one of foodId or itemId is set
+  // @@check(((foodId IS NOT NULL) AND (itemId IS NULL)) OR ((foodId IS NULL) AND (itemId IS NOT NULL)))
+
+  // As of 2024 Prisma does not support check constrains on models, I could do a custom migration but its too much hassle (XD).
+  // Will have to enforce that constraint in the js code.
+}
+
+model Food {
+  id          Int    @id @default(autoincrement())
+  description String @default("") @db.VarChar(512)
+  quantity    Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Donation Donation[] // Can be an empty list, no issue with that.
+}
+
+model Item {
+  id          Int     @id @default(autoincrement())
+  description String  @default("") @db.VarChar(512)
+  weight      Decimal
+  length      Decimal
+  height      Decimal
+  width       Decimal
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Donation Donation[] // Can be an empty list, no issue with that.
+}
+
+// ======= Users =======
+model Beneficiary {
+  id            Int               @id @default(autoincrement())
+  name          String
+  email         String            @unique
+  status        BeneficiaryStatus
+  password      String // obviously not secure
+  birthDate     DateTime
+  address       String
+  neighbourhood Neighbourhood
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Distribution Distribution[]
+}
+
+model Driver {
+  id            Int    @id @default(autoincrement())
+  name          String
+  email         String @unique
+  licenseNumber Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Distribution Distribution[]
+}
