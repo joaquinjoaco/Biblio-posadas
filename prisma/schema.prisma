@@ -45,11 +45,16 @@ model Socio {
 model Prestamo {
   id Int @id @default(autoincrement())
 
-  inventarioLibro Int
-  libro           Libro @relation(fields: [inventarioLibro], references: [inventario])
+  idLibro Int
+  libro   Libro @relation(fields: [idLibro], references: [inventario])
 
   idSocio Int
   socio   Socio @relation(fields: [idSocio], references: [id])
+
+  // Un préstamo se considera devuelto cuando la fecha de devolución final es menor a la fecha actual.
+  fechaPrestado             DateTime
+  fechaDevolucionEstipulada DateTime
+  fechaDevolucionFinal      DateTime
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

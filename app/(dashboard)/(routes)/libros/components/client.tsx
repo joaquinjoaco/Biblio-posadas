@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import { Heading } from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
 import { DataTable } from "@/components/ui/data-table";
-// import { Apilist } from "@/components/ui/api-list";
 
 import { BookColumn, columns } from "./columns";
 
@@ -73,10 +72,6 @@ export const BooksClient: React.FC<BooksClientProps> = ({
             </div>
             <Separator />
             <DataTable filterKey="inventario" columns={columns} data={data} />
-            {/* 
-            <Heading title="API" description="Llamadas de API para los productos" />
-            <Separator />
-            <Apilist entityName="productos" entityIdName="productId" /> */}
         </>
     )
 }

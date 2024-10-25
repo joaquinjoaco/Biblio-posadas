@@ -3,7 +3,7 @@
 import { ColumnDef } from "@tanstack/react-table"
 import { CellAction } from "./cell-actions"
 import { Button } from "@/components/ui/button";
-import { ArrowUpDown } from "lucide-react";
+import { ArrowUpDown, KeyRound } from "lucide-react";
 
 export type BookColumn = {
     inventario: number;
@@ -29,7 +29,7 @@ export const columns: ColumnDef<BookColumn>[] = [
                     variant="ghost"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
-                    Inventario
+                    <KeyRound className="h-4 w-4" /> Inventario
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
             )
