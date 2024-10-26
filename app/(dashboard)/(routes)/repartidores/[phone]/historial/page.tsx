@@ -10,13 +10,14 @@ export const metadata = {
 }
 
 
-const DriverOrderHistoryPage = async ({
-    params,
-    searchParams,
-}: {
-    params: { storeId: string, phone: string },
-    searchParams: { daily: string },
-}) => {
+const DriverOrderHistoryPage = async (
+    props: {
+        params: Promise<{ storeId: string, phone: string }>,
+        searchParams: Promise<{ daily: string }>,
+    }
+) => {
+    const searchParams = await props.searchParams;
+    const params = await props.params;
 
     // fetch all orders from the store
     const orders = await prismadb.order.findMany({

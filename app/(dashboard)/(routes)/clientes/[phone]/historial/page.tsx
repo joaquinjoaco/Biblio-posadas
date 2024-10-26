@@ -9,14 +9,15 @@ export const metadata = {
     title: "Historial de pedidos",
 }
 
-const ClientOrderHistoryPage = async ({
-    params,
-    searchParams,
-}: {
-    params: { storeId: string, phone: string },
-    searchParams: { daily: string },
+const ClientOrderHistoryPage = async (
+    props: {
+        params: Promise<{ storeId: string, phone: string }>,
+        searchParams: Promise<{ daily: string }>,
 
-}) => {
+    }
+) => {
+    const searchParams = await props.searchParams;
+    const params = await props.params;
     // fetch all orders from the client
     const orders = await prismadb.order.findMany({
         where: {

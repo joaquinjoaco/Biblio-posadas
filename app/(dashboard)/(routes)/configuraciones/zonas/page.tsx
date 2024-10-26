@@ -13,9 +13,8 @@ export const metadata = {
     title: "Zonas de reparto",
 }
 
-const SettingsPage: React.FC<SettingsPageProps> = async ({
-    params
-}) => {
+const SettingsPage: React.FC<SettingsPageProps> = async props => {
+    const params = await props.params;
 
     // Get the current user from Clerk.
     const { userId } = auth();

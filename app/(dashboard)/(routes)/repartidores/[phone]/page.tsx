@@ -1,11 +1,12 @@
 import prismadb from "@/lib/prismadb";
 import { DriverForm } from "./components/driver-form";
 
-const SizePage = async ({
-    params
-}: {
-    params: { phone: string }
-}) => {
+const SizePage = async (
+    props: {
+        params: Promise<{ phone: string }>
+    }
+) => {
+    const params = await props.params;
 
     const driver = await prismadb.driver.findUnique({
         where: {

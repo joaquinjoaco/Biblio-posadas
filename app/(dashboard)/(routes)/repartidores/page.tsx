@@ -10,11 +10,12 @@ export const metadata = {
     title: "Repartidores",
 }
 
-const DriversPage = async ({
-    params
-}: {
-    params: { storeId: string }
-}) => {
+const DriversPage = async (
+    props: {
+        params: Promise<{ storeId: string }>
+    }
+) => {
+    const params = await props.params;
     // fetch all billboards from the store
     const drivers = await prismadb.driver.findMany({
         where: {

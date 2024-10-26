@@ -2,11 +2,12 @@ import prismadb from "@/lib/prismadb";
 import OrderForm from "./components/order-form";
 
 
-const OrderViewPage = async ({
-    params
-}: {
-    params: { storeId: string, orderId: string }
-}) => {
+const OrderViewPage = async (
+    props: {
+        params: Promise<{ storeId: string, orderId: string }>
+    }
+) => {
+    const params = await props.params;
 
     const order = await prismadb.order.findUnique({
         where: {

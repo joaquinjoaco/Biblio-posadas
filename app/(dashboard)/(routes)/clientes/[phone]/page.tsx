@@ -1,11 +1,12 @@
 import prismadb from "@/lib/prismadb";
 import { ClientForm } from "./components/client-form";
 
-const ClientPage = async ({
-    params
-}: {
-    params: { storeId: string, phone: string }
-}) => {
+const ClientPage = async (
+    props: {
+        params: Promise<{ storeId: string, phone: string }>
+    }
+) => {
+    const params = await props.params;
 
     const client = await prismadb.client.findUnique({
         where: {

@@ -9,13 +9,14 @@ export const metadata = {
     title: "Clientes",
 }
 
-const ClientsPage = async ({
-    params,
-    searchParams,
-}: {
-    params: { storeId: string },
-    searchParams: { type: string }
-}) => {
+const ClientsPage = async (
+    props: {
+        params: Promise<{ storeId: string }>,
+        searchParams: Promise<{ type: string }>
+    }
+) => {
+    const searchParams = await props.searchParams;
+    const params = await props.params;
     // fetch all billboards from the store
     const clients = await prismadb.client.findMany({
         where: {

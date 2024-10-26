@@ -10,13 +10,14 @@ export const metadata = {
     title: "Enviados",
 }
 
-const AssignPage = async ({
-    params,
-    searchParams,
-}: {
-    params: { storeId: string }
-    searchParams: { daily: string },
-}) => {
+const AssignPage = async (
+    props: {
+        params: Promise<{ storeId: string }>
+        searchParams: Promise<{ daily: string }>,
+    }
+) => {
+    const searchParams = await props.searchParams;
+    const params = await props.params;
     // fetch all orders with status 'emitido' from the store
     const orders = await prismadb.order.findMany({
         where: {

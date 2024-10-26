@@ -1,10 +1,11 @@
 import prismadb from "@/lib/prismadb";
 import { BookForm } from "./components/book-form";
-const BookPage = async ({
-    params
-}: {
-    params: { inventario: string }
-}) => {
+const BookPage = async (
+    props: {
+        params: Promise<{ inventario: string }>
+    }
+) => {
+    const params = await props.params;
 
     const { inventario } = await params // From Next 15 on, params API is now asynchronous (https://nextjs.org/docs/messages/sync-dynamic-apis).
     const numeroInventario = inventario === 'nuevo' ? -1 : params.inventario
