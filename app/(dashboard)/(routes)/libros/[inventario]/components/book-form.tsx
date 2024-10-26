@@ -278,7 +278,7 @@ export const BookForm: React.FC<BookFormProps> = ({
                                             Archivado
                                         </FormLabel>
                                         <FormDescription>
-                                            El libro no aparecerá en el listado para ser seleccionado en los préstamos. Quedará "archivado", podrás volver a desarchivarlo.
+                                            El libro no aparecerá en el listado para ser seleccionado en los préstamos. Quedará "archivado", podrás volver a desarchivarlo desde este mismo lugar.
                                         </FormDescription>
                                     </div>
                                 </FormItem>
