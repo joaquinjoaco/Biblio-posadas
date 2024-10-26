@@ -7,9 +7,9 @@ import * as XLSX from 'xlsx';
 import { Button } from "@/components/ui/button";
 import { Heading } from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
-import { DataTable } from "@/components/ui/data-table";
 
 import { BookColumn, columns } from "./columns";
+import { BooksDataTable } from "@/components/ui/books-data-table";
 
 interface BooksClientProps {
     data: BookColumn[];
@@ -29,14 +29,14 @@ export const BooksClient: React.FC<BooksClientProps> = ({
             const formattedArray = arrayOfObjects.map((item) => ({
                 Archivado: item.isArchivedText,
                 Inventario: item.inventario,
-                colocacion: item.colocacion,
-                autor: item.autor,
-                titulo: item.titulo,
-                pais: item.pais,
-                descriptores: item.descriptores,
+                Colocacion: item.colocacion,
+                Autor: item.autor,
+                Titulo: item.titulo,
+                Pais: item.pais,
+                Descriptores: item.descriptores,
 
-                Fecha_creación: item.createdAt,
-                Fecha_actualización: item.updatedAt,
+                "Fecha de registro": item.registro,
+                "Fecha de actualización": item.actualizado,
             }));
             const worksheet = XLSX.utils.json_to_sheet(formattedArray);
             return worksheet;
@@ -71,7 +71,7 @@ export const BooksClient: React.FC<BooksClientProps> = ({
                 </div>
             </div>
             <Separator />
-            <DataTable filterKey="inventario" columns={columns} data={data} />
+            <BooksDataTable columns={columns} data={data} />
         </>
     )
 }

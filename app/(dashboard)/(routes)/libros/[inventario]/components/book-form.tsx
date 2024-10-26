@@ -104,7 +104,7 @@ export const BookForm: React.FC<BookFormProps> = ({
     const onDelete = async () => {
         try {
             setLoading(true);
-            await axios.delete(`/libros/${params.inventario}`);
+            await axios.delete(`/api/libros/${params.inventario}`);
             router.push(`/libros`);
             router.refresh(); // Refresh the component so it refetches the patched data.
             toast.success("Libro eliminado.");

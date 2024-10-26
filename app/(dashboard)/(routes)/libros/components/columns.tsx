@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowUpDown, KeyRound } from "lucide-react";
 
 export type BookColumn = {
-    inventario: number;
+    inventario: string; // String instead of number, necessary to be able to use it as a filterKey in data tables.
     colocacion: string;
     autor: string;
     titulo: string;
@@ -16,8 +16,8 @@ export type BookColumn = {
     isArchived: boolean;
     isArchivedText: string;
 
-    createdAt: string;
-    updatedAt: string;
+    registro: string;
+    actualizado: string;
 }
 
 export const columns: ColumnDef<BookColumn>[] = [
@@ -120,7 +120,7 @@ export const columns: ColumnDef<BookColumn>[] = [
         },
     },
     {
-        accessorKey: "createdAt",
+        accessorKey: "registro",
         header: ({ column }) => {
             return (
                 <Button
@@ -134,7 +134,7 @@ export const columns: ColumnDef<BookColumn>[] = [
         },
     },
     {
-        accessorKey: "updatedAt",
+        accessorKey: "actualizado",
         header: ({ column }) => {
             return (
                 <Button

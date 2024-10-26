@@ -79,7 +79,7 @@ export function DataTable<TData, TValue>({
             <div className="flex items-center py-4">
                 {/* VER COMO PODER BUSCAR POR COLOCACION Y OTROS... */}
                 <Input
-                    placeholder="Buscar"
+                    placeholder={`Buscar por ${filterKey}`}
                     value={(table.getColumn(filterKey)?.getFilterValue() as string) ?? ""}
                     onChange={(event) =>
                         table.getColumn(filterKey)?.setFilterValue(event.target.value)
