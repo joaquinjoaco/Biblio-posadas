@@ -13,7 +13,7 @@ enum Ubicacion {
 }
 
 model Libro {
-  inventario   Int    @id //@default(autoincrement()) // No se debe poder editar.
+  inventario   Int    @id @default(autoincrement()) // No se debe poder editar.
   colocacion   String @db.VarChar(255)
   autor        String @db.VarChar(255)
   titulo       String @db.VarChar(255)

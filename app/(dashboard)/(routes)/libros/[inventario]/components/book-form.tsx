@@ -25,10 +25,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { AlertModal } from "@/components/modals/alert-modal";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Textarea } from "@/components/ui/textarea";
 
 const formSchema = z.object({
-    inventario: z.number().min(1, { message: 'El número de inventario del libro debe tener al menos 1 carácter' }).max(255, { message: 'El número de inventario es demasiado largo' }),
     colocacion: z.string().min(1, { message: 'El nombre del libro es obligatorio' }).max(255, { message: 'La colocación es demasiado larga' }),
     autor: z.string().min(1, { message: 'El autor del libro es obligatorio' }).max(255, { message: 'El autor del libro es demasiado largo' }),
     titulo: z.string().min(1, { message: 'El título del libro es obligatorio' }).max(255, { message: 'El título del libro es demasiado largo' }),
@@ -61,7 +59,6 @@ export const BookForm: React.FC<BookFormProps> = ({
     const defaultValues = initialData ? {
         ...initialData,
     } : {
-        // inventario: ,
         colocacion: '',
         autor: '',
         titulo: '',
@@ -92,7 +89,7 @@ export const BookForm: React.FC<BookFormProps> = ({
 
         } catch (error: any) {
             if (error.response.status === 409) {
-                toast.error(`Ya existe un libro registrado con el Nº de inventario ${data.inventario}`);
+                // toast.error(`Ya existe un libro registrado con el Nº de inventario ${data.inventario}`);
             } else {
                 toast.error("Ocurrió un error inesperado.");
             }
@@ -184,19 +181,17 @@ export const BookForm: React.FC<BookFormProps> = ({
             <Form {...form}>
                 <form id="book-form" onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
                     <div className="grid grid-cols-2 gap-8">
-                        <FormField
-                            control={form.control}
-                            name="inventario"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Nº de inventario</FormLabel>
-                                    <FormControl>
-                                        <Input disabled={loading} placeholder="Nº de inventario del libro" {...field} />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
+                        <FormItem>
+                            <FormLabel>Nº de inventario</FormLabel>
+                            <FormControl>
+                                <Input
+                                    disabled
+                                    placeholder={initialData ? initialData.inventario.toString() : "Autogenerado"}
+                                />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+
                         <FormField
                             control={form.control}
                             name="colocacion"
