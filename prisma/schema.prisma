@@ -33,7 +33,7 @@ model Socio {
   nombre    String
   apellido  String
   direccion String
-  telefono  Int
+  telefono  String
   ubicacion Ubicacion
 
   createdAt DateTime @default(now())

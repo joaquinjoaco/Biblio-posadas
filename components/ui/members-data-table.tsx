@@ -19,19 +19,19 @@ import {
 import { TooltipWrapper } from "./tooltip-wrapper";
 import { capitalizeFirstLetter } from "@/lib/utils";
 
-interface BooksDataTableProps<TData, TValue> {
+interface MembersDataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
     data: TData[];
 }
 
-export function BooksDataTable<TData, TValue>({
+export function MembersDataTable<TData, TValue>({
     columns,
     data,
-}: BooksDataTableProps<TData, TValue>) {
+}: MembersDataTableProps<TData, TValue>) {
     const [sorting, setSorting] = useState<SortingState>([]);
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-    const [selectedColumn, setSelectedColumn] = useState<string>(columns[0]?.id || "inventario"); // Default to the first column
+    const [selectedColumn, setSelectedColumn] = useState<string>(columns[0]?.id || "id"); // Default to the first column
 
     const table = useReactTable({
         data,

@@ -15,11 +15,11 @@ import {
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { BookColumn } from "./columns";
+import { MemberColumn } from "./columns";
 import { AlertModal } from "@/components/modals/alert-modal";
 
 interface CellActionProps {
-    data: BookColumn;
+    data: MemberColumn;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({
@@ -34,20 +34,20 @@ export const CellAction: React.FC<CellActionProps> = ({
 
     const onCopy = (id: string) => {
         navigator.clipboard.writeText(id);
-        toast.success("Número de inventario del libro copiado al portapapeles.")
+        toast.success("Número de ID del socio copiado al portapapeles.")
     }
 
     const onDelete = async () => {
         try {
             setLoading(true);
-            await axios.delete(`/api/libros/${data.inventario}`);
+            await axios.delete(`/api/socios/${data.id}`);
             router.refresh(); // Refresh the component so it refetches the data.
-            toast.success("Libro eliminado.");
+            toast.success("Socio eliminado.");
             router.refresh();
         } catch (error: any) {
             if (error.response.status === 409) {
                 if (error.response.data === "fk-constraint-failed") {
-                    toast.error("No se puede eliminar el libro. Aparece en préstamos registrados.");
+                    toast.error("No se puede eliminar el socio. Aparece en préstamos registrados.");
                 } else {
                     toast.error("Ocurrió un error inesperado.");
                 }
@@ -65,8 +65,8 @@ export const CellAction: React.FC<CellActionProps> = ({
                 onClose={() => setOpen(false)}
                 onConfirm={onDelete}
                 loading={loading}
-                title="Eliminar libro?"
-                description="Se eliminará el libro, esta acción es destructiva y no se puede deshacer."
+                title="Eliminar socio?"
+                description="Se eliminará el socio, esta acción es destructiva y no se puede deshacer."
                 buttonMessage="Confirmar"
             />
 
@@ -82,11 +82,11 @@ export const CellAction: React.FC<CellActionProps> = ({
                     <DropdownMenuLabel>
                         Acciones
                     </DropdownMenuLabel>
-                    <DropdownMenuItem onClick={() => onCopy(data.inventario.toString())}>
+                    <DropdownMenuItem onClick={() => onCopy(data.id.toString())}>
                         <Copy className="mr-2 h-4 w-4" />
-                        Copiar Nº de inventario
+                        Copiar ID del socio
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => router.push(`/libros/${data.inventario}`)}>
+                    <DropdownMenuItem onClick={() => router.push(`/socios/${data.id}`)}>
                         <Edit className="mr-2 h-4 w-4" />
                         Editar
                     </DropdownMenuItem>

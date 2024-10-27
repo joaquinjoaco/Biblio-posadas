@@ -81,15 +81,15 @@ export const BookForm: React.FC<BookFormProps> = ({
             } else {
                 // Create the product.
                 await axios.post(`/api/libros`, data);
-
             }
+
             router.push(`/libros`);
             router.refresh(); // Refresh the component so it refetches the patched data.
             toast.success(toastMessage);
 
         } catch (error: any) {
             if (error.response.status === 409) {
-                // toast.error(`Ya existe un libro registrado con el Nº de inventario ${data.inventario}`);
+                toast.error(`Ocurrió un error al generar el Nº de inventario.`);
             } else {
                 toast.error("Ocurrió un error inesperado.");
             }
@@ -131,8 +131,8 @@ export const BookForm: React.FC<BookFormProps> = ({
                 onClose={() => setOpen(false)}
                 onConfirm={onDelete}
                 loading={loading}
-                title="¿Borrar libro?"
-                description="Se borrará el libro, esta acción es destructiva y no se puede deshacer."
+                title="¿Eliminar libro?"
+                description="Se eliminará el libro, esta acción es destructiva y no se puede deshacer."
                 buttonMessage="Confirmar"
             />
             <div className="flex items-center justify-between sticky top-0 z-10 bg-background py-4">

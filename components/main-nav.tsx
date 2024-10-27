@@ -78,7 +78,7 @@ export function MainNav({
     const membersBig = [
         {
             href: `/socios/nuevo`,
-            label: 'Nuevo usuario',
+            label: 'Nuevo socio',
             // active: pathname === `/users?type=beneficiary`,
             desc: 'Registra un nuevo socio en el biblioteca. Podrás encontrarlo en la vista general de los socios.',
             icon: <UserPlus className="h-6 w-6" />,

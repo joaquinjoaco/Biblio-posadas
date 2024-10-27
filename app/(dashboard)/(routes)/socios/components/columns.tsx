@@ -5,115 +5,98 @@ import { CellAction } from "./cell-actions"
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown } from "lucide-react";
 
-export type BookColumn = {
-    inventario: string; // String instead of number, necessary to be able to use it as a filterKey in data tables.
-    colocacion: string;
-    autor: string;
-    titulo: string;
-    pais: string;
-    descriptores: string;
-
-    isArchived: boolean;
-    isArchivedText: string;
+export type MemberColumn = {
+    id: string; // String instead of number, necessary to be able to use it as a filterKey in data tables.
+    nombre: string;
+    apellido: string;
+    direccion: string;
+    telefono: string;
+    ubicacion: string;
 
     registro: string;
     actualizado: string;
 }
 
-export const columns: ColumnDef<BookColumn>[] = [
+export const columns: ColumnDef<MemberColumn>[] = [
     {
-        accessorKey: "inventario",
+        accessorKey: "id",
         header: ({ column }) => {
             return (
                 <Button
                     variant="ghost"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
-                    Inventario
+                    ID
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
             )
         },
     },
     {
-        accessorKey: "colocacion",
+        accessorKey: "nombre",
         header: ({ column }) => {
             return (
                 <Button
                     variant="ghost"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
-                    Colocacion
+                    Nombre
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
             )
         },
     },
     {
-        accessorKey: "autor",
+        accessorKey: "apellido",
         header: ({ column }) => {
             return (
                 <Button
                     variant="ghost"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
-                    Autor
+                    Apellido
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
             )
         },
     },
     {
-        accessorKey: "titulo",
+        accessorKey: "direccion",
         header: ({ column }) => {
             return (
                 <Button
                     variant="ghost"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
-                    Titulo
+                    Dirección
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
             )
         },
     },
     {
-        accessorKey: "pais",
+        accessorKey: "telefono",
         header: ({ column }) => {
             return (
                 <Button
                     variant="ghost"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
-                    País
+                    Teléfono
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
             )
         },
     },
     {
-        accessorKey: "descriptores",
+        accessorKey: "ubicacion",
         header: ({ column }) => {
             return (
                 <Button
                     variant="ghost"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
-                    Descriptores
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-            )
-        },
-    },
-    {
-        accessorKey: "isArchivedText",
-        header: ({ column }) => {
-            return (
-                <Button
-                    variant="ghost"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                >
-                    Archivado
+                    Ubicacion
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
             )

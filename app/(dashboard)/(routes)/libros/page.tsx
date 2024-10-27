@@ -11,10 +11,10 @@ export const metadata = {
 }
 
 const BooksPage = async ({
-    params
+    // params
 }: {
-    params: {}
-}) => {
+        // params: {}
+    }) => {
     // Fetch all books.
     const books = await prismadb.libro.findMany({
         orderBy: {
@@ -31,7 +31,7 @@ const BooksPage = async ({
         descriptores: book.descriptores,
 
         isArchived: book.isArchived,
-        isArchivedText: book.isArchived ? "Archivado" : "-",
+        isArchivedText: book.isArchived ? "Archivado" : "No",
 
         registro: format(book.createdAt, "dd MMMM, yyyy", { locale: es }),
         actualizado: format(book.updatedAt, "dd MMMM, yyyy", { locale: es })
