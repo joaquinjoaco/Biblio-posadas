@@ -16,6 +16,7 @@ import { Separator } from "@/components/ui/separator";
 import {
     Form,
     FormControl,
+    FormDescription,
     FormField,
     FormItem,
     FormLabel,
@@ -25,7 +26,8 @@ import { Input } from "@/components/ui/input";
 import { AlertModal } from "@/components/modals/alert-modal";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+import { Command, CommandGroup, CommandItem, CommandList } from "@/components/ui/command";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const formSchema = z.object({
     nombre: z.string().min(1, { message: 'El nombre del socio es obligatorio' }).max(255, { message: 'El nombre es demasiado largo' }),
@@ -33,6 +35,7 @@ const formSchema = z.object({
     direccion: z.string().min(1, { message: 'El título del socio es obligatorio' }).max(255, { message: 'La dirección es demasiado larga' }),
     telefono: z.string().min(1, { message: 'El teléfono del socio es obligatorio' }).max(255, { message: 'El teléfono es demasiado largo' }),
     ubicacion: z.string().min(1, { message: 'La ubicación del socio es obligatoria' }),
+    isArchived: z.boolean().default(false).optional(),
 });
 
 type MemberFormValues = z.infer<typeof formSchema>;
@@ -308,6 +311,32 @@ export const MemberForm: React.FC<MemberFormProps> = ({
                                 </FormItem>
                             )}
                         />
+
+                        <FormField
+                            control={form.control}
+                            name="isArchived"
+                            render={({ field }) => (
+                                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                                    <FormControl>
+                                        <Checkbox
+                                            checked={field.value}
+                                            onCheckedChange={field.onChange}
+                                        />
+                                    </FormControl>
+                                    <div className="space-y-1 leading-none">
+                                        <FormLabel>
+                                            Archivado
+                                        </FormLabel>
+                                        <FormDescription>
+                                            Si el socio desea cancelar o pausar su membresía. Quedará "archivado" y no aparecerá para
+                                            ser seleccionado en los préstamos en pos de evitar errores.
+                                            Podrás volver a desarchivarlo desde este mismo lugar.
+                                        </FormDescription>
+                                    </div>
+                                </FormItem>
+                            )}
+                        />
+
 
                     </div>
                 </form>

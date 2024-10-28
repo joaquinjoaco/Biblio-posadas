@@ -4,6 +4,7 @@ import prismadb from "@/lib/prismadb";
 import { es } from "date-fns/locale";
 import { MemberColumn } from "./components/columns";
 import { MembersClient } from "./components/client";
+import { ServerOffIcon } from "lucide-react";
 
 
 export const metadata = {
@@ -29,6 +30,9 @@ const SociosPage = async ({
         direccion: socio.direccion,
         telefono: socio.telefono,
         ubicacion: socio.ubicacion,
+
+        isArchived: socio.isArchived,
+        isArchivedText: socio.isArchived ? "Archivado" : "No",
 
         registro: format(socio.createdAt, "dd MMMM, yyyy", { locale: es }),
         actualizado: format(socio.updatedAt, "dd MMMM, yyyy", { locale: es })

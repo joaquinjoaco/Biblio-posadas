@@ -33,6 +33,7 @@ export const MembersClient: React.FC<MembersClientProps> = ({
                 "Dirección": item.direccion,
                 "Título": item.telefono,
                 "País": item.ubicacion,
+                "Archivado": item.isArchivedText,
 
                 "Fecha de registro": item.registro,
                 "Fecha de actualización": item.actualizado,

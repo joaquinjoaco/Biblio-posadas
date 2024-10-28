@@ -186,7 +186,7 @@ export const LendingFormByBookForm: React.FC<LendingFormByBookProps> = ({
                                                     <CommandList>
                                                         <CommandEmpty className="text-sm flex justify-center p-2">No se encontró el socio.</CommandEmpty>
                                                         <CommandGroup>
-                                                            {members?.map((member, idx) => (
+                                                            {members?.map((member) => (
                                                                 <CommandItem
                                                                     value={`${member.nombre} ${member.apellido}`}
                                                                     key={member.id}
@@ -194,7 +194,7 @@ export const LendingFormByBookForm: React.FC<LendingFormByBookProps> = ({
                                                                         form.setValue("idSocio", member.id.toString())
                                                                         setOpen(false)
                                                                     }}
-                                                                    className="cursor-pointer"
+                                                                    className="flex cursor-pointer"
                                                                 >
                                                                     <Check
                                                                         className={cn(
@@ -204,12 +204,11 @@ export const LendingFormByBookForm: React.FC<LendingFormByBookProps> = ({
                                                                                 : "opacity-0"
                                                                         )}
                                                                     />
-                                                                    <div className="border-l-4 border-orange-500 pl-2">
+                                                                    <div className="border-l-4 border-orange-500 pl-2 pr-4">
                                                                         <p className="flex items-center font-semibold">Nº {member.id}: {member.nombre} {member.apellido}</p>
-                                                                        <p className="flex items-center "></p>
                                                                         <p className="flex items-center"><MapPin className="h-4 w-4 mr-2" />{member.direccion}</p>
                                                                         <p className="flex items-center"><Phone className="h-4 w-4 mr-2" />{member.telefono}</p>
-                                                                        <p className="flex items-center my-2"><Badge variant="outline">{member.ubicacion}</Badge></p>
+                                                                        <div className="flex items-center my-2"><Badge variant="outline">{member.ubicacion}</Badge></div>
                                                                     </div>
                                                                 </CommandItem>
                                                             ))}

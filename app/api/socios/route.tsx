@@ -15,6 +15,7 @@ export async function POST(
             direccion,
             telefono,
             ubicacion,
+            isArchived,
         } = body;
 
 
@@ -51,6 +52,7 @@ export async function POST(
                 direccion,
                 telefono,
                 ubicacion,
+                isArchived
             }
         });
 

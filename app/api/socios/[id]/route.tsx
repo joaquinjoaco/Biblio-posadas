@@ -22,6 +22,7 @@ export async function PATCH(
             direccion,
             telefono,
             ubicacion,
+            isArchived
         } = body;
 
         // Check for the nombre.
@@ -61,6 +62,7 @@ export async function PATCH(
                 direccion,
                 telefono,
                 ubicacion,
+                isArchived
             }
         });
 

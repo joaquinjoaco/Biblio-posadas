@@ -32,7 +32,7 @@ const LendingsPage = async ({
         socio: lending.socio.id.toString(),
         efectuado: format(lending.fechaPrestado, "dd MMMM, yyyy", { locale: es }),
         "Devolución estipulada": format(lending.fechaDevolucionEstipulada, "dd MMMM, yyyy", { locale: es }),
-        "Devolución final": format(lending.fechaDevolucionFinal, "dd MMMM, yyyy", { locale: es }),
+        "Devolución final": lending.fechaDevolucionFinal ? format(lending.fechaDevolucionFinal, "dd MMMM, yyyy", { locale: es }) : "PENDIENTE",
         registro: format(lending.createdAt, "dd MMMM, yyyy", { locale: es }),
         actualizado: format(lending.updatedAt, "dd MMMM, yyyy", { locale: es })
     }));

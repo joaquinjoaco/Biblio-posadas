@@ -13,6 +13,9 @@ export type MemberColumn = {
     telefono: string;
     ubicacion: string;
 
+    isArchived: boolean;
+    isArchivedText: string;
+
     registro: string;
     actualizado: string;
 }
@@ -97,6 +100,20 @@ export const columns: ColumnDef<MemberColumn>[] = [
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
                     Ubicacion
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            )
+        },
+    },
+    {
+        accessorKey: "isArchivedText",
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                >
+                    Archivado
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
             )
