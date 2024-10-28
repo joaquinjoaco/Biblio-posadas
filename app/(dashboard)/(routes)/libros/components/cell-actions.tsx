@@ -19,6 +19,7 @@ import { BookColumn } from "./columns";
 import { AlertModal } from "@/components/modals/alert-modal";
 import { TooltipWrapper } from "@/components/ui/tooltip-wrapper";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 interface CellActionProps {
     data: BookColumn;
@@ -72,18 +73,17 @@ export const CellAction: React.FC<CellActionProps> = ({
                 buttonMessage="Confirmar"
             />
             <TooltipWrapper
-                content="Prestar libro"
+                content={data.isArchived ? "Libro archivado" : "Prestar libro"}
                 className="flex flex-row items-center gap-x-2"
             >
-                <Link
-                    className="inline-flex justify-center items-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10"
-                    href={`/prestamos/prestar/${data.inventario}`}
-                // target="_blank"
+                <div
+                    className={cn("inline-flex justify-center items-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10", data.isArchived ? "pointer-events-none opacity-50" : "")}
+                    onClick={() => router.push(`/prestamos/prestar/${data.inventario}`)}
                 >
                     {/* accesibility fature, screenreaders only 'Prestar libro' */}
                     <span className="sr-only">Prestar libro</span>
                     <Handshake className="h-9 w-9 p-2 hover:bg-accent rounded-md transition-all" />
-                </Link>
+                </div>
 
             </TooltipWrapper>
             <DropdownMenu>
@@ -98,7 +98,7 @@ export const CellAction: React.FC<CellActionProps> = ({
                     <DropdownMenuLabel>
                         Acciones
                     </DropdownMenuLabel>
-                    <DropdownMenuItem onClick={() => router.push(`/prestamos/prestar/${data.inventario}`)}>
+                    <DropdownMenuItem disabled={data.isArchived} onClick={() => router.push(`/prestamos/prestar/${data.inventario}`)}>
                         <Handshake className="mr-2 h-4 w-4" />
                         Prestar libro
                     </DropdownMenuItem>

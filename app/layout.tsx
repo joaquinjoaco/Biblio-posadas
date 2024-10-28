@@ -7,8 +7,8 @@ import { ToasterProvider } from "@/providers/toast-provider";
 
 
 export const metadata: Metadata = {
-  title: "Ayudemos.uy",
-  description: "El famoso sistema",
+  title: "Biblioteca",
+  description: "Biblioteca Social del Parque Posadas",
 };
 
 export default function RootLayout({

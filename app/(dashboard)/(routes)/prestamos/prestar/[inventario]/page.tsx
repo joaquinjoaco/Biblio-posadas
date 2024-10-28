@@ -16,17 +16,26 @@ const BookPage = async (
         }
     })
 
+    const lendings = await prismadb.prestamo.findMany({
+        where: {
+            idLibro: book?.inventario,
+            fechaDevolucionFinal: null,
+        }
+    })
+
     const members = await prismadb.socio.findMany({
         orderBy: {
             createdAt: 'asc'
         }
     })
 
+    // check if the book is currently lended, we can tell by the results given by the query.
+    const lended = lendings.length === 0;
 
     return (
         <div className="flex-col">
             <div className="flex-1 space-y-4 p-8 pt-6">
-                <LendingFormByBookForm book={book} members={members} />
+                <LendingFormByBookForm book={book} members={members} lended={lended} />
             </div>
         </div>
     );

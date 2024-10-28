@@ -2,7 +2,7 @@
 
 import { Libro, Socio } from "@prisma/client";
 import * as z from "zod";
-import { ArrowLeft, CalendarIcon, Check, ChevronsUpDown, FileQuestion, IdCard, LocateIcon, MapPin, Trash } from "lucide-react";
+import { ArrowLeft, CalendarIcon, Check, ChevronsUpDown, MapPin, Phone } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
@@ -22,15 +22,14 @@ import {
     FormLabel,
     FormMessage
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { AlertModal } from "@/components/modals/alert-modal";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import { Command, CommandGroup, CommandItem, CommandList } from "@/components/ui/command";
+import { Command, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { format } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
-import { enUS, es } from "date-fns/locale";
+import { es } from "date-fns/locale";
+import { CommandEmpty } from "cmdk";
+import { Badge } from "@/components/ui/badge";
 
 const formSchema = z.object({
     idLibro: z.string().min(1, { message: 'Debes seleccionar un libro' }),
@@ -48,17 +47,20 @@ type LendingFormByBookValues = z.infer<typeof formSchema>;
 interface LendingFormByBookProps {
     book: Libro | null;
     members: Socio[] | null;
+    lended: boolean;
 }
 
 export const LendingFormByBookForm: React.FC<LendingFormByBookProps> = ({
     book,
-    members
+    members,
+    lended
 }) => {
 
     const params = useParams();
     const router = useRouter();
 
     const [loading, setLoading] = useState(false);
+    const [open, setOpen] = useState(false);
 
     const title = "Préstamo de libro";
     const description = book?.titulo || "";
@@ -74,17 +76,21 @@ export const LendingFormByBookForm: React.FC<LendingFormByBookProps> = ({
         defaultValues
     });
 
-    const { watch } = form;
+    // const { watch } = form;
+
     const onSubmit = async (data: LendingFormByBookValues) => {
         try {
             setLoading(true);
             // Create the lending.
-            await axios.post(`/api/prestamos/prestar`, data);
+            if (!book?.isArchived) {
+                await axios.post(`/api/prestamos/prestar`, data);
 
-            router.push(`/prestamos`);
-            router.refresh(); // Refresh the component so it refetches the patched data.
-            toast.success(toastMessage);
-
+                router.push(`/prestamos`);
+                router.refresh(); // Refresh the component so it refetches the patched data.
+                toast.success(toastMessage);
+            } else {
+                toast.error("No se puede prestar el libro, está archivado.")
+            }
         } catch (error: any) {
             if (error.response.status === 409) {
                 toast.error(`Ocurrió un error al generar el Nº de préstamo.`);
@@ -96,7 +102,11 @@ export const LendingFormByBookForm: React.FC<LendingFormByBookProps> = ({
         }
     }
 
-
+    useEffect(() => {
+        if (book?.inventario) {
+            form.setValue("idLibro", book?.inventario.toString());
+        }
+    }, [])
 
     return (
         <>
@@ -136,6 +146,7 @@ export const LendingFormByBookForm: React.FC<LendingFormByBookProps> = ({
                 <form id="book-form" onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
                     <div className="grid grid-cols-2 gap-8">
                         <div className="flex flex-col gap-y-8">
+
                             {/* Socio picker */}
                             <FormField
                                 control={form.control}
@@ -143,7 +154,7 @@ export const LendingFormByBookForm: React.FC<LendingFormByBookProps> = ({
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormLabel>Socio</FormLabel>
-                                        <Popover>
+                                        <Popover open={open} onOpenChange={setOpen}>
                                             <PopoverTrigger asChild>
                                                 <FormControl>
                                                     <Button
@@ -171,14 +182,17 @@ export const LendingFormByBookForm: React.FC<LendingFormByBookProps> = ({
                                             </PopoverTrigger>
                                             <PopoverContent align="start" className="w-full p-0">
                                                 <Command>
+                                                    <CommandInput placeholder="Busca un socio por nombre..." />
                                                     <CommandList>
+                                                        <CommandEmpty className="text-sm flex justify-center p-2">No se encontró el socio.</CommandEmpty>
                                                         <CommandGroup>
-                                                            {members?.map((member) => (
+                                                            {members?.map((member, idx) => (
                                                                 <CommandItem
-                                                                    value={member.id.toString()}
+                                                                    value={`${member.nombre} ${member.apellido}`}
                                                                     key={member.id}
                                                                     onSelect={() => {
                                                                         form.setValue("idSocio", member.id.toString())
+                                                                        setOpen(false)
                                                                     }}
                                                                     className="cursor-pointer"
                                                                 >
@@ -190,11 +204,12 @@ export const LendingFormByBookForm: React.FC<LendingFormByBookProps> = ({
                                                                                 : "opacity-0"
                                                                         )}
                                                                     />
-                                                                    <div className="divide-x-8 my-2 transition-all divide-orange-500 divide-">
-                                                                        <div className="flex items-center font-medium">Nº {member.id}</div>
-                                                                        <div className="flex items-center pl-2"><IdCard className="h-4 w-4 mr-2" />{member.nombre} {member.apellido}</div>
-                                                                        <div className="flex items-center pl-2"><MapPin className="h-4 w-4 mr-2" />{member.direccion}</div>
-                                                                        <div className="flex items-center pl-2"><LocateIcon className="h-4 w-4 mr-2" />{member.ubicacion}</div>
+                                                                    <div className="border-l-4 border-orange-500 pl-2">
+                                                                        <p className="flex items-center font-semibold">Nº {member.id}: {member.nombre} {member.apellido}</p>
+                                                                        <p className="flex items-center "></p>
+                                                                        <p className="flex items-center"><MapPin className="h-4 w-4 mr-2" />{member.direccion}</p>
+                                                                        <p className="flex items-center"><Phone className="h-4 w-4 mr-2" />{member.telefono}</p>
+                                                                        <p className="flex items-center my-2"><Badge variant="outline">{member.ubicacion}</Badge></p>
                                                                     </div>
                                                                 </CommandItem>
                                                             ))}
@@ -242,7 +257,7 @@ export const LendingFormByBookForm: React.FC<LendingFormByBookProps> = ({
                                                         selected={field.value}
                                                         onSelect={field.onChange}
                                                         disabled={(date) =>
-                                                            date > new Date() || date < new Date("1900-01-01")
+                                                            date < new Date("1900-01-01")
                                                         }
                                                         initialFocus
                                                     />
@@ -289,7 +304,7 @@ export const LendingFormByBookForm: React.FC<LendingFormByBookProps> = ({
                                                         selected={field.value}
                                                         onSelect={field.onChange}
                                                         disabled={(date) =>
-                                                            date > new Date() || date < new Date("1900-01-01")
+                                                            date < new Date("1900-01-01")
                                                         }
                                                         initialFocus
                                                     />
