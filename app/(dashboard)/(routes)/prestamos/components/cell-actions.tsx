@@ -15,11 +15,11 @@ import {
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { MemberColumn } from "./columns";
+import { LendingColumn } from "./columns";
 import { AlertModal } from "@/components/modals/alert-modal";
 
 interface CellActionProps {
-    data: MemberColumn;
+    data: LendingColumn;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({
@@ -82,11 +82,10 @@ export const CellAction: React.FC<CellActionProps> = ({
                     <DropdownMenuLabel>
                         Acciones
                     </DropdownMenuLabel>
-                    {/* Won't work if client isnt running on https */}
-                    {/* <DropdownMenuItem onClick={() => onCopy(data.id.toString())}>
+                    <DropdownMenuItem onClick={() => onCopy(data.id.toString())}>
                         <Copy className="mr-2 h-4 w-4" />
                         Copiar ID del socio
-                    </DropdownMenuItem> */}
+                    </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => router.push(`/socios/${data.id}`)}>
                         <Edit className="mr-2 h-4 w-4" />
                         Editar

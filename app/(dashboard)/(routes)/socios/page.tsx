@@ -10,7 +10,7 @@ export const metadata = {
     title: "Socios",
 }
 
-const BooksPage = async ({
+const SociosPage = async ({
     // params
 }: {
         // params: {}
@@ -43,4 +43,4 @@ const BooksPage = async ({
     );
 }
 
-export default BooksPage;
+export default SociosPage;

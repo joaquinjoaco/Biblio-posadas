@@ -51,7 +51,8 @@ model Prestamo {
   idSocio Int
   socio   Socio @relation(fields: [idSocio], references: [id])
 
-  // Un préstamo se considera devuelto cuando la fecha de devolución final es menor a la fecha actual.
+  // Un préstamo se considera devuelto cuando la fecha de
+  // devolución final es menor a la fecha actual.
   fechaPrestado             DateTime
   fechaDevolucionEstipulada DateTime
   fechaDevolucionFinal      DateTime

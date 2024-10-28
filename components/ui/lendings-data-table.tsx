@@ -19,19 +19,19 @@ import {
 import { TooltipWrapper } from "./tooltip-wrapper";
 import { capitalizeFirstLetter } from "@/lib/utils";
 
-interface BooksDataTableProps<TData, TValue> {
+interface LendingsDataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
     data: TData[];
 }
 
-export function BooksDataTable<TData, TValue>({
+export function LendingsDataTable<TData, TValue>({
     columns,
     data,
-}: BooksDataTableProps<TData, TValue>) {
+}: LendingsDataTableProps<TData, TValue>) {
     const [sorting, setSorting] = useState<SortingState>([]);
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-    const [selectedColumn, setSelectedColumn] = useState<string>(columns[0]?.id || "inventario"); // Default to the first column
+    const [selectedColumn, setSelectedColumn] = useState<string>(columns[0]?.id || "Nº de préstamo"); // Default to the first column
 
     const table = useReactTable({
         data,
@@ -61,6 +61,7 @@ export function BooksDataTable<TData, TValue>({
             <div className="flex items-center py-4 space-x-2">
                 <TooltipWrapper
                     content="Cambiar filtro"
+                    icon={<Filter className="h-4 w-4" />}
                     className="flex flex-row items-center gap-x-2"
                 >
                     <DropdownMenu>
@@ -94,6 +95,7 @@ export function BooksDataTable<TData, TValue>({
                 */}
                 <TooltipWrapper
                     content="Recargar filtro"
+                    icon={<ListRestartIcon className="h-4 w-4" />}
                     className="flex flex-row items-center gap-x-2"
                 >
                     {/* Had to use a div because TooltipTrigger is also a button and buttons are not to be nested on eachother */}

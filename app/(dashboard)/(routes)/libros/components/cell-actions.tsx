@@ -1,6 +1,6 @@
 "use client";
 
-import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
+import { Copy, Edit, Handshake, MoreHorizontal, Trash } from "lucide-react";
 import toast from "react-hot-toast";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
@@ -17,6 +17,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { BookColumn } from "./columns";
 import { AlertModal } from "@/components/modals/alert-modal";
+import { TooltipWrapper } from "@/components/ui/tooltip-wrapper";
+import Link from "next/link";
 
 interface CellActionProps {
     data: BookColumn;
@@ -59,7 +61,7 @@ export const CellAction: React.FC<CellActionProps> = ({
     }
 
     return (
-        <>
+        <div className="flex gap-x-2 items-center">
             <AlertModal
                 isOpen={open}
                 onClose={() => setOpen(false)}
@@ -69,7 +71,21 @@ export const CellAction: React.FC<CellActionProps> = ({
                 description="Se eliminará el libro, esta acción es destructiva y no se puede deshacer."
                 buttonMessage="Confirmar"
             />
+            <TooltipWrapper
+                content="Prestar libro"
+                className="flex flex-row items-center gap-x-2"
+            >
+                <Link
+                    className="inline-flex justify-center items-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10"
+                    href={`/prestamos/prestar/${data.inventario}`}
+                // target="_blank"
+                >
+                    {/* accesibility fature, screenreaders only 'Prestar libro' */}
+                    <span className="sr-only">Prestar libro</span>
+                    <Handshake className="h-9 w-9 p-2 hover:bg-accent rounded-md transition-all" />
+                </Link>
 
+            </TooltipWrapper>
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <Button variant="ghost" className="h-8 w-8 p-0">
@@ -82,10 +98,15 @@ export const CellAction: React.FC<CellActionProps> = ({
                     <DropdownMenuLabel>
                         Acciones
                     </DropdownMenuLabel>
-                    <DropdownMenuItem onClick={() => onCopy(data.inventario.toString())}>
+                    <DropdownMenuItem onClick={() => router.push(`/prestamos/prestar/${data.inventario}`)}>
+                        <Handshake className="mr-2 h-4 w-4" />
+                        Prestar libro
+                    </DropdownMenuItem>
+                    {/* Won't work if client isnt running on https */}
+                    {/* <DropdownMenuItem onClick={() => onCopy(data.inventario.toString())}>
                         <Copy className="mr-2 h-4 w-4" />
                         Copiar Nº de inventario
-                    </DropdownMenuItem>
+                    </DropdownMenuItem> */}
                     <DropdownMenuItem onClick={() => router.push(`/libros/${data.inventario}`)}>
                         <Edit className="mr-2 h-4 w-4" />
                         Editar
@@ -98,6 +119,6 @@ export const CellAction: React.FC<CellActionProps> = ({
 
             </DropdownMenu>
 
-        </>
+        </div>
     );
 };

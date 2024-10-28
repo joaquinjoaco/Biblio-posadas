@@ -8,14 +8,14 @@ import { Button } from "@/components/ui/button";
 import { Heading } from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
 
-import { MemberColumn, columns } from "./columns";
-import { MembersDataTable } from "@/components/ui/members-data-table";
+import { LendingColumn, columns } from "./columns";
+import { LendingsDataTable } from "@/components/ui/lendings-data-table";
 
-interface MembersClientProps {
-    data: MemberColumn[];
+interface LendingsClientProps {
+    data: LendingColumn[];
 }
 
-export const MembersClient: React.FC<MembersClientProps> = ({
+export const LendingsClient: React.FC<LendingsClientProps> = ({
     data
 }) => {
 
@@ -24,16 +24,15 @@ export const MembersClient: React.FC<MembersClientProps> = ({
 
     const generateSheet = () => {
         // Function to convert an array of objects to a worksheet.
-        const sheetFromArrayOfObjects = (arrayOfObjects: MemberColumn[]) => {
+        const sheetFromArrayOfObjects = (arrayOfObjects: LendingColumn[]) => {
             // Re-format the already formatted data prop to readable values for a human in a worksheet.
             const formattedArray = arrayOfObjects.map((item) => ({
-                "ID": item.id,
-                "Nombre": item.nombre,
-                "Apellido": item.apellido,
-                "Dirección": item.direccion,
-                "Título": item.telefono,
-                "País": item.ubicacion,
-
+                "ID": item["Nº de préstamo"],
+                "Nº de inventario del libro": item.inventario,
+                "ID del socio": item.socio,
+                "Efectuado": item.efectuado,
+                "Devolución estipulada": item["Devolución estipulada"],
+                "Devuelto": item["Devolución final"],
                 "Fecha de registro": item.registro,
                 "Fecha de actualización": item.actualizado,
             }));
@@ -53,13 +52,13 @@ export const MembersClient: React.FC<MembersClientProps> = ({
         <>
             <div className="flex items-center justify-between sticky top-0 z-10 bg-background py-4">
                 <Heading
-                    title={`Socios (${data.length})`}
-                    description="Administra los socios de la biblioteca"
+                    title={`Préstamos (${data.length})`}
+                    description="Administra los préstamos de la biblioteca"
                 />
                 <div className="flex gap-x-2">
-                    <Button onClick={() => { router.push(`/socios/nuevo`) }}>
+                    <Button onClick={() => { router.push(`/prestamos/nuevo`) }}>
                         <Plus className="mr-2 h-4 w-4" />
-                        Nuevo socio
+                        Nuevo préstamo
                     </Button>
                     <Button disabled={data.length === 0} onClick={() => generateSheet()} className="bg-[#107C41] hover:bg-[#1d6e42] dark:text-foreground" >
                         <FileSpreadsheet className="mr-2 h-4 w-4" />
@@ -68,7 +67,8 @@ export const MembersClient: React.FC<MembersClientProps> = ({
                 </div>
             </div>
             <Separator />
-            <MembersDataTable columns={columns} data={data} />
+            {/* Members Data table also fits lending's data */}
+            <LendingsDataTable columns={columns} data={data} />
         </>
     )
 }

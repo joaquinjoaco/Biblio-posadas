@@ -27,7 +27,7 @@ import { AlertModal } from "@/components/modals/alert-modal";
 import { Checkbox } from "@/components/ui/checkbox";
 
 const formSchema = z.object({
-    colocacion: z.string().min(1, { message: 'El nombre del libro es obligatorio' }).max(255, { message: 'La colocación es demasiado larga' }),
+    colocacion: z.string().min(1, { message: 'La colocación del libro es obligatoria' }).max(255, { message: 'La colocación es demasiado larga' }),
     autor: z.string().min(1, { message: 'El autor del libro es obligatorio' }).max(255, { message: 'El autor del libro es demasiado largo' }),
     titulo: z.string().min(1, { message: 'El título del libro es obligatorio' }).max(255, { message: 'El título del libro es demasiado largo' }),
     pais: z.string().min(1, { message: 'El país del libro es obligatorio' }).max(255, { message: 'El país del libro es demasiado largo' }),

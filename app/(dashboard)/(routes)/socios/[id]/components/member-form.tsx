@@ -16,7 +16,6 @@ import { Separator } from "@/components/ui/separator";
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
@@ -255,7 +254,7 @@ export const MemberForm: React.FC<MemberFormProps> = ({
                             name="ubicacion"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Language</FormLabel>
+                                    <FormLabel>Ubicación</FormLabel>
                                     <Popover>
                                         <PopoverTrigger asChild>
                                             <FormControl>
