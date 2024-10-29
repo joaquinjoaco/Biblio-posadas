@@ -20,8 +20,12 @@ const BookPage = async (
         where: {
             idLibro: book?.inventario,
             fechaDevolucionFinal: null, // if the lending has no final return date, then it is considered as currently lended.
+        },
+        include: {
+            socio: true,
         }
     })
+    console.log(lendings)
 
     const members = await prismadb.socio.findMany({
         where: {
@@ -33,13 +37,12 @@ const BookPage = async (
     })
 
     // check if the book is currently lended, we can tell by the results given by the query.
-    const lended = lendings.length === 0;
-    // TODO IMPLEMENT 'lended' LOGIC ON CLIENT COMPONENT
+    const lended = lendings.length !== 0;
 
     return (
         <div className="flex-col">
             <div className="flex-1 space-y-4 p-8 pt-6">
-                <LendingFormByBookForm book={book} members={members} lended={lended} />
+                <LendingFormByBookForm book={book} members={members} lended={lended} lendings={lendings} />
             </div>
         </div>
     );
