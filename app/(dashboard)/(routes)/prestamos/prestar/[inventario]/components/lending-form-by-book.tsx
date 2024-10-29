@@ -61,6 +61,8 @@ export const LendingFormByBookForm: React.FC<LendingFormByBookProps> = ({
 
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
+    const [open2, setOpen2] = useState(false);
+    const [open3, setOpen3] = useState(false);
 
     const title = "Préstamo de libro";
     const description = book?.titulo || "";
@@ -230,7 +232,7 @@ export const LendingFormByBookForm: React.FC<LendingFormByBookProps> = ({
                                     render={({ field }) => (
                                         <FormItem className="flex flex-col">
                                             <FormLabel>Fecha de inicio del préstamo</FormLabel>
-                                            <Popover>
+                                            <Popover open={open2} onOpenChange={setOpen2}>
                                                 <PopoverTrigger asChild>
                                                     <FormControl>
                                                         <Button
@@ -254,7 +256,10 @@ export const LendingFormByBookForm: React.FC<LendingFormByBookProps> = ({
                                                         mode="single"
                                                         locale={es}
                                                         selected={field.value}
-                                                        onSelect={field.onChange}
+                                                        onSelect={(e) => {
+                                                            field.onChange(e)
+                                                            setOpen2(false)
+                                                        }}
                                                         disabled={(date) =>
                                                             date < new Date("1900-01-01")
                                                         }
@@ -277,7 +282,7 @@ export const LendingFormByBookForm: React.FC<LendingFormByBookProps> = ({
                                     render={({ field }) => (
                                         <FormItem className="flex flex-col">
                                             <FormLabel>Fecha de devolución estipulada</FormLabel>
-                                            <Popover>
+                                            <Popover open={open3} onOpenChange={setOpen3}>
                                                 <PopoverTrigger asChild>
                                                     <FormControl>
                                                         <Button
@@ -301,7 +306,10 @@ export const LendingFormByBookForm: React.FC<LendingFormByBookProps> = ({
                                                         mode="single"
                                                         locale={es}
                                                         selected={field.value}
-                                                        onSelect={field.onChange}
+                                                        onSelect={(e) => {
+                                                            field.onChange(e)
+                                                            setOpen3(false)
+                                                        }}
                                                         disabled={(date) =>
                                                             date < new Date("1900-01-01")
                                                         }
