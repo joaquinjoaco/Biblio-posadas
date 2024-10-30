@@ -72,6 +72,9 @@ export const LendingFormByBookForm: React.FC<LendingFormByBookProps> = ({
     const toastMessage = "Préstamo registrado";
     const action = "Registrar préstamo";
 
+    const today = new Date()
+    console.log("troll1: ", today)
+
     const defaultValues = {
         idSocio: '',
     }
@@ -284,9 +287,10 @@ export const LendingFormByBookForm: React.FC<LendingFormByBookProps> = ({
                                                                     field.onChange(e)
                                                                     setOpen2(false)
                                                                 }}
-                                                                disabled={(date) =>
-                                                                    date < new Date("1900-01-01")
-                                                                }
+                                                                fromDate={new Date()}
+                                                                // disabled={(date) =>
+                                                                //     date < new Date("1900-01-01")
+                                                                // }
                                                                 initialFocus
                                                             />
                                                         </PopoverContent>
@@ -334,9 +338,10 @@ export const LendingFormByBookForm: React.FC<LendingFormByBookProps> = ({
                                                                     field.onChange(e)
                                                                     setOpen3(false)
                                                                 }}
-                                                                disabled={(date) =>
-                                                                    date < new Date("1900-01-01")
-                                                                }
+                                                                fromDate={new Date()}
+                                                                // disabled={(date) =>
+                                                                //     date < new Date("1900-01-01")
+                                                                // }
                                                                 initialFocus
                                                             />
                                                         </PopoverContent>

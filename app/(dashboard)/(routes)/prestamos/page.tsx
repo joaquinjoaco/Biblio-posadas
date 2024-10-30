@@ -79,6 +79,7 @@ const LendingsPage = async (
         });
     }
 
+    const today = new Date();
 
     const formattedLendings: LendingColumn[] = lendings.map((lending) => ({
         "Nº de préstamo": lending.id.toString(),
@@ -86,7 +87,8 @@ const LendingsPage = async (
         socio: lending.socio.id.toString(),
         efectuado: format(lending.fechaPrestado, "dd MMMM, yyyy", { locale: es }),
         "Devolución estipulada": format(lending.fechaDevolucionEstipulada, "dd MMMM, yyyy", { locale: es }),
-        "Devolución final": lending.fechaDevolucionFinal ? format(lending.fechaDevolucionFinal, "dd MMMM, yyyy", { locale: es }) : "PENDIENTE",
+        "Devolución final": lending.fechaDevolucionFinal ? format(lending.fechaDevolucionFinal, "dd MMMM, yyyy", { locale: es })
+            : today > lending.fechaDevolucionEstipulada ? "VENCIDO" : "ACTIVO",
         registro: format(lending.createdAt, "dd MMMM, yyyy", { locale: es }),
         actualizado: format(lending.updatedAt, "dd MMMM, yyyy", { locale: es })
     }));

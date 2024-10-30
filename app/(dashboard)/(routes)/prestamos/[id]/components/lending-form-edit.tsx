@@ -63,6 +63,8 @@ export const LendingFormEdit: React.FC<LendingFormEditProps> = ({
     const toastMessage = "Préstamo actualizado";
     const action = "Editar préstamo";
 
+    const today = new Date()
+
     const defaultValues = {
         fechaPrestado: initialData?.fechaPrestado,
         fechaDevolucionEstipulada: initialData?.fechaDevolucionEstipulada,
@@ -178,9 +180,10 @@ export const LendingFormEdit: React.FC<LendingFormEditProps> = ({
                                                                 field.onChange(e)
                                                                 setOpen(false)
                                                             }}
-                                                            disabled={(date) =>
-                                                                date < new Date("1900-01-01")
-                                                            }
+                                                            fromDate={new Date()}
+                                                            // disabled={(date) =>
+                                                            //     date < new Date("1900-01-01")
+                                                            // }
                                                             initialFocus
                                                         />
                                                     </PopoverContent>
@@ -228,9 +231,10 @@ export const LendingFormEdit: React.FC<LendingFormEditProps> = ({
                                                                 field.onChange(e)
                                                                 setOpen2(false)
                                                             }}
-                                                            disabled={(date) =>
-                                                                date < new Date("1900-01-01")
-                                                            }
+                                                            fromDate={new Date()}
+                                                            // disabled={(date) =>
+                                                            //     date < new Date("1900-01-01")
+                                                            // }
                                                             initialFocus
                                                         />
                                                     </PopoverContent>
@@ -289,9 +293,10 @@ export const LendingFormEdit: React.FC<LendingFormEditProps> = ({
                                                             field.onChange(e)
                                                             setOpen2(false)
                                                         }}
-                                                        disabled={(date) =>
-                                                            date < new Date("1900-01-01")
-                                                        }
+                                                        fromDate={new Date()}
+                                                        // disabled={(date) =>
+                                                        //     date < new Date("1900-01-01")
+                                                        // }
                                                         initialFocus
                                                     />
                                                 </PopoverContent>

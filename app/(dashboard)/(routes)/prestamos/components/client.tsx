@@ -62,10 +62,6 @@ export const LendingsClient: React.FC<LendingsClientProps> = ({
                     description="Administra los préstamos de la biblioteca"
                 />
                 <div className="flex gap-x-2">
-                    <Button onClick={() => { router.push(`/prestamos/nuevo`) }}>
-                        <Plus className="mr-2 h-4 w-4" />
-                        Nuevo préstamo
-                    </Button>
                     <Button disabled={data.length === 0} onClick={() => generateSheet()} className="bg-[#107C41] hover:bg-[#1d6e42] dark:text-foreground" >
                         <FileSpreadsheet className="mr-2 h-4 w-4" />
                         Generar archivo

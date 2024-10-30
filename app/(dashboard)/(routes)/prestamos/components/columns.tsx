@@ -4,6 +4,7 @@ import { ColumnDef } from "@tanstack/react-table"
 import { CellAction } from "./cell-actions"
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 export type LendingColumn = {
     "Nº de préstamo": string; // String instead of number, necessary to be able to use it as a filterKey in data tables.
@@ -100,6 +101,12 @@ export const columns: ColumnDef<LendingColumn>[] = [
                 </Button>
             )
         },
+        cell: ({ row }) => row.original["Devolución final"] === "VENCIDO" ?
+            <Badge variant="vencido">VENCIDO</Badge>
+            : row.original["Devolución final"] === "ACTIVO" ?
+                <Badge variant="activo">ACTIVO</Badge>
+                :
+                <Badge variant="devuelto">{row.original["Devolución final"]}</Badge>
     },
     {
         accessorKey: "registro",
