@@ -32,10 +32,10 @@ export const CellAction: React.FC<CellActionProps> = ({
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
 
-    const onCopy = (id: string) => {
-        navigator.clipboard.writeText(id);
-        toast.success("Número de ID del socio copiado al portapapeles.")
-    }
+    // const onCopy = (id: string) => {
+    //     navigator.clipboard.writeText(id);
+    //     toast.success("Número de ID del socio copiado al portapapeles.")
+    // }
 
     const onDelete = async () => {
         try {

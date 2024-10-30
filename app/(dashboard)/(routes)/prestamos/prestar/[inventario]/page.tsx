@@ -10,12 +10,14 @@ const BookPage = async (
 
     const { inventario } = await params // From Next 15 on, params API is now asynchronous (https://nextjs.org/docs/messages/sync-dynamic-apis).
 
+    // book
     const book = await prismadb.libro.findUnique({
         where: {
             inventario: Number(inventario)
         }
     })
 
+    // any pending lending for the book
     const lendings = await prismadb.prestamo.findMany({
         where: {
             idLibro: book?.inventario,
@@ -25,8 +27,8 @@ const BookPage = async (
             socio: true,
         }
     })
-    console.log(lendings)
 
+    // all members
     const members = await prismadb.socio.findMany({
         where: {
             isArchived: false, // non archived members only.

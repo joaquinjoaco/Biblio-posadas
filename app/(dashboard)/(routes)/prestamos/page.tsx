@@ -10,21 +10,75 @@ export const metadata = {
     title: "Prestamos",
 }
 
-const LendingsPage = async ({
-    // params
-}: {
-        // params: {}
-    }) => {
-    // Fetch all books.
-    const lendings = await prismadb.prestamo.findMany({
-        orderBy: {
-            createdAt: 'desc'
-        },
-        include: {
-            libro: true,
-            socio: true,
-        }
-    });
+const LendingsPage = async (
+    props: {
+        searchParams: Promise<{ status: string }>
+    }
+) => {
+    const searchParams = await props.searchParams;  // From Next 15 on, params API is now asynchronous (https://nextjs.org/docs/messages/sync-dynamic-apis).
+    let lendings;
+
+    if (searchParams.status === 'activos') {
+        // Currently active/pending lendings, books that are yet to be returned.
+        lendings = await prismadb.prestamo.findMany({
+            where: {
+                fechaDevolucionFinal: null
+            },
+            orderBy: {
+                createdAt: 'desc'
+            },
+            include: {
+                libro: true,
+                socio: true,
+            }
+        });
+    } else if (searchParams.status === 'vencidos') {
+        // Expired lendings, books that are yet to be returned after the agreed return date.
+        const todayDate = new Date().setHours(0, 0, 0, 0);
+        lendings = await prismadb.prestamo.findMany({
+            where: {
+                fechaDevolucionFinal: null,
+                fechaDevolucionEstipulada: {
+                    lt: new Date(todayDate)
+                }
+            },
+            orderBy: {
+                createdAt: 'desc'
+            },
+            include: {
+                libro: true,
+                socio: true,
+            }
+        });
+    } else if (searchParams.status === 'devueltos') {
+        // Returned books.
+        lendings = await prismadb.prestamo.findMany({
+            where: {
+                fechaDevolucionFinal: {
+                    not: null
+                }
+            },
+            orderBy: {
+                createdAt: 'desc'
+            },
+            include: {
+                libro: true,
+                socio: true,
+            }
+        });
+    } else {
+        // fetch all lendings
+        lendings = await prismadb.prestamo.findMany({
+            orderBy: {
+                createdAt: 'desc'
+            },
+            include: {
+                libro: true,
+                socio: true,
+            }
+        });
+    }
+
 
     const formattedLendings: LendingColumn[] = lendings.map((lending) => ({
         "Nº de préstamo": lending.id.toString(),
@@ -36,6 +90,8 @@ const LendingsPage = async ({
         registro: format(lending.createdAt, "dd MMMM, yyyy", { locale: es }),
         actualizado: format(lending.updatedAt, "dd MMMM, yyyy", { locale: es })
     }));
+
+
 
     return (
         <div className="flex-col">

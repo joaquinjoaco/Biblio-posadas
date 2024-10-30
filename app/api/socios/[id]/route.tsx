@@ -51,7 +51,6 @@ export async function PATCH(
         }
 
 
-        // We update the whole product and delete its images.
         const socio = await prismadb.socio.update({
             where: {
                 id: id,

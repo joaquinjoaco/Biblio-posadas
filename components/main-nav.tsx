@@ -74,14 +74,14 @@ export function MainNav({
     // Book lendings
     const lendingsBig = [
         {
-            href: `/prestamos`,
+            href: `/prestamos?status=activos`,
             label: 'Préstamos activos',
             // active: pathname === ,
             desc: 'Vista de los préstamos activos.',
             icon: <BookUp2 className="h-6 w-6" />,
         },
         {
-            href: `/prestamos`,
+            href: `/prestamos?status=vencidos`,
             label: 'Préstamos vencidos',
             // active: pathname === ,
             desc: 'Vista de los préstamos vencidos que aún no se han devuelto.',
@@ -98,7 +98,7 @@ export function MainNav({
             icon: <NotebookText className="h-4 w-4" />,
         },
         {
-            href: `/prestamos`,
+            href: `/prestamos?status=devueltos`,
             label: 'Préstamos devueltos',
             // active: pathname === ,
             desc: 'Vista de los préstamos que ya fueron devueltos de la biblioteca.',

@@ -76,10 +76,10 @@ export const BookForm: React.FC<BookFormProps> = ({
         try {
             setLoading(true);
             if (initialData) {
-                // Update the product.
+                // Update the book.
                 await axios.patch(`/api/libros/${params.inventario}`, data);
             } else {
-                // Create the product.
+                // Create the book.
                 await axios.post(`/api/libros`, data);
             }
 

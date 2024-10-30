@@ -32,22 +32,22 @@ export const CellAction: React.FC<CellActionProps> = ({
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
 
-    const onCopy = (id: string) => {
-        navigator.clipboard.writeText(id);
-        toast.success("Número de ID del socio copiado al portapapeles.")
-    }
+    // const onCopy = (id: string) => {
+    //     navigator.clipboard.writeText(id);
+    //     toast.success("Número de préstamo copiado al portapapeles.")
+    // }
 
     const onDelete = async () => {
         try {
             setLoading(true);
-            await axios.delete(`/api/socios/${data.id}`);
+            await axios.delete(`/api/prestamos/${data["Nº de préstamo"]}}`);
             router.refresh(); // Refresh the component so it refetches the data.
-            toast.success("Socio eliminado.");
+            toast.success("Préstamo eliminado.");
             router.refresh();
         } catch (error: any) {
             if (error.response.status === 409) {
                 if (error.response.data === "fk-constraint-failed") {
-                    toast.error("No se puede eliminar el socio. Aparece en préstamos registrados.");
+                    toast.error("No se puede eliminar el préstamo.");
                 } else {
                     toast.error("Ocurrió un error inesperado.");
                 }
@@ -82,18 +82,19 @@ export const CellAction: React.FC<CellActionProps> = ({
                     <DropdownMenuLabel>
                         Acciones
                     </DropdownMenuLabel>
-                    <DropdownMenuItem onClick={() => onCopy(data.id.toString())}>
+                    {/* Won't work if client isnt running on https */}
+                    {/* <DropdownMenuItem onClick={() => onCopy(data["Nº de préstamo"])}>
                         <Copy className="mr-2 h-4 w-4" />
-                        Copiar ID del socio
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => router.push(`/socios/${data.id}`)}>
+                        Copiar ID del préstamo
+                    </DropdownMenuItem> */}
+                    <DropdownMenuItem onClick={() => router.push(`/prestamos/${data["Nº de préstamo"]}`)}>
                         <Edit className="mr-2 h-4 w-4" />
                         Editar
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setOpen(true)}>
+                    {/* <DropdownMenuItem onClick={() => setOpen(true)}>
                         <Trash className="mr-2 h-4 w-4" />
                         Eliminar
-                    </DropdownMenuItem>
+                    </DropdownMenuItem> */}
                 </DropdownMenuContent>
 
             </DropdownMenu>

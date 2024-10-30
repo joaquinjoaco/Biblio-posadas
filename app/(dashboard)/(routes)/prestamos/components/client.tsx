@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { FileSpreadsheet, Plus } from "lucide-react";
 import * as XLSX from 'xlsx';
 
@@ -20,7 +20,13 @@ export const LendingsClient: React.FC<LendingsClientProps> = ({
 }) => {
 
     const router = useRouter();
-    const params = useParams();
+    const searchParams = useSearchParams();
+
+    const status = searchParams.get('status')
+    // const title = status === 'activos' ? `Préstamos activos (${data.length})`
+    //     : status === 'vencidos' ? `Préstamos vencidos (${data.length})`
+    //         : status === 'devueltos' ? `Préstamos devueltos (${data.length})`
+    //             : `Préstamos (${data.length})`
 
     const generateSheet = () => {
         // Function to convert an array of objects to a worksheet.
@@ -43,16 +49,16 @@ export const LendingsClient: React.FC<LendingsClientProps> = ({
         // Create a workbook.
         const workbook = XLSX.utils.book_new();
         // Add a worksheet with product data.
-        XLSX.utils.book_append_sheet(workbook, sheetFromArrayOfObjects(data), 'Socios');
+        XLSX.utils.book_append_sheet(workbook, sheetFromArrayOfObjects(data), 'Prestamos');
         // Save the workbook to a file (starts a download).
-        XLSX.writeFile(workbook, 'Socios.xlsx');
+        XLSX.writeFile(workbook, 'Prestamos.xlsx');
     }
 
     return (
         <>
             <div className="flex items-center justify-between sticky top-0 z-10 bg-background py-4">
                 <Heading
-                    title={`Préstamos (${data.length})`}
+                    title={`Préstamos ${status || ""} (${data.length})`}
                     description="Administra los préstamos de la biblioteca"
                 />
                 <div className="flex gap-x-2">

@@ -127,9 +127,9 @@ export const LendingFormByBookForm: React.FC<LendingFormByBookProps> = ({
                         <p>
                             Se espera que lo devuelva el <span className="italic">{format(lendings[0].fechaDevolucionEstipulada, "dd MMMM, yyyy", { locale: es })}</span>
                         </p>
-                        <p className="text-sm mt-2">
+                        <div className="text-sm mt-2">
                             <Badge variant="secondary">ID del préstamo: {lendings[0].id}</Badge>
-                        </p>
+                        </div>
                         <div className="mt-4">
                             <Link className="underline" href='/libros'>Volver al listado de libros</Link>
                         </div>
