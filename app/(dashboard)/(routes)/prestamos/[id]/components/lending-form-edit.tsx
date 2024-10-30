@@ -63,8 +63,6 @@ export const LendingFormEdit: React.FC<LendingFormEditProps> = ({
     const toastMessage = "Préstamo actualizado";
     const action = "Editar préstamo";
 
-    const today = new Date()
-
     const defaultValues = {
         fechaPrestado: initialData?.fechaPrestado,
         fechaDevolucionEstipulada: initialData?.fechaDevolucionEstipulada,
@@ -202,7 +200,7 @@ export const LendingFormEdit: React.FC<LendingFormEditProps> = ({
                                         name="fechaDevolucionEstipulada"
                                         render={({ field }) => (
                                             <FormItem className="flex flex-col">
-                                                <FormLabel>Fecha de devolución estipulada</FormLabel>
+                                                <FormLabel>Fecha de vencimiento del préstamo</FormLabel>
                                                 <Popover open={open2} onOpenChange={setOpen2}>
                                                     <PopoverTrigger asChild>
                                                         <FormControl>
@@ -240,7 +238,7 @@ export const LendingFormEdit: React.FC<LendingFormEditProps> = ({
                                                     </PopoverContent>
                                                 </Popover>
                                                 <FormDescription>
-                                                    La fecha en la que se espera que se devuelva el libro. Sirve para determinar cuándo se vence un préstamo.
+                                                    La fecha en la que se espera que se devuelva el libro.
                                                 </FormDescription>
                                                 <FormMessage />
                                             </FormItem>
@@ -251,6 +249,7 @@ export const LendingFormEdit: React.FC<LendingFormEditProps> = ({
                             </div>
 
                             <div className="flex flex-col border-l-4 border-primary p-8 space-y-2">
+                                <h1 className="text-xl font-semibold">Devolución</h1>
                                 <Badge variant="default" className="max-w-fit">
                                     <p className="font-semibold">Socio: Nº{initialData.idSocio} {initialData.socio.nombre} {initialData.socio.apellido}</p>
                                 </Badge>
@@ -264,7 +263,7 @@ export const LendingFormEdit: React.FC<LendingFormEditProps> = ({
                                     name="fechaDevolucionFinal"
                                     render={({ field }) => (
                                         <FormItem className="flex flex-col pt-8">
-                                            <FormLabel>Fecha de devolución final del libro</FormLabel>
+                                            <FormLabel>Fecha en la que fué devuelto el libro</FormLabel>
                                             <Popover open={open3} onOpenChange={setOpen3}>
                                                 <PopoverTrigger asChild>
                                                     <FormControl>

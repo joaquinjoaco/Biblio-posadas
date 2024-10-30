@@ -72,7 +72,7 @@ export function LendingsDataTable<TData, TValue>({
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
                             {table.getAllColumns().map((column) => (
-                                column.id !== "isArchivedText" && column.id !== "actions" ?
+                                column.id !== "isArchivedText" && column.id !== "actions" && column.id !== "Devolución" ?
                                     <DropdownMenuItem
                                         key={column.id}
                                         onClick={() => setSelectedColumn(column.id)}

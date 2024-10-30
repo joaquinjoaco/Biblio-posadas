@@ -14,9 +14,11 @@ import {
     DropdownMenuLabel,
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { LendingColumn } from "./columns";
 import { AlertModal } from "@/components/modals/alert-modal";
+import { TooltipWrapper } from "@/components/ui/tooltip-wrapper";
+import { cn } from "@/lib/utils";
 
 interface CellActionProps {
     data: LendingColumn;
@@ -70,35 +72,18 @@ export const CellAction: React.FC<CellActionProps> = ({
                 buttonMessage="Confirmar"
             />
 
-            <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="h-8 w-8 p-0">
-                        {/* accesibility fature, screenreaders only 'open menu' */}
-                        <span className="sr-only">Abrir menú de acciones</span>
-                        <MoreHorizontal className="h-4 w-4" />
-                    </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                    <DropdownMenuLabel>
-                        Acciones
-                    </DropdownMenuLabel>
-                    {/* Won't work if client isnt running on https */}
-                    {/* <DropdownMenuItem onClick={() => onCopy(data["Nº de préstamo"])}>
-                        <Copy className="mr-2 h-4 w-4" />
-                        Copiar ID del préstamo
-                    </DropdownMenuItem> */}
-                    <DropdownMenuItem onClick={() => router.push(`/prestamos/${data["Nº de préstamo"]}`)}>
-                        <Edit className="mr-2 h-4 w-4" />
-                        Editar
-                    </DropdownMenuItem>
-                    {/* <DropdownMenuItem onClick={() => setOpen(true)}>
-                        <Trash className="mr-2 h-4 w-4" />
-                        Eliminar
-                    </DropdownMenuItem> */}
-                </DropdownMenuContent>
-
-            </DropdownMenu>
-
+            <TooltipWrapper
+                content={"Editar préstamo"}
+                className="flex flex-row items-center gap-x-2"
+            >
+                <div
+                    className={buttonVariants({ variant: "outline", size: "icon" })}
+                    onClick={() => router.push(`/prestamos/${data["Nº de préstamo"]}`)}
+                >
+                    {/* accesibility fature, screenreaders only 'Prestar libro' */}
+                    <Edit className="h-6 w-6" />
+                </div>
+            </TooltipWrapper>
         </>
     );
 };

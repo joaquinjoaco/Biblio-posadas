@@ -72,9 +72,6 @@ export const LendingFormByBookForm: React.FC<LendingFormByBookProps> = ({
     const toastMessage = "Préstamo registrado";
     const action = "Registrar préstamo";
 
-    const today = new Date()
-    console.log("troll1: ", today)
-
     const defaultValues = {
         idSocio: '',
     }
@@ -309,7 +306,7 @@ export const LendingFormByBookForm: React.FC<LendingFormByBookProps> = ({
                                             name="fechaDevolucionEstipulada"
                                             render={({ field }) => (
                                                 <FormItem className="flex flex-col">
-                                                    <FormLabel>Fecha de devolución estipulada</FormLabel>
+                                                    <FormLabel>Fecha de vencimiento del préstamo</FormLabel>
                                                     <Popover open={open3} onOpenChange={setOpen3}>
                                                         <PopoverTrigger asChild>
                                                             <FormControl>
@@ -355,19 +352,7 @@ export const LendingFormByBookForm: React.FC<LendingFormByBookProps> = ({
                                         />
                                     </div>
                                 </div>
-                                {/* 
-                       
-                        <div className="border rounded-md p-8">
-                            <h1 className="font-semibold">Detalles:</h1>
-                            <p>{watch("idLibro")}</p>
-                            <p>{watch("idSocio")}</p>
-                             // BUGGY AF...
-                            <p>{form.getValues("fechaPrestado") ? format(form.getValues("fechaPrestado"), 'PPP', { locale: es }) : ""}</p>
-                            <p>{form.getValues("fechaPrestado") ? format(form.getValues("fechaDevolucionEstipulada"), 'PPP', { locale: es }) : ""}</p>
-                           
 
-                        </div> 
-                        */}
                             </div>
                         </form>
                     </Form>

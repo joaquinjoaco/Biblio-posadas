@@ -37,8 +37,8 @@ export const LendingsClient: React.FC<LendingsClientProps> = ({
                 "Nº de inventario del libro": item.inventario,
                 "ID del socio": item.socio,
                 "Efectuado": item.efectuado,
-                "Devolución estipulada": item["Devolución estipulada"],
-                "Devuelto": item["Devolución final"],
+                "Vencimiento": item["Vencimiento"],
+                "Devolución": item["Devolución"],
                 "Fecha de registro": item.registro,
                 "Fecha de actualización": item.actualizado,
             }));

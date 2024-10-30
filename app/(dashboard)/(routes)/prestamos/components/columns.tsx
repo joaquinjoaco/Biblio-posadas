@@ -11,8 +11,8 @@ export type LendingColumn = {
     inventario: string;
     socio: string;
     efectuado: string;
-    "Devolución estipulada": string;
-    "Devolución final": string;
+    "Vencimiento": string;
+    "Devolución": string;
     registro: string;
     actualizado: string;
 }
@@ -75,38 +75,38 @@ export const columns: ColumnDef<LendingColumn>[] = [
         },
     },
     {
-        accessorKey: "Devolución estipulada",
+        accessorKey: "Vencimiento",
         header: ({ column }) => {
             return (
                 <Button
                     variant="ghost"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
-                    Devolución estipulada
+                    Vencimiento
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
             )
         },
     },
     {
-        accessorKey: "Devolución final",
+        accessorKey: "Devolución",
         header: ({ column }) => {
             return (
                 <Button
                     variant="ghost"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
-                    Devolución final
+                    Devolución
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
             )
         },
-        cell: ({ row }) => row.original["Devolución final"] === "VENCIDO" ?
+        cell: ({ row }) => row.original["Devolución"] === "VENCIDO" ?
             <Badge variant="vencido">VENCIDO</Badge>
-            : row.original["Devolución final"] === "ACTIVO" ?
-                <Badge variant="activo">ACTIVO</Badge>
+            : row.original["Devolución"] === "ACTIVO" ?
+                <Badge variant="activo">PENDIENTE</Badge>
                 :
-                <Badge variant="devuelto">{row.original["Devolución final"]}</Badge>
+                <Badge variant="devuelto">{row.original["Devolución"]}</Badge>
     },
     {
         accessorKey: "registro",

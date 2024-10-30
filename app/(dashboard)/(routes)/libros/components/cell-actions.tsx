@@ -84,8 +84,8 @@ export const CellAction: React.FC<CellActionProps> = ({
                     <span className="sr-only">Prestar libro</span>
                     <Handshake className="h-9 w-9 p-2 hover:bg-accent rounded-md transition-all" />
                 </div>
-
             </TooltipWrapper>
+
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <Button variant="ghost" className="h-8 w-8 p-0">
