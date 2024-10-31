@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-import { FileSpreadsheet, Plus } from "lucide-react";
+import { ArrowLeft, FileSpreadsheet, Plus } from "lucide-react";
 import * as XLSX from 'xlsx';
 
 import { Button } from "@/components/ui/button";
@@ -58,6 +58,17 @@ export const MemberHistoryClient: React.FC<MemberHistoryClientProps> = ({
                     description="Historial de los préstamos del socio"
                 />
                 <div className="flex gap-x-2">
+                    {/* Back button */}
+                    <Button
+                        disabled={false}
+                        variant="secondary"
+                        // size="sm"
+                        onClick={() => router.back()}
+                        type="button"
+                    >
+                        <ArrowLeft className="h-4 w-4 mr-2" />
+                        Volver
+                    </Button>
                     <Button disabled={data.length === 0} onClick={() => generateSheet()} className="bg-[#107C41] hover:bg-[#1d6e42] dark:text-foreground" >
                         <FileSpreadsheet className="mr-2 h-4 w-4" />
                         Generar archivo

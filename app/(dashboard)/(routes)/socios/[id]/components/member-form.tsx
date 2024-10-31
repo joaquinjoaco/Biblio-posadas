@@ -105,27 +105,27 @@ export const MemberForm: React.FC<MemberFormProps> = ({
         }
     }
 
-    const onDelete = async () => {
-        try {
-            setLoading(true);
-            await axios.delete(`/api/socios/${params.id}`);
-            router.push(`/socios`);
-            router.refresh(); // Refresh the component so it refetches the patched data.
-            toast.success("Socio eliminado.");
+    // const onDelete = async () => {
+    //     try {
+    //         setLoading(true);
+    //         await axios.delete(`/api/socios/${params.id}`);
+    //         router.push(`/socios`);
+    //         router.refresh(); // Refresh the component so it refetches the patched data.
+    //         toast.success("Socio eliminado.");
 
-        } catch (error: any) {
-            if (error.response.status === 409) {
-                if (error.response.data === "fk-constraint-failed") {
-                    toast.error("No se puede eliminar el socio. Aparece en préstamos registrados.");
-                } else {
-                    toast.error("Ocurrió un error inesperado.");
-                }
-            }
-        } finally {
-            setLoading(false);
-            setOpen(false);
-        }
-    }
+    //     } catch (error: any) {
+    //         if (error.response.status === 409) {
+    //             if (error.response.data === "fk-constraint-failed") {
+    //                 toast.error("No se puede eliminar el socio. Aparece en préstamos registrados.");
+    //             } else {
+    //                 toast.error("Ocurrió un error inesperado.");
+    //             }
+    //         }
+    //     } finally {
+    //         setLoading(false);
+    //         setOpen(false);
+    //     }
+    // }
 
     useEffect(() => {
         document.title = initialData ? initialData.nombre : "Nuevo socio";
@@ -133,7 +133,7 @@ export const MemberForm: React.FC<MemberFormProps> = ({
 
     return (
         <>
-            <AlertModal
+            {/* <AlertModal
                 isOpen={open}
                 onClose={() => setOpen(false)}
                 onConfirm={onDelete}
@@ -141,7 +141,7 @@ export const MemberForm: React.FC<MemberFormProps> = ({
                 title="¿Eliminar socio?"
                 description="Se eliminará el socio, esta acción es destructiva y no se puede deshacer."
                 buttonMessage="Confirmar"
-            />
+            /> */}
             <div className="flex items-center justify-between sticky top-0 z-10 bg-background py-4">
                 <Heading
                     title={title}
@@ -160,7 +160,7 @@ export const MemberForm: React.FC<MemberFormProps> = ({
                         <ArrowLeft className="h-4 w-4 mr-2" />
                         Volver
                     </Button>
-                    {initialData && (
+                    {/* {initialData && (
                         <Button
                             disabled={loading}
                             variant="destructive"
@@ -171,7 +171,7 @@ export const MemberForm: React.FC<MemberFormProps> = ({
                             <Trash className="h-4 w-4 mr-2" />
                             Eliminar
                         </Button>
-                    )}
+                    )} */}
                     <Button
                         disabled={loading}
                         className="ml-auto"
