@@ -48,6 +48,11 @@ export function BooksDataTable<TData, TValue>({
             sorting,
             columnVisibility,
         },
+        initialState: {
+            pagination: {
+                pageSize: 100
+            }
+        }
     });
 
     // Reset the filter value whenever the selected column changes.
