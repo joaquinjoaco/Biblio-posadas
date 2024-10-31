@@ -13,7 +13,7 @@ import { ListItemBig } from "./ui/list-item-big";
 
 export function MainNav({
     className,
-    ...props
+    // ...props
 }: React.HTMLAttributes<HTMLElement>) {
 
     const pathname = usePathname();

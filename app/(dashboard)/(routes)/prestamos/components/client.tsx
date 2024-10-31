@@ -1,7 +1,7 @@
 "use client";
 
-import { useParams, useRouter, useSearchParams } from "next/navigation";
-import { FileSpreadsheet, Plus } from "lucide-react";
+import { useSearchParams } from "next/navigation";
+import { FileSpreadsheet } from "lucide-react";
 import * as XLSX from 'xlsx';
 
 import { Button } from "@/components/ui/button";
@@ -19,7 +19,7 @@ export const LendingsClient: React.FC<LendingsClientProps> = ({
     data
 }) => {
 
-    const router = useRouter();
+    // const router = useRouter();
     const searchParams = useSearchParams();
 
     const status = searchParams.get('status')

@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { Copy, Edit, Handshake, MoreHorizontal, Trash } from "lucide-react";
+import { Edit, Handshake, MoreHorizontal, Trash } from "lucide-react";
 import toast from "react-hot-toast";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import axios from "axios";
 
@@ -18,7 +19,6 @@ import { Button } from "@/components/ui/button";
 import { BookColumn } from "./columns";
 import { AlertModal } from "@/components/modals/alert-modal";
 import { TooltipWrapper } from "@/components/ui/tooltip-wrapper";
-import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 interface CellActionProps {
@@ -29,7 +29,6 @@ export const CellAction: React.FC<CellActionProps> = ({
     data
 }) => {
 
-    const params = useParams();
     const router = useRouter();
 
     const [loading, setLoading] = useState(false);

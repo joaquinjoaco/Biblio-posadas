@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { Libro } from "@prisma/client";
@@ -273,7 +274,7 @@ export const BookForm: React.FC<BookFormProps> = ({
                                             Archivado
                                         </FormLabel>
                                         <FormDescription>
-                                            Si el libro se encuentra en mal estado o ya no disponen del mismo. Quedará "archivado"
+                                            Si el libro se encuentra en mal estado o ya no disponen del mismo. Quedará &quot;archivado&quot;
                                             y el botón para prestarlo se desactivará para evitar errores.
                                             Podrás volver a desarchivarlo desde este mismo lugar.
                                         </FormDescription>

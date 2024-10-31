@@ -10,11 +10,7 @@ export const metadata = {
     title: "Libros",
 }
 
-const BooksPage = async ({
-    // params
-}: {
-        // params: {}
-    }) => {
+const BooksPage = async () => {
     // Fetch all books.
     const books = await prismadb.libro.findMany({
         orderBy: {

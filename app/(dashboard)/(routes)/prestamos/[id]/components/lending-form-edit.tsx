@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { Libro, Prestamo, Socio } from "@prisma/client";
@@ -27,7 +28,6 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
 import { es } from "date-fns/locale";
-import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 
 const formSchema = z.object({
@@ -84,6 +84,7 @@ export const LendingFormEdit: React.FC<LendingFormEditProps> = ({
             toast.success(toastMessage);
         } catch (error: any) {
             toast.error("Ocurrió un error inesperado.");
+            console.log(error)
         } finally {
             setLoading(false);
         }
@@ -301,7 +302,7 @@ export const LendingFormEdit: React.FC<LendingFormEditProps> = ({
                                                 </PopoverContent>
                                             </Popover>
                                             <FormDescription>
-                                                Para marcar el libro como 'devuelto', establece la fecha de devolución final.
+                                                Para marcar el libro como &quot;devuelto&quot;, establece la fecha de devolución final.
                                             </FormDescription>
                                             <FormMessage />
                                         </FormItem>

@@ -1,24 +1,25 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
+import { Edit } from "lucide-react";
 import toast from "react-hot-toast";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import axios from "axios";
 
 
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu";
-import { Button, buttonVariants } from "@/components/ui/button";
+// import {
+//     DropdownMenu,
+//     DropdownMenuContent,
+//     DropdownMenuItem,
+//     DropdownMenuLabel,
+//     DropdownMenuTrigger
+// } from "@/components/ui/dropdown-menu";
+import { buttonVariants } from "@/components/ui/button";
 import { LendingColumn } from "./columns";
 import { AlertModal } from "@/components/modals/alert-modal";
 import { TooltipWrapper } from "@/components/ui/tooltip-wrapper";
-import { cn } from "@/lib/utils";
+// import { cn } from "@/lib/utils";
 
 interface CellActionProps {
     data: LendingColumn;
@@ -28,7 +29,7 @@ export const CellAction: React.FC<CellActionProps> = ({
     data
 }) => {
 
-    const params = useParams();
+    // const params = useParams();
     const router = useRouter();
 
     const [loading, setLoading] = useState(false);

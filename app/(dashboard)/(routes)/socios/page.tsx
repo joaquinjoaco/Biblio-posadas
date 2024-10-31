@@ -4,18 +4,13 @@ import prismadb from "@/lib/prismadb";
 import { es } from "date-fns/locale";
 import { MemberColumn } from "./components/columns";
 import { MembersClient } from "./components/client";
-import { ServerOffIcon } from "lucide-react";
 
 
 export const metadata = {
     title: "Socios",
 }
 
-const SociosPage = async ({
-    // params
-}: {
-        // params: {}
-    }) => {
+const SociosPage = async () => {
     // Fetch all books.
     const socios = await prismadb.socio.findMany({
         orderBy: {

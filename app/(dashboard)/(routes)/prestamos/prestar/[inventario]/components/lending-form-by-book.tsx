@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { Libro, Prestamo, Socio } from "@prisma/client";
@@ -8,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 import { Heading } from "@/components/ui/heading";
 import { Button } from "@/components/ui/button";
@@ -59,7 +60,7 @@ export const LendingFormByBookForm: React.FC<LendingFormByBookProps> = ({
     lendings
 }) => {
 
-    const params = useParams();
+    // const params = useParams();
     const router = useRouter();
 
     const [loading, setLoading] = useState(false);

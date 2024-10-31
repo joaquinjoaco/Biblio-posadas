@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { Socio } from "@prisma/client";
 import * as z from "zod";
-import { ArrowLeft, Check, ChevronsUpDown, Trash } from "lucide-react";
+import { ArrowLeft, Check, ChevronsUpDown } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
@@ -23,7 +24,7 @@ import {
     FormMessage
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { AlertModal } from "@/components/modals/alert-modal";
+// import { AlertModal } from "@/components/modals/alert-modal";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { Command, CommandGroup, CommandItem, CommandList } from "@/components/ui/command";
@@ -51,7 +52,7 @@ export const MemberForm: React.FC<MemberFormProps> = ({
     const params = useParams();
     const router = useRouter();
 
-    const [open, setOpen] = useState(false);
+    // const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
 
     const ubicaciones = [
@@ -328,7 +329,7 @@ export const MemberForm: React.FC<MemberFormProps> = ({
                                             Archivado
                                         </FormLabel>
                                         <FormDescription>
-                                            Si el socio desea cancelar o pausar su membresía. Quedará "archivado" y no aparecerá para
+                                            Si el socio desea cancelar o pausar su membresía. Quedará &quot;archivado&quot; y no aparecerá para
                                             ser seleccionado en los préstamos en pos de evitar errores.
                                             Podrás volver a desarchivarlo desde este mismo lugar.
                                         </FormDescription>

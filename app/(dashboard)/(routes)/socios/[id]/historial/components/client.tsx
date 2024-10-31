@@ -1,7 +1,7 @@
 "use client";
 
-import { useParams, useRouter, useSearchParams } from "next/navigation";
-import { ArrowLeft, FileSpreadsheet, Plus } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { ArrowLeft, FileSpreadsheet } from "lucide-react";
 import * as XLSX from 'xlsx';
 
 import { Button } from "@/components/ui/button";

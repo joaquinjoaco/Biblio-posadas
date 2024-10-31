@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextResponse } from "next/server";
 
 import prismadb from "@/lib/prismadb";
 
 export async function PATCH(
     req: Request,
-    { params }: { params: { id: number } } // comes from [id]
+    { params }: { params: { id: string } } // comes from [id]
 ) {
 
     try {

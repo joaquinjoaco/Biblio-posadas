@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { FileSpreadsheet, Plus } from "lucide-react";
 import * as XLSX from 'xlsx';
 
@@ -20,7 +20,7 @@ export const BooksClient: React.FC<BooksClientProps> = ({
 }) => {
 
     const router = useRouter();
-    const params = useParams();
+    // const params = useParams();
 
     const generateSheet = () => {
         // Function to convert an array of objects to a worksheet.

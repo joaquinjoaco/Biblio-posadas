@@ -9,6 +9,7 @@ interface ListItemBigProps {
     title: string;
     href: string;
     children: React.ReactNode;
+    // eslint-disable-next-line
     icon: any;
 }
 
