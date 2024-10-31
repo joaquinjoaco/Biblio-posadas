@@ -10,23 +10,19 @@ import { Separator } from "@/components/ui/separator";
 
 import { LendingColumn, columns } from "./columns";
 import { LendingsDataTable } from "@/components/ui/lendings-data-table";
+import { Socio } from "@prisma/client";
 
-interface LendingsClientProps {
+interface MemberHistoryClientProps {
     data: LendingColumn[];
+    member: Socio | null;
 }
 
-export const LendingsClient: React.FC<LendingsClientProps> = ({
-    data
+export const MemberHistoryClient: React.FC<MemberHistoryClientProps> = ({
+    data,
+    member
 }) => {
 
     const router = useRouter();
-    const searchParams = useSearchParams();
-
-    const status = searchParams.get('status')
-    // const title = status === 'activos' ? `Préstamos activos (${data.length})`
-    //     : status === 'vencidos' ? `Préstamos vencidos (${data.length})`
-    //         : status === 'devueltos' ? `Préstamos devueltos (${data.length})`
-    //             : `Préstamos (${data.length})`
 
     const generateSheet = () => {
         // Function to convert an array of objects to a worksheet.
@@ -58,8 +54,8 @@ export const LendingsClient: React.FC<LendingsClientProps> = ({
         <>
             <div className="flex items-center justify-between sticky top-0 z-10 bg-background py-4">
                 <Heading
-                    title={`Préstamos ${status || ""} (${data.length})`}
-                    description="Administra los préstamos de la biblioteca"
+                    title={`Préstamos de ${member?.nombre} ${member?.apellido} (${data.length})`}
+                    description="Historial de los préstamos del socio"
                 />
                 <div className="flex gap-x-2">
                     <Button disabled={data.length === 0} onClick={() => generateSheet()} className="bg-[#107C41] hover:bg-[#1d6e42] dark:text-foreground" >

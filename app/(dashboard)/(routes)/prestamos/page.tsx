@@ -26,10 +26,6 @@ const LendingsPage = async (
             },
             orderBy: {
                 createdAt: 'desc'
-            },
-            include: {
-                libro: true,
-                socio: true,
             }
         });
     } else if (searchParams.status === 'vencidos') {
@@ -44,10 +40,6 @@ const LendingsPage = async (
             },
             orderBy: {
                 createdAt: 'desc'
-            },
-            include: {
-                libro: true,
-                socio: true,
             }
         });
     } else if (searchParams.status === 'devueltos') {
@@ -60,10 +52,6 @@ const LendingsPage = async (
             },
             orderBy: {
                 createdAt: 'desc'
-            },
-            include: {
-                libro: true,
-                socio: true,
             }
         });
     } else {
@@ -71,10 +59,6 @@ const LendingsPage = async (
         lendings = await prismadb.prestamo.findMany({
             orderBy: {
                 createdAt: 'desc'
-            },
-            include: {
-                libro: true,
-                socio: true,
             }
         });
     }
@@ -83,8 +67,8 @@ const LendingsPage = async (
 
     const formattedLendings: LendingColumn[] = lendings.map((lending) => ({
         "Nº de préstamo": lending.id.toString(),
-        inventario: lending.libro.inventario.toString(),
-        socio: lending.socio.id.toString(),
+        inventario: lending.idLibro.toString(),
+        socio: lending.idSocio.toString(),
         efectuado: format(lending.fechaPrestado, "dd MMMM, yyyy", { locale: es }),
         "Vencimiento": format(lending.fechaDevolucionEstipulada, "dd MMMM, yyyy", { locale: es }),
         "Devolución": lending.fechaDevolucionFinal ? format(lending.fechaDevolucionFinal, "dd MMMM, yyyy", { locale: es })

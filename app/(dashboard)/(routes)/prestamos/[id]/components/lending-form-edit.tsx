@@ -119,7 +119,7 @@ export const LendingFormEdit: React.FC<LendingFormEditProps> = ({
                             disabled={false}
                             variant="secondary"
                             // size="sm"
-                            onClick={() => router.push(`/libros`)}
+                            onClick={() => router.back()}
                             type="button"
                         >
                             <ArrowLeft className="h-4 w-4 mr-2" />

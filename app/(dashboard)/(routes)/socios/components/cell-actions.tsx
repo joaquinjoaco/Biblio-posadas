@@ -1,6 +1,6 @@
 "use client";
 
-import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
+import { Copy, Edit, Handshake, MoreHorizontal, Trash } from "lucide-react";
 import toast from "react-hot-toast";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
@@ -87,6 +87,10 @@ export const CellAction: React.FC<CellActionProps> = ({
                         <Copy className="mr-2 h-4 w-4" />
                         Copiar ID del socio
                     </DropdownMenuItem> */}
+                    <DropdownMenuItem onClick={() => router.push(`/socios/${data.id}/historial`)}>
+                        <Handshake className="mr-2 h-4 w-4" />
+                        Prestamos del socio
+                    </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => router.push(`/socios/${data.id}`)}>
                         <Edit className="mr-2 h-4 w-4" />
                         Editar
