@@ -3,13 +3,16 @@ import { NextResponse } from "next/server";
 
 import prismadb from "@/lib/prismadb";
 
+type Params = Promise<{ id: string }>
+
 export async function PATCH(
     req: Request,
-    { params }: { params: { id: string } } // comes from [id]
+    segmentData: { params: Params }
 ) {
 
     try {
-        const id = Number(params.id);
+        const params = await segmentData.params
+        const id = params.id
         // Check for the id.
         if (!id) {
             return new NextResponse("id is required", { status: 400 });
@@ -35,7 +38,7 @@ export async function PATCH(
 
         const lending = await prismadb.prestamo.update({
             where: {
-                id: id,
+                id: Number(id),
             },
             data: {
                 fechaPrestado: fechaPrestado,

@@ -2,14 +2,16 @@
 import { NextResponse } from "next/server";
 
 import prismadb from "@/lib/prismadb";
+type Params = Promise<{ id: string }>
 
 export async function PATCH(
     req: Request,
-    { params }: { params: { id: string } } // comes from [id]
+    segmentData: { params: Params }
 ) {
 
     try {
-        const id = Number(params.id);
+        const params = await segmentData.params
+        const id = params.id
         // Check for the id.
         if (!id) {
             return new NextResponse("member id is required", { status: 400 });
@@ -54,7 +56,7 @@ export async function PATCH(
 
         const socio = await prismadb.socio.update({
             where: {
-                id: id,
+                id: Number(id),
             },
             data: {
                 nombre,
@@ -79,11 +81,13 @@ export async function PATCH(
 
 export async function DELETE(
     _req: Request, // we won't use it, but the params must be in second argument of the function, we still need to add req even if we wont use it.
-    { params }: { params: { id: number } }
+    segmentData: { params: Params }
 ) {
 
     try {
-        const id = Number(params.id);
+        const params = await segmentData.params
+        const id = params.id
+
         // Check for the id.
         if (!id) {
             return new NextResponse("member id is required", { status: 400 });
@@ -91,7 +95,7 @@ export async function DELETE(
 
         const socio = await prismadb.socio.deleteMany({
             where: {
-                id: id,
+                id: Number(id),
             }
         });
 

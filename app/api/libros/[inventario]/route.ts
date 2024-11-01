@@ -2,42 +2,18 @@
 import { NextResponse } from "next/server";
 
 import prismadb from "@/lib/prismadb";
-// import { Params } from "next/dist/server/request/params";
 
-// export async function GET(
-//     _req: Request, // we won't use it, but the params must be in second argument of the function, we still need to add req even if we wont use it.
-//     { params }: { params: { inventario: number } }
-// ) {
-
-//     try {
-
-//         const inventario = Number(params.inventario);
-// Check for the inventario.
-// if (!inventario) {
-//     return new NextResponse("inventario is required", { status: 400 });
-// }
-//         const book = await prismadb.libro.findUnique({
-//             where: {
-//                 inventario: inventario,
-//             },
-//         });
-
-//         return NextResponse.json(book);
-//     } catch (error) {
-//         console.log('[LIBROS_GET]', error);
-//         return new NextResponse("Internal error", { status: 500 });
-//     }
-// }
-
+type Params = Promise<{ inventario: string }>
 
 
 export async function PATCH(
     req: Request,
-    { params }: { params: { inventario: string } } // comes from [inventario]
+    segmentData: { params: Params } // comes from [inventario]
 ) {
 
     try {
-        const inventario = Number(params.inventario);
+        const params = await segmentData.params
+        const inventario = params.inventario
         // Check for the inventario.
         if (!inventario) {
             return new NextResponse("inventario is required", { status: 400 });
@@ -84,7 +60,7 @@ export async function PATCH(
         // We update the whole product and delete its images.
         const book = await prismadb.libro.update({
             where: {
-                inventario: inventario,
+                inventario: Number(inventario),
             },
             data: {
                 colocacion,
@@ -109,23 +85,19 @@ export async function PATCH(
 
 export async function DELETE(
     _req: Request, // we won't use it, but the params must be in second argument of the function, we still need to add req even if we wont use it.
-    { params }: { params: { inventario: string } }
-    // segmentData: { params: Params }
+    segmentData: { params: Params }
 ) {
 
     try {
-        const inventario = Number(params.inventario);
-        // const params = await segmentData.params
-        // const inventario = params.inventario
-        // Check for the inventario.
+        const params = await segmentData.params
+        const inventario = params.inventario
         if (!inventario) {
             return new NextResponse("inventario is required", { status: 400 });
         }
 
         const book = await prismadb.libro.deleteMany({
             where: {
-                inventario: inventario,
-                // inventario: Number(inventario),
+                inventario: Number(inventario),
             }
         });
 

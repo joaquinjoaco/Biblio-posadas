@@ -5,7 +5,6 @@ import { GeistSans } from "geist/font/sans";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ToasterProvider } from "@/providers/toast-provider";
 
-
 export const metadata: Metadata = {
   title: "Biblioteca",
   description: "Biblioteca Social del Parque Posadas",
