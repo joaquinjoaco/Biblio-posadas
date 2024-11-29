@@ -19,7 +19,7 @@ CREATE TABLE "Libro" (
 );
 
 -- Set the starting value for the sequence
-ALTER SEQUENCE "Libro_inventario_seq" RESTART WITH 35086;
+ALTER SEQUENCE "Libro_inventario_seq" RESTART WITH 35125;
 
 -- CreateTable
 CREATE TABLE "Socio" (

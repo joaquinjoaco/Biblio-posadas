@@ -43,15 +43,15 @@ export function MainNav({
         },
     ];
 
-    const books = [
-        {
-            href: `/libros/lended=true`,
-            label: 'Libros prestados',
-            // active: pathname === ,
-            desc: 'Vista de los libros que se encuentran prestados.',
-            icon: <BookLock className="h-4 w-4" />,
-        },
-    ];
+    // const books = [
+    //     {
+    //         href: `/libros?lended=true`,
+    //         label: 'Libros prestados',
+    //         // active: pathname === ,
+    //         desc: 'Vista de los libros que se encuentran prestados.',
+    //         icon: <BookLock className="h-4 w-4" />,
+    //     },
+    // ];
 
     // members
     const membersBig = [
@@ -148,7 +148,7 @@ export function MainNav({
                                         {route.desc}
                                     </ListItemBig>
                                 ))}
-                                {books.map((route) => (
+                                {/* {books.map((route) => (
                                     <ListItem
                                         key={route.label}
                                         title={route.label}
@@ -157,7 +157,7 @@ export function MainNav({
                                     >
                                         {route.desc}
                                     </ListItem>
-                                ))}
+                                ))} */}
                             </ul>
                         </NavigationMenuContent>
                     </NavigationMenuItem>
