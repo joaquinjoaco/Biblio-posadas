@@ -79,7 +79,7 @@ export const LendingFormEdit: React.FC<LendingFormEditProps> = ({
             setLoading(true);
             await axios.patch(`/api/prestamos/${initialData?.id}`, data);
 
-            router.back();
+            router.push('/prestamos');
             router.refresh(); // Refresh the component so it refetches the patched data.
             toast.success(toastMessage);
         } catch (error: any) {

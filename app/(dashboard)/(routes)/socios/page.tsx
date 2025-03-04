@@ -4,6 +4,7 @@ import prismadb from "@/lib/prismadb";
 import { es } from "date-fns/locale";
 import { MemberColumn } from "./components/columns";
 import { MembersClient } from "./components/client";
+import { Header } from "@/components/ui/header";
 
 
 export const metadata = {
@@ -33,12 +34,22 @@ const SociosPage = async () => {
         actualizado: format(socio.updatedAt, "dd MMMM, yyyy", { locale: es })
     }));
 
+    const breadcrumbs = [
+        {
+            name: `Socios`,
+            url: '/socios'
+        }
+    ]
     return (
-        <div className="flex-col">
-            <div className="flex-1 space-y-4 p-8 pt-6">
-                <MembersClient data={formattedMembers} />
+        <>
+            {/* Header with breadcrumbs and Sidebar trigger */}
+            <Header breadcrumbs={breadcrumbs} withSideBarTrigger />
+            <div className="flex-col">
+                <div className="flex-1 space-y-4 p-8 pt-6">
+                    <MembersClient data={formattedMembers} />
+                </div>
             </div>
-        </div>
+        </>
     );
 }
 

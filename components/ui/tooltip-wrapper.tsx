@@ -8,6 +8,7 @@ interface TooltipWrapperProps {
     children: React.ReactNode;
     content: React.ReactNode;
     icon?: React.ReactNode;
+    side?: "left" | "right" | "top" | "bottom" | undefined;
     className?: string;
 }
 
@@ -15,14 +16,15 @@ export const TooltipWrapper: React.FC<TooltipWrapperProps> = ({
     children,
     content,
     icon,
+    side,
     className,
 }) => {
     return (
         <Tooltip>
-            <TooltipTrigger>
+            <TooltipTrigger asChild>
                 {children}
             </TooltipTrigger>
-            <TooltipContent className={className}>
+            <TooltipContent side={side} className={className}>
                 {icon} {content}
             </TooltipContent>
         </Tooltip>

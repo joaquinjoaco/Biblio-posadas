@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
 import React from "react"
@@ -9,7 +10,6 @@ interface ListItemProps {
     title: string;
     href: string;
     children: React.ReactNode;
-    // eslint-disable-next-line
     icon: any;
 }
 

@@ -66,7 +66,7 @@ export function LendingsDataTable<TData, TValue>({
                 >
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <div className={buttonVariants({ variant: "default" })} >
+                            <div className={buttonVariants({ variant: "default", className: "cursor-pointer" })} >
                                 <Filter className="w-6 h-6 mr-2" /> {capitalizeFirstLetter(selectedColumn) || "Filtro"}
                             </div>
                         </DropdownMenuTrigger>
@@ -101,7 +101,7 @@ export function LendingsDataTable<TData, TValue>({
                     {/* Had to use a div because TooltipTrigger is also a button and buttons are not to be nested on eachother */}
                     <div
                         onClick={() => { window.location.reload() }}
-                        className={buttonVariants({ variant: "outline", size: "icon" })}
+                        className={buttonVariants({ variant: "outline", size: "icon", className: "cursor-pointer" })}
                     >
                         <ListRestartIcon className="h-6 w-6" />
                     </div>

@@ -57,7 +57,7 @@ export async function PATCH(
         }
 
 
-        // We update the whole product and delete its images.
+        // We update the book.
         const book = await prismadb.libro.update({
             where: {
                 inventario: Number(inventario),

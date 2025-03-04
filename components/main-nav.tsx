@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { BookLock, BookPlus, BookUp2, Handshake, LibraryBig, NotebookText, Timer, UserPlus, Users } from "lucide-react";
+import { BookPlus, BookUp2, Handshake, LibraryBig, NotebookText, Timer, UserPlus, Users } from "lucide-react";
 import { useEffect, useState } from "react";
 
 // local imports.
@@ -123,7 +123,6 @@ export function MainNav({
         >
             <NavigationMenu>
                 <NavigationMenuList>
-
                     {/* Panel */}
                     <NavigationMenuItem>
                         <Link href={panel.href} legacyBehavior passHref>

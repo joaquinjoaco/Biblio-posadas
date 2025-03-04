@@ -1,5 +1,6 @@
 import prismadb from "@/lib/prismadb";
 import { LendingFormByBookForm } from "./components/lending-form-by-book";
+import { Header } from "@/components/ui/header";
 
 const BookPage = async (
     props: {
@@ -41,12 +42,30 @@ const BookPage = async (
     // check if the book is currently lended, we can tell by the results given by the query.
     const lended = lendings.length !== 0;
 
+    const breadcrumbs = [
+        {
+            name: `Libros`,
+            url: '/libros'
+        },
+        {
+            name: `Préstamos`,
+            url: '/prestamos'
+        },
+        {
+            name: `Prestar`,
+            url: `/prestamos/prestar/${inventario}`
+        }
+    ]
     return (
-        <div className="flex-col">
-            <div className="flex-1 space-y-4 p-8 pt-6">
-                <LendingFormByBookForm book={book} members={members} lended={lended} lendings={lendings} />
+        <>
+            {/* Header with breadcrumbs and Sidebar trigger */}
+            <Header breadcrumbs={breadcrumbs} withSideBarTrigger />
+            <div className="flex-col">
+                <div className="flex-1 space-y-4 p-8 pt-6">
+                    <LendingFormByBookForm book={book} members={members} lended={lended} lendings={lendings} />
+                </div>
             </div>
-        </div>
+        </>
     );
 }
 

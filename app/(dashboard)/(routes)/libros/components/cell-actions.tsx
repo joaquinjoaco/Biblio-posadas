@@ -67,7 +67,7 @@ export const CellAction: React.FC<CellActionProps> = ({
                 onClose={() => setOpen(false)}
                 onConfirm={onDelete}
                 loading={loading}
-                title="Eliminar libro?"
+                title="¿Eliminar libro?"
                 description="Se eliminará el libro, esta acción es destructiva y no se puede deshacer."
                 buttonMessage="Confirmar"
             />
@@ -76,7 +76,7 @@ export const CellAction: React.FC<CellActionProps> = ({
                 className="flex flex-row items-center gap-x-2"
             >
                 <div
-                    className={cn("inline-flex justify-center items-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10", data.isArchived ? "pointer-events-none opacity-50" : "")}
+                    className={cn("cursor-pointer inline-flex justify-center items-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10", data.isArchived ? "pointer-events-none opacity-50" : "")}
                     onClick={() => router.push(`/prestamos/prestar/${data.inventario}`)}
                 >
                     {/* accesibility fature, screenreaders only 'Prestar libro' */}
@@ -84,8 +84,12 @@ export const CellAction: React.FC<CellActionProps> = ({
                     <Handshake className="h-9 w-9 p-2 hover:bg-accent rounded-md transition-all" />
                 </div>
             </TooltipWrapper>
-
-            <DropdownMenu>
+            {/* 
+            When opening a modal from a Dropdown menu shit will 'freeze' for some reason after closing the modal.
+            Setting modal={false} on Dropdown menu root keeps shit dancing
+            https://github.com/shadcn-ui/ui/issues/1912#:~:text=Adding%20modal%3D%7Bfalse%7D%20on%20dropdown%20menu%20root%20worked%20for%20me!
+             */}
+            <DropdownMenu modal={false}>
                 <DropdownMenuTrigger asChild>
                     <Button variant="ghost" className="h-8 w-8 p-0">
                         {/* accesibility fature, screenreaders only 'open menu' */}

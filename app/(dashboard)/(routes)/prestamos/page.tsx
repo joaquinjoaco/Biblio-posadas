@@ -4,6 +4,7 @@ import prismadb from "@/lib/prismadb";
 import { es } from "date-fns/locale";
 import { LendingColumn } from "./components/columns";
 import { LendingsClient } from "./components/client";
+import { Header } from "@/components/ui/header";
 
 
 export const metadata = {
@@ -15,6 +16,7 @@ const LendingsPage = async (
         searchParams: Promise<{ status: string }>
     }
 ) => {
+
     const searchParams = await props.searchParams;  // From Next 15 on, params API is now asynchronous (https://nextjs.org/docs/messages/sync-dynamic-apis).
     let lendings;
 
@@ -78,13 +80,23 @@ const LendingsPage = async (
     }));
 
 
+    const breadcrumbs = [
+        {
+            name: `Préstamos ${searchParams.status || ''}`,
+            url: searchParams.status ? `/prestamos?status=${searchParams.status}` : '/prestamos'
+        }
+    ]
 
     return (
-        <div className="flex-col">
-            <div className="flex-1 space-y-4 p-8 pt-6">
-                <LendingsClient data={formattedLendings} />
+        <>
+            {/* Header with breadcrumbs and Sidebar trigger */}
+            <Header breadcrumbs={breadcrumbs} withSideBarTrigger />
+            <div className="flex-col">
+                <div className="flex-1 space-y-4 p-8 pt-6">
+                    <LendingsClient data={formattedLendings} />
+                </div>
             </div>
-        </div>
+        </>
     );
 }
 

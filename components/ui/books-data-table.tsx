@@ -17,7 +17,7 @@ import {
     useReactTable,
 } from "@tanstack/react-table";
 import { TooltipWrapper } from "./tooltip-wrapper";
-import { capitalizeFirstLetter } from "@/lib/utils";
+import { capitalizeFirstLetter, cn } from "@/lib/utils";
 
 interface BooksDataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
@@ -70,7 +70,7 @@ export function BooksDataTable<TData, TValue>({
                 >
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <div className={buttonVariants({ variant: "default" })} >
+                            <div className={cn(buttonVariants({ variant: "default" }), "cursor-pointer")} >
                                 <Filter className="w-6 h-6 mr-2" /> {capitalizeFirstLetter(selectedColumn) || "Filtro"}
                             </div>
                         </DropdownMenuTrigger>
@@ -104,7 +104,7 @@ export function BooksDataTable<TData, TValue>({
                     {/* Had to use a div because TooltipTrigger is also a button and buttons are not to be nested on eachother */}
                     <div
                         onClick={() => { window.location.reload() }}
-                        className={buttonVariants({ variant: "outline", size: "icon" })}
+                        className={cn(buttonVariants({ variant: "outline", size: "icon" }), "cursor-pointer")}
                     >
                         <ListRestartIcon className="h-6 w-6" />
                     </div>

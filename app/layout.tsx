@@ -4,6 +4,8 @@ import { ThemeProvider } from "@/providers/theme-provider";
 import { GeistSans } from "geist/font/sans";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ToasterProvider } from "@/providers/toast-provider";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/app-sidebar";
 
 export const metadata: Metadata = {
   title: "Biblioteca",
@@ -23,8 +25,13 @@ export default function RootLayout({
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <TooltipProvider delayDuration={100}>
-            <ToasterProvider />
-            {children}
+            <SidebarProvider>
+              <AppSidebar fantasyName={"Biblioteca"} companyName={"Parque posadas"} />
+              <SidebarInset>
+                <ToasterProvider />
+                {children}
+              </SidebarInset>
+            </SidebarProvider>
           </TooltipProvider>
         </ThemeProvider>
       </body>

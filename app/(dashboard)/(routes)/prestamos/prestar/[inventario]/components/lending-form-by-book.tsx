@@ -132,6 +132,9 @@ export const LendingFormByBookForm: React.FC<LendingFormByBookProps> = ({
                             <Badge variant="secondary">ID del préstamo: {lendings[0].id}</Badge>
                         </div>
                         <div className="mt-4">
+                            <Link className="underline" href={`/prestamos/${lendings[0].id}`}>Ver préstamo</Link>
+                        </div>
+                        <div className="mt-4">
                             <Link className="underline" href='/libros'>Volver al listado de libros</Link>
                         </div>
                     </div>
