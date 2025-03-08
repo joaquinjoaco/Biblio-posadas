@@ -74,7 +74,7 @@ const LendingsPage = async (
         efectuado: format(lending.fechaPrestado, "dd MMMM, yyyy", { locale: es }),
         "Vencimiento": format(lending.fechaDevolucionEstipulada, "dd MMMM, yyyy", { locale: es }),
         "Devolución": lending.fechaDevolucionFinal ? format(lending.fechaDevolucionFinal, "dd MMMM, yyyy", { locale: es })
-            : today > lending.fechaDevolucionEstipulada ? "VENCIDO" : "ACTIVO",
+            : today > lending.fechaDevolucionEstipulada ? "VENCIDO" : "PENDIENTE",
         registro: format(lending.createdAt, "dd MMMM, yyyy", { locale: es }),
         actualizado: format(lending.updatedAt, "dd MMMM, yyyy", { locale: es })
     }));

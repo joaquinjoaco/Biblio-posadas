@@ -63,6 +63,10 @@ export const LendingFormEdit: React.FC<LendingFormEditProps> = ({
     const toastMessage = "Préstamo actualizado";
     const action = "Editar préstamo";
 
+    const today = new Date()
+    const lendingStatus = initialData ?
+        initialData?.fechaDevolucionFinal ? "devuelto" : today < initialData.fechaDevolucionEstipulada ? "pendiente" : "vencido" : ""
+
     const defaultValues = {
         fechaPrestado: initialData?.fechaPrestado,
         fechaDevolucionEstipulada: initialData?.fechaDevolucionEstipulada,
@@ -109,10 +113,25 @@ export const LendingFormEdit: React.FC<LendingFormEditProps> = ({
             :
             <>
                 <div className="flex items-center justify-between sticky top-0 z-10 bg-background py-4">
-                    <Heading
-                        title={title}
-                        description={description}
-                    />
+                    <div className="space-y-4">
+                        <Heading
+                            title={title}
+                            description={description}
+                        />
+                        {initialData.fechaDevolucionFinal ?
+                            <Badge variant={"devuelto"} className="max-w-fit">
+                                <p>
+                                    DEVUELTO ({format(initialData.fechaDevolucionFinal, "dd MMMM, yyyy", { locale: es })})
+                                </p>
+                            </Badge>
+                            :
+                            <Badge variant={lendingStatus as "pendiente" | "vencido"} className="max-w-fit">
+                                <p>
+                                    {lendingStatus.toUpperCase()}
+                                </p>
+                            </Badge>
+                        }
+                    </div>
 
                     <div className="flex gap-x-2">
                         {/* Back button */}

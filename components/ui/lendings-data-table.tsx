@@ -31,7 +31,7 @@ export function LendingsDataTable<TData, TValue>({
     const [sorting, setSorting] = useState<SortingState>([]);
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-    const [selectedColumn, setSelectedColumn] = useState<string>(columns[0]?.id || "Nº de préstamo"); // Default to the first column
+    const [selectedColumn, setSelectedColumn] = useState<string>(columns[1]?.id || "Nº de préstamo"); // Default to the second column (because the first one has cellActions)
 
     const table = useReactTable({
         data,

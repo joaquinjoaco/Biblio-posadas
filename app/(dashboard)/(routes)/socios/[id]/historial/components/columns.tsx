@@ -19,6 +19,10 @@ export type LendingColumn = {
 
 export const columns: ColumnDef<LendingColumn>[] = [
     {
+        id: "actions",
+        cell: ({ row }) => <CellAction data={row.original} />
+    },
+    {
         accessorKey: "Nº de préstamo",
         header: ({ column }) => {
             return (
@@ -103,8 +107,8 @@ export const columns: ColumnDef<LendingColumn>[] = [
         },
         cell: ({ row }) => row.original["Devolución"] === "VENCIDO" ?
             <Badge variant="vencido">VENCIDO</Badge>
-            : row.original["Devolución"] === "ACTIVO" ?
-                <Badge variant="activo">PENDIENTE</Badge>
+            : row.original["Devolución"] === "PENDIENTE" ?
+                <Badge variant="pendiente">PENDIENTE</Badge>
                 :
                 <Badge variant="devuelto">{row.original["Devolución"]}</Badge>
     },
@@ -135,9 +139,5 @@ export const columns: ColumnDef<LendingColumn>[] = [
                 </Button>
             )
         },
-    },
-    {
-        id: "actions",
-        cell: ({ row }) => <CellAction data={row.original} />
     }
 ]

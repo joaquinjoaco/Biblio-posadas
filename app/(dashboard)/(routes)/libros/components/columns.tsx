@@ -22,6 +22,10 @@ export type BookColumn = {
 
 export const columns: ColumnDef<BookColumn>[] = [
     {
+        id: "actions",
+        cell: ({ row }) => <CellAction data={row.original} />,
+    },
+    {
         accessorKey: "inventario",
         header: ({ column }) => {
             return (
@@ -146,9 +150,5 @@ export const columns: ColumnDef<BookColumn>[] = [
                 </Button>
             )
         },
-    },
-    {
-        id: "actions",
-        cell: ({ row }) => <CellAction data={row.original} />
     }
 ]

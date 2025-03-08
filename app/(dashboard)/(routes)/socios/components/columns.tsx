@@ -22,6 +22,10 @@ export type MemberColumn = {
 
 export const columns: ColumnDef<MemberColumn>[] = [
     {
+        id: "actions",
+        cell: ({ row }) => <CellAction data={row.original} />
+    },
+    {
         accessorKey: "id",
         header: ({ column }) => {
             return (
@@ -146,9 +150,5 @@ export const columns: ColumnDef<MemberColumn>[] = [
                 </Button>
             )
         },
-    },
-    {
-        id: "actions",
-        cell: ({ row }) => <CellAction data={row.original} />
     }
 ]

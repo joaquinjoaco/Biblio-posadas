@@ -71,19 +71,7 @@ export const CellAction: React.FC<CellActionProps> = ({
                 description="Se eliminará el libro, esta acción es destructiva y no se puede deshacer."
                 buttonMessage="Confirmar"
             />
-            <TooltipWrapper
-                content={data.isArchived ? "Libro archivado" : "Prestar libro"}
-                className="flex flex-row items-center gap-x-2"
-            >
-                <div
-                    className={cn("cursor-pointer inline-flex justify-center items-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10", data.isArchived ? "pointer-events-none opacity-50" : "")}
-                    onClick={() => router.push(`/prestamos/prestar/${data.inventario}`)}
-                >
-                    {/* accesibility fature, screenreaders only 'Prestar libro' */}
-                    <span className="sr-only">Prestar libro</span>
-                    <Handshake className="h-9 w-9 p-2 hover:bg-accent rounded-md transition-all" />
-                </div>
-            </TooltipWrapper>
+
             {/* 
             When opening a modal from a Dropdown menu shit will 'freeze' for some reason after closing the modal.
             Setting modal={false} on Dropdown menu root keeps shit dancing
@@ -119,9 +107,22 @@ export const CellAction: React.FC<CellActionProps> = ({
                         Eliminar
                     </DropdownMenuItem>
                 </DropdownMenuContent>
-
             </DropdownMenu>
 
+
+            <TooltipWrapper
+                content={data.isArchived ? "Libro archivado" : "Prestar libro"}
+                className="flex flex-row items-center gap-x-2"
+            >
+                <div
+                    className={cn("cursor-pointer inline-flex justify-center items-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10", data.isArchived ? "pointer-events-none opacity-50" : "")}
+                    onClick={() => router.push(`/prestamos/prestar/${data.inventario}`)}
+                >
+                    {/* accesibility fature, screenreaders only 'Prestar libro' */}
+                    <span className="sr-only">Prestar libro</span>
+                    <Handshake className="h-9 w-9 p-2 hover:bg-accent rounded-md transition-all" />
+                </div>
+            </TooltipWrapper>
         </div>
     );
 };

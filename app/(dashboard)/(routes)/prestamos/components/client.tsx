@@ -56,7 +56,7 @@ export const LendingsClient: React.FC<LendingsClientProps> = ({
 
     return (
         <>
-            <div className="flex items-center justify-between sticky top-0 z-10 bg-background py-4">
+            <div className="flex items-center space-x-16 2xl:space-x-0 2xl:justify-between sticky top-0 z-10 bg-background py-4">
                 <Heading
                     title={`Préstamos ${status || ""} (${data.length})`}
                     description="Administra los préstamos de la biblioteca"

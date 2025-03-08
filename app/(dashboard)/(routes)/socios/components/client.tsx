@@ -52,7 +52,7 @@ export const MembersClient: React.FC<MembersClientProps> = ({
 
     return (
         <>
-            <div className="flex items-center justify-between sticky top-0 z-10 bg-background py-4">
+            <div className="flex items-center space-x-16 2xl:space-x-0 2xl:justify-between sticky top-0 z-10 bg-background py-4">
                 <Heading
                     title={`Socios (${data.length})`}
                     description="Administra los socios de la biblioteca"

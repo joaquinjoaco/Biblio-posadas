@@ -52,7 +52,7 @@ export const MemberHistoryClient: React.FC<MemberHistoryClientProps> = ({
 
     return (
         <>
-            <div className="flex items-center justify-between sticky top-0 z-10 bg-background py-4">
+            <div className="flex items-center space-x-16 2xl:space-x-0 2xl:justify-between sticky top-0 z-10 bg-background py-4">
                 <Heading
                     title={`Préstamos de ${member?.nombre} ${member?.apellido} (${data.length})`}
                     description="Historial de los préstamos del socio"

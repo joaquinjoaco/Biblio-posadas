@@ -116,7 +116,7 @@ export function AppSidebar({ fantasyName, companyName, ...props }: AppSidebarPro
 
     return (
         <>
-            <Sidebar variant="inset" className="z-20" {...props}>
+            <Sidebar variant="sidebar" className="z-20" {...props}>
                 <SidebarHeader>
                     <SidebarMenu>
                         <SidebarMenuItem>

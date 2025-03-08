@@ -69,7 +69,7 @@ export const CellAction: React.FC<CellActionProps> = ({
                 className="flex flex-row items-center gap-x-2"
             >
                 <div
-                    className={buttonVariants({ variant: "outline", size: "icon" })}
+                    className={buttonVariants({ variant: "outline", size: "icon", className: "cursor-pointer" })}
                     onClick={() => router.push(`/prestamos/${data["Nº de préstamo"]}`)}
                 >
                     {/* accesibility fature, screenreaders only 'Prestar libro' */}
