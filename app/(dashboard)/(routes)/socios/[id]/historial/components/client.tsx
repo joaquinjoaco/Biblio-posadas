@@ -23,6 +23,7 @@ export const MemberHistoryClient: React.FC<MemberHistoryClientProps> = ({
 }) => {
 
     const router = useRouter();
+    document.title = `${member?.nombre} ${member?.apellido}`; // Set the document title.
 
     const generateSheet = () => {
         // Function to convert an array of objects to a worksheet.

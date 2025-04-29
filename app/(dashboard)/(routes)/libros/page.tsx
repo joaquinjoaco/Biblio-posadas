@@ -4,8 +4,6 @@ import prismadb from "@/lib/prismadb";
 import { BooksClient } from "./components/client";
 import { BookColumn } from "./components/columns";
 import { es } from "date-fns/locale";
-import { Header } from "@/components/ui/header";
-
 
 export const metadata = {
     title: "Libros",
@@ -34,16 +32,8 @@ const BooksPage = async () => {
         actualizado: format(book.updatedAt, "dd MMMM, yyyy", { locale: es })
     }));
 
-    const breadcrumbs = [
-        {
-            name: 'Libros',
-            url: '/libros'
-        }
-    ]
     return (
         <>
-            {/* Header with breadcrumbs and Sidebar trigger */}
-            <Header breadcrumbs={breadcrumbs} withSideBarTrigger />
             <div className="flex-col">
                 <div className="flex-1 space-y-4 p-8 pt-6">
                     <BooksClient data={formattedBooks} />

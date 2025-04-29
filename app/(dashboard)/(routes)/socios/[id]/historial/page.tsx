@@ -4,8 +4,6 @@ import prismadb from "@/lib/prismadb";
 import { es } from "date-fns/locale";
 import { LendingColumn } from "../../../prestamos/components/columns";
 import { MemberHistoryClient } from "./components/client";
-import { Header } from "@/components/ui/header";
-
 
 export const metadata = {
     title: "Historial",
@@ -46,20 +44,8 @@ const MemberHistoryPage = async (
         actualizado: format(lending.updatedAt, "dd MMMM, yyyy", { locale: es })
     }));
 
-    const breadcrumbs = [
-        {
-            name: `Socios`,
-            url: '/socios'
-        },
-        {
-            name: `Préstamos de ${member?.nombre} ${member?.apellido}`,
-            url: `/socios/${id}/historial`
-        }
-    ]
     return (
         <>
-            {/* Header with breadcrumbs and Sidebar trigger */}
-            <Header breadcrumbs={breadcrumbs} withSideBarTrigger />
             <div className="flex-col">
                 <div className="flex-1 space-y-4 p-8 pt-6t">
                     <MemberHistoryClient data={formattedLendings} member={member} />

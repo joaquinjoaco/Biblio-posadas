@@ -2,7 +2,6 @@ import { getBooksCount } from "@/actions/get-books-count";
 import { getLendingsCount } from "@/actions/get-lendings-count";
 import { getMembersCount } from "@/actions/get-members-count";
 import CountCard from "@/components/ui/count-card";
-import { Header } from "@/components/ui/header";
 import { TooltipWrapper } from "@/components/ui/tooltip-wrapper";
 import { ArrowUpRight, Book, BookUp2, Handshake, Timer, User } from "lucide-react";
 import Link from "next/link";
@@ -15,16 +14,9 @@ const DashboardPage = async () => {
     const expiredLendingsCount = await getLendingsCount("vencidos")
     const activeLendingsCount = await getLendingsCount("activos")
     const returnedLendingsCount = await getLendingsCount("devueltos")
-    const breadcrumbs = [
-        {
-            name: `Panel`,
-            url: '/'
-        }
-    ]
+
     return (
         <>
-            {/* Header with breadcrumbs and Sidebar trigger */}
-            <Header breadcrumbs={breadcrumbs} withSideBarTrigger />
             <div className="flex flex-col sm:flex-row gap-x-8 p-8 mt-8">
                 <div className="flex flex-col gap-y-8">
                     <TooltipWrapper
