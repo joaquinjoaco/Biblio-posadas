@@ -30,7 +30,7 @@ model Libro {
 
 model Socio {
   id        Int       @id @default(autoincrement()) // No se debe poder editar.
-  ci        Int       @unique
+  ci        Int?      @unique
   nombre    String
   apellido  String
   direccion String

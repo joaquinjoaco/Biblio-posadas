@@ -2,8 +2,8 @@ import { format } from "date-fns";
 
 import prismadb from "@/lib/prismadb";
 import { es } from "date-fns/locale";
-import { LendingColumn } from "../../../prestamos/components/columns";
 import { MemberHistoryClient } from "./components/client";
+import { LendingColumn } from "./components/columns";
 
 export const metadata = {
     title: "Historial",
@@ -34,14 +34,14 @@ const MemberHistoryPage = async (
 
     const formattedLendings: LendingColumn[] = lendings.map((lending) => ({
         "Nº de préstamo": lending.id.toString(),
-        inventario: lending.idLibro.toString(),
-        socio: lending.idSocio.toString(),
-        efectuado: format(lending.fechaPrestado, "dd MMMM, yyyy", { locale: es }),
+        "Inventario": lending.idLibro.toString(),
+        "Socio": lending.idSocio.toString(),
+        "Efectuado": format(lending.fechaPrestado, "dd MMMM, yyyy", { locale: es }),
         "Vencimiento": format(lending.fechaDevolucionEstipulada, "dd MMMM, yyyy", { locale: es }),
         "Devolución": lending.fechaDevolucionFinal ? format(lending.fechaDevolucionFinal, "dd MMMM, yyyy", { locale: es })
             : today > lending.fechaDevolucionEstipulada ? "VENCIDO" : "ACTIVO",
-        registro: format(lending.createdAt, "dd MMMM, yyyy", { locale: es }),
-        actualizado: format(lending.updatedAt, "dd MMMM, yyyy", { locale: es })
+        "Registro": format(lending.createdAt, "dd MMMM, yyyy", { locale: es }),
+        "Actualizado": format(lending.updatedAt, "dd MMMM, yyyy", { locale: es })
     }));
 
     return (

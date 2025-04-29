@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { Filter, ListRestartIcon } from "lucide-react";
@@ -31,7 +31,7 @@ export function MembersDataTable<TData, TValue>({
     const [sorting, setSorting] = useState<SortingState>([]);
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-    const [selectedColumn, setSelectedColumn] = useState<string>(columns[0]?.id || "id"); // Default to the first column
+    const [selectedColumn, setSelectedColumn] = useState<string>(columns[1]?.id || "ID"); // Default to the first column
 
     const table = useReactTable({
         data,
@@ -66,9 +66,9 @@ export function MembersDataTable<TData, TValue>({
                 >
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <div className={buttonVariants({ variant: "default" })} >
+                            <Button>
                                 <Filter className="w-6 h-6 mr-2" /> {capitalizeFirstLetter(selectedColumn) || "Filtro"}
-                            </div>
+                            </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
                             {table.getAllColumns().map((column) => (
@@ -99,12 +99,13 @@ export function MembersDataTable<TData, TValue>({
                     className="flex flex-row items-center gap-x-2"
                 >
                     {/* Had to use a div because TooltipTrigger is also a button and buttons are not to be nested on eachother */}
-                    <div
+                    <Button
                         onClick={() => { window.location.reload() }}
-                        className={buttonVariants({ variant: "outline", size: "icon" })}
+                        size={"icon"}
+                        variant={"outline"}
                     >
                         <ListRestartIcon className="h-6 w-6" />
-                    </div>
+                    </Button>
                 </TooltipWrapper>
                 <Input
                     placeholder={`Buscar por ${selectedColumn}`}

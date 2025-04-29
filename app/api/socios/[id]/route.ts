@@ -20,6 +20,7 @@ export async function PATCH(
         const body = await req.json();
 
         const {
+            ci,
             nombre,
             apellido,
             direccion,
@@ -27,6 +28,11 @@ export async function PATCH(
             ubicacion,
             isArchived
         } = body;
+
+        // Check for the ci.
+        if (!ci) {
+            return new NextResponse("ci is required", { status: 400 });
+        }
 
         // Check for the nombre.
         if (!nombre) {

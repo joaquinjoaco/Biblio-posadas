@@ -11,6 +11,7 @@ export async function POST(
         const body = await req.json();
 
         const {
+            ci,
             nombre,
             apellido,
             direccion,
@@ -19,6 +20,11 @@ export async function POST(
             isArchived,
         } = body;
 
+
+        // Check for the ci.
+        if (!ci) {
+            return new NextResponse("ci is required", { status: 400 });
+        }
 
         // Check for the nombre.
         if (!nombre) {
@@ -48,6 +54,7 @@ export async function POST(
         // If all the checks were passed, we can create the library's member.
         const socio = await prismadb.socio.create({
             data: {
+                ci,
                 nombre,
                 apellido,
                 direccion,

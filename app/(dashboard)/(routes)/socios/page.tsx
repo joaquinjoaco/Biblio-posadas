@@ -10,6 +10,7 @@ export const metadata = {
 }
 
 const SociosPage = async () => {
+
     // Fetch all books.
     const socios = await prismadb.socio.findMany({
         orderBy: {
@@ -18,18 +19,19 @@ const SociosPage = async () => {
     });
 
     const formattedMembers: MemberColumn[] = socios.map((socio) => ({
-        id: socio.id.toString(),
-        nombre: socio.nombre,
-        apellido: socio.apellido,
-        direccion: socio.direccion,
-        telefono: socio.telefono,
-        ubicacion: socio.ubicacion,
+        "ID": socio.id.toString(),
+        "Cédula": socio.ci?.toString() ?? "-",
+        "Nombre": socio.nombre,
+        "Apellido": socio.apellido,
+        "Dirección": socio.direccion,
+        "Teléfono": socio.telefono,
+        "Ubicación": socio.ubicacion,
 
         isArchived: socio.isArchived,
         isArchivedText: socio.isArchived ? "Archivado" : "No",
 
-        registro: format(socio.createdAt, "dd MMMM, yyyy", { locale: es }),
-        actualizado: format(socio.updatedAt, "dd MMMM, yyyy", { locale: es })
+        "Registro": format(socio.createdAt, "dd MMMM, yyyy", { locale: es }),
+        "Actualizado": format(socio.updatedAt, "dd MMMM, yyyy", { locale: es })
     }));
 
     return (

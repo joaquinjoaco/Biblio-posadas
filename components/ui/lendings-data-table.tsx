@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { Filter, ListRestartIcon } from "lucide-react";
@@ -66,9 +66,9 @@ export function LendingsDataTable<TData, TValue>({
                 >
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <div className={buttonVariants({ variant: "default", className: "cursor-pointer" })} >
+                            <Button >
                                 <Filter className="w-6 h-6 mr-2" /> {capitalizeFirstLetter(selectedColumn) || "Filtro"}
-                            </div>
+                            </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
                             {table.getAllColumns().map((column) => (
@@ -99,12 +99,13 @@ export function LendingsDataTable<TData, TValue>({
                     className="flex flex-row items-center gap-x-2"
                 >
                     {/* Had to use a div because TooltipTrigger is also a button and buttons are not to be nested on eachother */}
-                    <div
+                    <Button
                         onClick={() => { window.location.reload() }}
-                        className={buttonVariants({ variant: "outline", size: "icon", className: "cursor-pointer" })}
+                        size={"icon"}
+                        variant={"outline"}
                     >
                         <ListRestartIcon className="h-6 w-6" />
-                    </div>
+                    </Button>
                 </TooltipWrapper>
                 <Input
                     placeholder={`Buscar por ${selectedColumn}`}

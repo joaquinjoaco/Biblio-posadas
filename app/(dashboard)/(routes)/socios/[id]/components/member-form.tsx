@@ -30,15 +30,21 @@ import { Command, CommandGroup, CommandItem, CommandList } from "@/components/ui
 import { Checkbox } from "@/components/ui/checkbox";
 
 const formSchema = z.object({
-    nombre: z.string().min(1, { message: 'El nombre del socio es obligatorio' }).max(255, { message: 'El nombre es demasiado largo' }),
-    apellido: z.string().min(1, { message: 'El apellido del socio es obligatorio' }).max(255, { message: 'El apellido es demasiado largo' }),
-    direccion: z.string().min(1, { message: 'El título del socio es obligatorio' }).max(255, { message: 'La dirección es demasiado larga' }),
-    telefono: z.string().min(1, { message: 'El teléfono del socio es obligatorio' }).max(255, { message: 'El teléfono es demasiado largo' }),
+    // yes it is that messy, im not proud of it but it works a charm. sorry not sorry
+    ci: z.union([z.string(), z.number(), z.undefined()]) // Allow string, number, or undefined
+        .transform((val) => (typeof val === 'string' && val ? Number(val) : val)) // Coerce string to number if non-empty
+        .refine((val) => val === undefined || (typeof val === 'number' && val >= 10000000 && val <= 99999999), {
+            message: 'Debes escribir la cédula completa sin puntos ni guiones incluyendo el dígito verificador',
+        }),
+    nombre: z.string().min(1, { message: 'El nombre del socio es obligatorio' }).max(128, { message: 'El nombre es demasiado largo' }),
+    apellido: z.string().min(1, { message: 'El apellido del socio es obligatorio' }).max(128, { message: 'El apellido es demasiado largo' }),
+    direccion: z.string().min(1, { message: 'El título del socio es obligatorio' }).max(128, { message: 'La dirección es demasiado larga' }),
+    telefono: z.string().min(1, { message: 'El teléfono del socio es obligatorio' }).max(128, { message: 'El teléfono es demasiado largo' }),
     ubicacion: z.string().min(1, { message: 'La ubicación del socio es obligatoria' }),
     isArchived: z.boolean().default(false).optional(),
-});
+})
 
-type MemberFormValues = z.infer<typeof formSchema>;
+type MemberFormValues = z.infer<typeof formSchema>
 
 interface MemberFormProps {
     initialData: Socio | null;
@@ -66,7 +72,9 @@ export const MemberForm: React.FC<MemberFormProps> = ({
 
     const defaultValues = initialData ? {
         ...initialData,
+        ci: initialData.ci || '',
     } : {
+        ci: '',
         nombre: '',
         apellido: '',
         direccion: '',
@@ -83,10 +91,10 @@ export const MemberForm: React.FC<MemberFormProps> = ({
         try {
             setLoading(true);
             if (initialData) {
-                // Update the product.
+                // Update the member.
                 await axios.patch(`/api/socios/${params.id}`, data);
             } else {
-                // Create the product.
+                // Create the member.
                 await axios.post(`/api/socios`, data);
             }
 
@@ -128,7 +136,7 @@ export const MemberForm: React.FC<MemberFormProps> = ({
     // }
 
     useEffect(() => {
-        document.title = initialData ? initialData.nombre : "Nuevo socio";
+        document.title = initialData ? `${initialData.nombre} ${initialData.apellido}` : "Nuevo socio";
     }, [])
 
     return (
@@ -198,7 +206,30 @@ export const MemberForm: React.FC<MemberFormProps> = ({
                             </FormControl>
                             <FormMessage />
                         </FormItem>
-
+                        <FormField
+                            control={form.control}
+                            name="ci"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Cédula de identidad</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            type="number"
+                                            disabled={loading}
+                                            placeholder="Sin puntos ni guiones"
+                                            {...field}
+                                            onChange={(e) => {
+                                                const value = e.target.value;
+                                                // Truncate to 8 digits
+                                                const truncatedValue = value.slice(0, 8);
+                                                field.onChange(truncatedValue);
+                                            }}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
                         <FormField
                             control={form.control}
                             name="nombre"

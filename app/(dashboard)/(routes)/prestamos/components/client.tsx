@@ -34,13 +34,13 @@ export const LendingsClient: React.FC<LendingsClientProps> = ({
             // Re-format the already formatted data prop to readable values for a human in a worksheet.
             const formattedArray = arrayOfObjects.map((item) => ({
                 "ID": item["Nº de préstamo"],
-                "Nº de inventario del libro": item.inventario,
-                "ID del socio": item.socio,
-                "Efectuado": item.efectuado,
+                "Nº de inventario del libro": item["Inventario"],
+                "ID del socio": item["Socio"],
+                "Efectuado": item["Efectuado"],
                 "Vencimiento": item["Vencimiento"],
                 "Devolución": item["Devolución"],
-                "Fecha de registro": item.registro,
-                "Fecha de actualización": item.actualizado,
+                "Fecha de registro": item["Registro"],
+                "Fecha de actualización": item["Actualizado"],
             }));
             const worksheet = XLSX.utils.json_to_sheet(formattedArray);
             return worksheet;

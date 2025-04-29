@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { Filter, ListRestartIcon } from "lucide-react";
@@ -17,7 +17,7 @@ import {
     useReactTable,
 } from "@tanstack/react-table";
 import { TooltipWrapper } from "./tooltip-wrapper";
-import { capitalizeFirstLetter, cn } from "@/lib/utils";
+import { capitalizeFirstLetter } from "@/lib/utils";
 
 interface BooksDataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
@@ -70,9 +70,9 @@ export function BooksDataTable<TData, TValue>({
                 >
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <div className={cn(buttonVariants({ variant: "default" }), "cursor-pointer")} >
+                            <Button>
                                 <Filter className="w-6 h-6 mr-2" /> {capitalizeFirstLetter(selectedColumn) || "Filtro"}
-                            </div>
+                            </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
                             {table.getAllColumns().map((column) => (
@@ -102,12 +102,13 @@ export function BooksDataTable<TData, TValue>({
                     className="flex flex-row items-center gap-x-2"
                 >
                     {/* Had to use a div because TooltipTrigger is also a button and buttons are not to be nested on eachother */}
-                    <div
+                    <Button
                         onClick={() => { window.location.reload() }}
-                        className={cn(buttonVariants({ variant: "outline", size: "icon" }), "cursor-pointer")}
+                        size={"icon"}
+                        variant={"outline"}
                     >
                         <ListRestartIcon className="h-6 w-6" />
-                    </div>
+                    </Button>
                 </TooltipWrapper>
                 <Input
                     placeholder={`Buscar por ${selectedColumn}`}

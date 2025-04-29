@@ -6,18 +6,19 @@ import { Button } from "@/components/ui/button";
 import { ArrowUpDown } from "lucide-react";
 
 export type MemberColumn = {
-    id: string; // String instead of number, necessary to be able to use it as a filterKey in data tables.
-    nombre: string;
-    apellido: string;
-    direccion: string;
-    telefono: string;
-    ubicacion: string;
+    "ID": string; // String instead of number, necessary to be able to use it as a filterKey in data tables.
+    "Cédula": string;
+    "Nombre": string;
+    "Apellido": string;
+    "Dirección": string;
+    "Teléfono": string;
+    "Ubicación": string;
 
     isArchived: boolean;
     isArchivedText: string;
 
-    registro: string;
-    actualizado: string;
+    "Registro": string;
+    "Actualizado": string;
 }
 
 export const columns: ColumnDef<MemberColumn>[] = [
@@ -26,7 +27,7 @@ export const columns: ColumnDef<MemberColumn>[] = [
         cell: ({ row }) => <CellAction data={row.original} />
     },
     {
-        accessorKey: "id",
+        accessorKey: "ID",
         header: ({ column }) => {
             return (
                 <Button
@@ -40,7 +41,7 @@ export const columns: ColumnDef<MemberColumn>[] = [
         },
     },
     {
-        accessorKey: "nombre",
+        accessorKey: "Nombre",
         header: ({ column }) => {
             return (
                 <Button
@@ -54,7 +55,7 @@ export const columns: ColumnDef<MemberColumn>[] = [
         },
     },
     {
-        accessorKey: "apellido",
+        accessorKey: "Apellido",
         header: ({ column }) => {
             return (
                 <Button
@@ -68,7 +69,21 @@ export const columns: ColumnDef<MemberColumn>[] = [
         },
     },
     {
-        accessorKey: "direccion",
+        accessorKey: "Cédula",
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                >
+                    Cédula
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            )
+        },
+    },
+    {
+        accessorKey: "Dirección",
         header: ({ column }) => {
             return (
                 <Button
@@ -82,7 +97,7 @@ export const columns: ColumnDef<MemberColumn>[] = [
         },
     },
     {
-        accessorKey: "telefono",
+        accessorKey: "Teléfono",
         header: ({ column }) => {
             return (
                 <Button
@@ -96,14 +111,14 @@ export const columns: ColumnDef<MemberColumn>[] = [
         },
     },
     {
-        accessorKey: "ubicacion",
+        accessorKey: "Ubicación",
         header: ({ column }) => {
             return (
                 <Button
                     variant="ghost"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
-                    Ubicacion
+                    Ubicación
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
             )
@@ -124,7 +139,7 @@ export const columns: ColumnDef<MemberColumn>[] = [
         },
     },
     {
-        accessorKey: "registro",
+        accessorKey: "Registro",
         header: ({ column }) => {
             return (
                 <Button
@@ -138,7 +153,7 @@ export const columns: ColumnDef<MemberColumn>[] = [
         },
     },
     {
-        accessorKey: "actualizado",
+        accessorKey: "Actualizado",
         header: ({ column }) => {
             return (
                 <Button

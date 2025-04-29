@@ -27,16 +27,17 @@ export const MembersClient: React.FC<MembersClientProps> = ({
         const sheetFromArrayOfObjects = (arrayOfObjects: MemberColumn[]) => {
             // Re-format the already formatted data prop to readable values for a human in a worksheet.
             const formattedArray = arrayOfObjects.map((item) => ({
-                "ID": item.id,
-                "Nombre": item.nombre,
-                "Apellido": item.apellido,
-                "Dirección": item.direccion,
-                "Título": item.telefono,
-                "País": item.ubicacion,
+                "ID": item["ID"],
+                "Cédula": item["Cédula"],
+                "Nombre": item["Nombre"],
+                "Apellido": item["Apellido"],
+                "Dirección": item["Dirección"],
+                "Teléfono": item["Teléfono"],
+                "Ubicación": item["Ubicación"],
                 "Archivado": item.isArchivedText,
 
-                "Fecha de registro": item.registro,
-                "Fecha de actualización": item.actualizado,
+                "Fecha de registro": item["Registro"],
+                "Fecha de actualización": item["Actualizado"],
             }));
             const worksheet = XLSX.utils.json_to_sheet(formattedArray);
             return worksheet;

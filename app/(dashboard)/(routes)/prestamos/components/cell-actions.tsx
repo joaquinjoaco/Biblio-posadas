@@ -3,7 +3,7 @@
 
 import { Edit } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { LendingColumn } from "./columns";
 import { TooltipWrapper } from "@/components/ui/tooltip-wrapper";
 
@@ -23,13 +23,13 @@ export const CellAction: React.FC<CellActionProps> = ({
                 content={"Editar préstamo"}
                 className="flex flex-row items-center gap-x-2"
             >
-                <div
-                    className={buttonVariants({ variant: "outline", size: "icon", className: "cursor-pointer" })}
+                <Button
                     onClick={() => router.push(`/prestamos/${data["Nº de préstamo"]}`)}
+                    variant="outline"
+                    size="icon"
                 >
-                    {/* accesibility fature, screenreaders only 'Prestar libro' */}
                     <Edit className="h-6 w-6" />
-                </div>
+                </Button>
             </TooltipWrapper>
         </>
     );

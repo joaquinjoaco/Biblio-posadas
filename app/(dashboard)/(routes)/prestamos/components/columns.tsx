@@ -8,13 +8,13 @@ import { Badge } from "@/components/ui/badge";
 
 export type LendingColumn = {
     "Nº de préstamo": string; // String instead of number, necessary to be able to use it as a filterKey in data tables.
-    inventario: string;
-    socio: string;
-    efectuado: string;
+    "Inventario": string;
+    "Socio": string;
+    "Efectuado": string;
     "Vencimiento": string;
     "Devolución": string;
-    registro: string;
-    actualizado: string;
+    "Registro": string;
+    "Actualizado": string;
 }
 
 export const columns: ColumnDef<LendingColumn>[] = [
@@ -37,7 +37,7 @@ export const columns: ColumnDef<LendingColumn>[] = [
         },
     },
     {
-        accessorKey: "inventario",
+        accessorKey: "Inventario",
         header: ({ column }) => {
             return (
                 <Button
@@ -51,7 +51,7 @@ export const columns: ColumnDef<LendingColumn>[] = [
         },
     },
     {
-        accessorKey: "socio",
+        accessorKey: "Socio",
         header: ({ column }) => {
             return (
                 <Button
@@ -65,7 +65,7 @@ export const columns: ColumnDef<LendingColumn>[] = [
         },
     },
     {
-        accessorKey: "efectuado",
+        accessorKey: "Efectuado",
         header: ({ column }) => {
             return (
                 <Button
@@ -113,7 +113,7 @@ export const columns: ColumnDef<LendingColumn>[] = [
                 <Badge variant="devuelto">{row.original["Devolución"]}</Badge>
     },
     {
-        accessorKey: "registro",
+        accessorKey: "Registro",
         header: ({ column }) => {
             return (
                 <Button
@@ -127,7 +127,7 @@ export const columns: ColumnDef<LendingColumn>[] = [
         },
     },
     {
-        accessorKey: "actualizado",
+        accessorKey: "Actualizado",
         header: ({ column }) => {
             return (
                 <Button
