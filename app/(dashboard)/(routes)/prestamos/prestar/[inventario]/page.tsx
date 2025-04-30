@@ -1,5 +1,6 @@
 import prismadb from "@/lib/prismadb";
 import { LendingFormByBookForm } from "./components/lending-form-by-book";
+import BookNotFound from "./components/book-not-found";
 
 const BookPage = async (
     props: {
@@ -17,6 +18,12 @@ const BookPage = async (
         }
     })
 
+    if (!book) {
+        return (
+            <BookNotFound inventario={inventario} />
+        )
+    }
+
     // any pending lending for the book
     const lendings = await prismadb.prestamo.findMany({
         where: {
@@ -31,7 +38,7 @@ const BookPage = async (
     // all members
     const members = await prismadb.socio.findMany({
         where: {
-            isArchived: false, // non archived members only.
+            isArchived: false // non archived members only.
         },
         orderBy: {
             createdAt: 'asc'
@@ -39,7 +46,7 @@ const BookPage = async (
     })
 
     // check if the book is currently lended, we can tell by the results given by the query.
-    const lended = lendings.length !== 0;
+    const lended = lendings.length !== 0
 
     return (
         <>

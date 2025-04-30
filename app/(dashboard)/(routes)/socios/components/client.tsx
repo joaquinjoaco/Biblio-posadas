@@ -20,7 +20,6 @@ export const MembersClient: React.FC<MembersClientProps> = ({
 }) => {
 
     const router = useRouter();
-    // const params = useParams();
 
     const generateSheet = () => {
         // Function to convert an array of objects to a worksheet.

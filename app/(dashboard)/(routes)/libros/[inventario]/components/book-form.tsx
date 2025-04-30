@@ -116,13 +116,13 @@ export const BookForm: React.FC<BookFormProps> = ({
                 }
             }
         } finally {
-            setLoading(false);
-            setOpen(false);
+            setLoading(false)
+            setOpen(false)
         }
     }
 
     useEffect(() => {
-        document.title = initialData ? initialData.titulo : "Nuevo libro";
+        document.title = initialData ? initialData.titulo : "Nuevo libro"
     }, [])
 
     return (

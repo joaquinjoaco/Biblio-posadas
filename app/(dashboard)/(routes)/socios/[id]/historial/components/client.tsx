@@ -1,7 +1,7 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { ArrowLeft, FileSpreadsheet } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { ArrowLeft, Check, FileSpreadsheet, Filter } from "lucide-react";
 import * as XLSX from 'xlsx';
 
 import { Button } from "@/components/ui/button";
@@ -11,6 +11,10 @@ import { Separator } from "@/components/ui/separator";
 import { LendingColumn, columns } from "./columns";
 import { LendingsDataTable } from "@/components/ui/lendings-data-table";
 import { Socio } from "@prisma/client";
+import { Toggle } from "@/components/ui/toggle";
+import { cn } from "@/lib/utils";
+import { TooltipWrapper } from "@/components/ui/tooltip-wrapper";
+import { useEffect } from "react";
 
 interface MemberHistoryClientProps {
     data: LendingColumn[];
@@ -22,8 +26,10 @@ export const MemberHistoryClient: React.FC<MemberHistoryClientProps> = ({
     member
 }) => {
 
-    const router = useRouter();
-    document.title = `${member?.nombre} ${member?.apellido}`; // Set the document title.
+    const router = useRouter()
+
+    const searchParams = useSearchParams()
+    const historic = searchParams.get('historico') === "true"
 
     const generateSheet = () => {
         // Function to convert an array of objects to a worksheet.
@@ -51,6 +57,10 @@ export const MemberHistoryClient: React.FC<MemberHistoryClientProps> = ({
         XLSX.writeFile(workbook, `Prestamos ${member?.nombre} ${member?.apellido}.xlsx`);
     }
 
+    useEffect(() => {
+        document.title = `${member?.nombre} ${member?.apellido}`; // Set the document title.
+    }, [historic])
+
     return (
         <>
             <div className="flex items-center space-x-16 2xl:space-x-0 2xl:justify-between sticky top-0 z-10 bg-background py-4">
@@ -64,12 +74,29 @@ export const MemberHistoryClient: React.FC<MemberHistoryClientProps> = ({
                         disabled={false}
                         variant="secondary"
                         // size="sm"
-                        onClick={() => router.back()}
+                        onClick={() => router.push(`/socios`)}
                         type="button"
                     >
                         <ArrowLeft className="h-4 w-4 mr-2" />
                         Volver
                     </Button>
+                    {/* Historic filter toggle */}
+                    <TooltipWrapper
+                        content={historic ? "Clic para ver sólo los préstamos activos y vencidos" : "Clic para ver todos los préstamos del socio"}>
+                        <Toggle
+                            variant={"outline"}
+                            pressed={historic}
+                            onPressedChange={(pressed) => pressed.valueOf() ? router.push(`/socios/${member?.id}/historial?historico=true`) : router.push(`/socios/${member?.id}/historial`)}
+                        >
+                            {historic ?
+                                <Filter className="mr-2 h-4 w-4" />
+                                :
+                                <Check className="mr-2 h-4 w-4" />
+                            }
+                            {/* <Check className={cn("mr-2 h-4 w-4", !historic && "hidden")} /> */}
+                            Histórico
+                        </Toggle>
+                    </TooltipWrapper>
                     <Button disabled={data.length === 0} onClick={() => generateSheet()} className="bg-[#107C41] hover:bg-[#1d6e42] dark:text-foreground" >
                         <FileSpreadsheet className="mr-2 h-4 w-4" />
                         Generar archivo

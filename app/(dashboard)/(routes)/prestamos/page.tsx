@@ -1,9 +1,9 @@
 import { format } from "date-fns";
 
-import prismadb from "@/lib/prismadb";
 import { es } from "date-fns/locale";
 import { LendingColumn } from "./components/columns";
 import { LendingsClient } from "./components/client";
+import lendings_api from "@/lib/lendings_api";
 
 export const metadata = {
     title: "Prestamos",
@@ -20,47 +20,16 @@ const LendingsPage = async (
 
     if (searchParams.status === 'activos') {
         // Currently active/pending lendings, books that are yet to be returned.
-        lendings = await prismadb.prestamo.findMany({
-            where: {
-                fechaDevolucionFinal: null
-            },
-            orderBy: {
-                createdAt: 'desc'
-            }
-        });
+        lendings = await lendings_api.lendings.active()
     } else if (searchParams.status === 'vencidos') {
         // Expired lendings, books that are yet to be returned after the agreed return date.
-        const todayDate = new Date().setHours(0, 0, 0, 0);
-        lendings = await prismadb.prestamo.findMany({
-            where: {
-                fechaDevolucionFinal: null,
-                fechaDevolucionEstipulada: {
-                    lt: new Date(todayDate)
-                }
-            },
-            orderBy: {
-                createdAt: 'desc'
-            }
-        });
+        lendings = await lendings_api.lendings.expired()
     } else if (searchParams.status === 'devueltos') {
         // Returned books.
-        lendings = await prismadb.prestamo.findMany({
-            where: {
-                fechaDevolucionFinal: {
-                    not: null
-                }
-            },
-            orderBy: {
-                createdAt: 'desc'
-            }
-        });
+        lendings = await lendings_api.lendings.returned()
     } else {
         // fetch all lendings
-        lendings = await prismadb.prestamo.findMany({
-            orderBy: {
-                createdAt: 'desc'
-            }
-        });
+        lendings = await lendings_api.lendings.all()
     }
 
     const today = new Date();

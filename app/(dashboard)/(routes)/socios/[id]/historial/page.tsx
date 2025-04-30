@@ -4,6 +4,7 @@ import prismadb from "@/lib/prismadb";
 import { es } from "date-fns/locale";
 import { MemberHistoryClient } from "./components/client";
 import { LendingColumn } from "./components/columns";
+import lendings_api from "@/lib/lendings_api";
 
 export const metadata = {
     title: "Historial",
@@ -12,17 +13,26 @@ export const metadata = {
 const MemberHistoryPage = async (
     props: {
         params: Promise<{ id: string }>
+        searchParams: Promise<{ historico: string }>
     }
 ) => {
     const params = await props.params
+    const searchParams = await props.searchParams
+    const historic = searchParams.historico === "true";
 
     const { id } = await params // From Next 15 on, params API is now asynchronous (https://nextjs.org/docs/messages/sync-dynamic-apis).
 
-    const lendings = await prismadb.prestamo.findMany({
-        where: {
-            idSocio: Number(id),
-        }
-    })
+    let lendings;
+
+    if (historic) {
+        lendings = await lendings_api.lendings.all(Number(id));
+    } else {
+        // Only their active and expired lendings.
+        const expiredLendings = await lendings_api.lendings.expired(Number(id));
+        const activeLendings = await lendings_api.lendings.active(Number(id));
+
+        lendings = [...expiredLendings, ...activeLendings]
+    }
 
     const member = await prismadb.socio.findUnique({
         where: {

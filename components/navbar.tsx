@@ -1,19 +1,24 @@
 import { MainNav } from "@/components/main-nav";
 import { ThemeToggle } from "./theme-toggle";
+import QuickActions from "./quick-actions";
 
 const Navbar = async () => {
     return (
-        <div className="border-b">
-            <div className="flex h-16 items-center px-4">
-                {/* <StoreSwitcher items={stores} /> */}
-                <MainNav
-                //  className="mx-6"
-                />
+        <div className="rounded-md shadow-md border-b">
+            <div className="flex h-16 items-center px-4" >
+                <MainNav />
+                {/* Prestar / Devolver */}
+                <div className="flex hover:bg-gray-50 transition-colors duration-500 ml-16 py-1 pl-2 pr-1 rounded-md items-center gap-x-2">
+                    <div className="text-sm text-muted-foreground select-none mr-2">
+                        Acciones rápidas
+                    </div>
+                    <QuickActions />
+                </div>
                 <div className="ml-auto flex items-center space-x-4 ">
                     <ThemeToggle />
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 }
 

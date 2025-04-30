@@ -28,13 +28,7 @@ export const CellAction: React.FC<CellActionProps> = ({
     return (
         <>
             <DropdownMenu>
-                <TooltipWrapper
-                    content={
-                        <div className="flex items-center gap-x-2">
-                            Acciones
-                        </div>
-                    }
-                >
+                <TooltipWrapper content="Acciones">
                     <DropdownMenuTrigger asChild>
                         <Button variant="ghost" className="h-8 w-8 p-0">
                             {/* accesibility fature, screenreaders only 'open menu' */}

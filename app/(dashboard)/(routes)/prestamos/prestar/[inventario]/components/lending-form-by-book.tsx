@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-"use client";
+"use client"
 
 import { Libro, Prestamo, Socio } from "@prisma/client";
 import * as z from "zod";
@@ -47,7 +47,7 @@ const formSchema = z.object({
 type LendingFormByBookValues = z.infer<typeof formSchema>;
 
 interface LendingFormByBookProps {
-    book: Libro | null;
+    book: Libro;
     members: Socio[] | null;
     lended: boolean;
     lendings: (Prestamo & { socio: Socio })[];
@@ -69,7 +69,7 @@ export const LendingFormByBookForm: React.FC<LendingFormByBookProps> = ({
     const [open3, setOpen3] = useState(false);
 
     const title = "Préstamo de libro";
-    const description = book?.titulo || "";
+    const description = book.titulo || "";
     const toastMessage = "Préstamo registrado";
     const action = "Registrar préstamo";
 
@@ -82,16 +82,14 @@ export const LendingFormByBookForm: React.FC<LendingFormByBookProps> = ({
         defaultValues
     });
 
-    // const { watch } = form;
-
     const onSubmit = async (data: LendingFormByBookValues) => {
         try {
             setLoading(true);
             // Create the lending.
-            if (!book?.isArchived) {
+            if (!book.isArchived) {
                 await axios.post(`/api/prestamos/prestar`, data);
 
-                router.push(`/prestamos`);
+                router.push(`/libros`);
                 router.refresh(); // Refresh the component so it refetches the patched data.
                 toast.success(toastMessage);
             } else {
@@ -109,8 +107,8 @@ export const LendingFormByBookForm: React.FC<LendingFormByBookProps> = ({
     }
 
     useEffect(() => {
-        if (book?.inventario) {
-            form.setValue("idLibro", book?.inventario.toString());
+        if (book.inventario) {
+            form.setValue("idLibro", book.inventario.toString());
         }
     }, [])
 

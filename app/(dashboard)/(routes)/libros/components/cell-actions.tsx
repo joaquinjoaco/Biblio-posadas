@@ -74,17 +74,19 @@ export const CellAction: React.FC<CellActionProps> = ({
 
             {/* 
             When opening a modal from a Dropdown menu shit will 'freeze' for some reason after closing the modal.
-            Setting modal={false} on Dropdown menu root keeps shit dancing
+            Setting modal={false} on Dropdown menu root keeps shit dancing properly.
             https://github.com/shadcn-ui/ui/issues/1912#:~:text=Adding%20modal%3D%7Bfalse%7D%20on%20dropdown%20menu%20root%20worked%20for%20me!
              */}
             <DropdownMenu modal={false}>
-                <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="h-8 w-8 p-0">
-                        {/* accesibility fature, screenreaders only 'open menu' */}
-                        <span className="sr-only">Abrir menú de acciones</span>
-                        <MoreHorizontal className="h-4 w-4" />
-                    </Button>
-                </DropdownMenuTrigger>
+                <TooltipWrapper content="Acciones">
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" className="h-8 w-8 p-0">
+                            {/* accesibility fature, screenreaders only 'open menu' */}
+                            <span className="sr-only">Abrir menú de acciones</span>
+                            <MoreHorizontal className="h-4 w-4" />
+                        </Button>
+                    </DropdownMenuTrigger>
+                </TooltipWrapper>
                 <DropdownMenuContent align="end">
                     <DropdownMenuLabel>
                         Acciones

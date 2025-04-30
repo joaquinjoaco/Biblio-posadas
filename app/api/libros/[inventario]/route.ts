@@ -111,3 +111,35 @@ export async function DELETE(
     }
 
 }
+
+export async function GET(
+    _req: Request, // Not used, but required for API route signature
+    segmentData: { params: Params }
+) {
+    try {
+        const params = await segmentData.params;
+        const inventario = params.inventario;
+
+        // Check for the inventario
+        if (!inventario) {
+            return new NextResponse("inventario is required", { status: 400 });
+        }
+
+        // Fetch the book
+        const book = await prismadb.libro.findUnique({
+            where: {
+                inventario: Number(inventario),
+            },
+        });
+
+        // Check if book exists
+        if (!book) {
+            return new NextResponse("Book not found", { status: 404 });
+        }
+
+        return NextResponse.json(book);
+    } catch (error: any) {
+        console.log("[LIBROS_GET]", error);
+        return new NextResponse("Internal error", { status: 500 });
+    }
+}
