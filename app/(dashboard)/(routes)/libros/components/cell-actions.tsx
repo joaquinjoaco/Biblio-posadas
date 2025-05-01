@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { Clock, Edit, Handshake, MoreHorizontal, Trash } from "lucide-react";
+import { Edit, ExternalLink, Handshake, MoreHorizontal, Trash } from "lucide-react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -19,7 +19,6 @@ import { Button } from "@/components/ui/button";
 import { BookColumn } from "./columns";
 import { AlertModal } from "@/components/modals/alert-modal";
 import { TooltipWrapper } from "@/components/ui/tooltip-wrapper";
-import { cn } from "@/lib/utils";
 
 interface CellActionProps {
     data: BookColumn;
@@ -112,14 +111,19 @@ export const CellAction: React.FC<CellActionProps> = ({
             </DropdownMenu>
 
             <TooltipWrapper
-                content={data.isArchived ? "Libro archivado" : "Prestar libro"}
+                content={data.isArchived ? "Libro archivado" :
+                    <div className="flex items-center gap-x-2">
+                        <ExternalLink className="h-4 w-4" />
+                        Prestar Libro
+                    </div>
+                }
                 className="flex flex-row items-center gap-x-2"
             >
                 <Button
                     variant="outline"
                     size="icon"
                     disabled={data.isArchived}
-                    onClick={() => router.push(`/prestamos/prestar/${data.inventario}`)}
+                    onClick={() => window.open(`/prestamos/prestar/${data.inventario}`)}
                 >
                     {/* accesibility feature, screenreaders only 'Prestar libro' */}
                     <span className="sr-only">Prestar libro</span>

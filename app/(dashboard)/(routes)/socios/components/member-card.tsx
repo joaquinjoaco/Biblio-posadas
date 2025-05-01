@@ -1,6 +1,6 @@
 import { formatCedula } from "@/lib/utils";
 import { MemberColumn } from "./columns";
-import { Dot, IdCard, MapPin, Phone } from "lucide-react";
+import { IdCard, MapPin, Phone } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 

@@ -1,12 +1,11 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { ArrowLeft, Check, FileSpreadsheet, Filter } from "lucide-react";
+import { ArrowLeft, Check, FileSpreadsheet } from "lucide-react";
 import * as XLSX from 'xlsx';
 
 import { Button } from "@/components/ui/button";
 import { Heading } from "@/components/ui/heading";
-import { Separator } from "@/components/ui/separator";
 
 import { LendingColumn, columns } from "./columns";
 import { LendingsDataTable } from "@/components/ui/lendings-data-table";
@@ -63,7 +62,7 @@ export const MemberHistoryClient: React.FC<MemberHistoryClientProps> = ({
 
     return (
         <>
-            <div className="flex items-center space-x-16 2xl:space-x-0 2xl:justify-between sticky top-0 z-10 bg-background py-4">
+            <div className="flex items-center space-x-16 2xl:space-x-0 2xl:justify-between sticky top-0 z-10 bg-background rounded-md border px-8 shadow-md py-4">
                 <Heading
                     title={`Préstamos de ${member?.nombre} ${member?.apellido} (${data.length})`}
                     description="Historial de los préstamos del socio"
@@ -98,7 +97,6 @@ export const MemberHistoryClient: React.FC<MemberHistoryClientProps> = ({
                     </Button>
                 </div>
             </div>
-            <Separator />
             <LendingsDataTable columns={columns} data={data} />
         </>
     )

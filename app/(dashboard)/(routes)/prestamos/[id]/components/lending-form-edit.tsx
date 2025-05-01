@@ -94,25 +94,24 @@ export const LendingFormEdit: React.FC<LendingFormEditProps> = ({
         }
     }
 
-    return (
-        !initialData ?
-            <div className="flex items-center justify-center min-h-[80vh]">
-                <div className="py-6 px-8 mx-4 max-w-[600px] rounded-2xl bg-destructive text-destructive-foreground">
-                    <p className="font-semibold text-lg">
-                        Ups!
-                    </p>
-                    <p>
-                        No se econtró un préstamo con número {params.id}
-                    </p>
-                    <Button variant="link" onClick={() => { router.back() }} className="text-destructive-foreground underline pl-0">
-                        Volver
-                    </Button>
-                </div>
+    if (!initialData) {
+        <div className="flex items-center justify-center min-h-[80vh]">
+            <div className="py-6 px-8 mx-4 max-w-[600px] rounded-2xl bg-destructive text-destructive-foreground">
+                <p className="font-semibold text-lg">
+                    Ups!
+                </p>
+                <p>
+                    No se econtró un préstamo con número {params.id}
+                </p>
+                <Button variant="link" onClick={() => { router.back() }} className="text-destructive-foreground underline pl-0">
+                    Volver
+                </Button>
             </div>
-
-            :
+        </div>
+    } else {
+        return (
             <>
-                <div className="flex items-center justify-between sticky top-0 z-10 bg-background py-4">
+                <div className="flex items-center justify-between sticky top-0 z-10 bg-background rounded-md border px-8 shadow-md mb-8 py-4">
                     <div className="space-y-4">
                         <Heading
                             title={title}
@@ -334,5 +333,6 @@ export const LendingFormEdit: React.FC<LendingFormEditProps> = ({
                 </Form>
             </>
 
-    )
+        )
+    }
 }

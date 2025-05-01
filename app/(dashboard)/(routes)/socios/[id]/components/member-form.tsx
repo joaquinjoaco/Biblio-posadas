@@ -13,7 +13,6 @@ import { useParams, useRouter } from "next/navigation";
 
 import { Heading } from "@/components/ui/heading";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import {
     Form,
     FormControl,
@@ -150,7 +149,7 @@ export const MemberForm: React.FC<MemberFormProps> = ({
                 description="Se eliminará el socio, esta acción es destructiva y no se puede deshacer."
                 buttonMessage="Confirmar"
             /> */}
-            <div className="flex items-center justify-between sticky top-0 z-10 bg-background py-4">
+            <div className="flex items-center justify-between sticky top-0 z-10 bg-background rounded-md border px-8 shadow-md mb-8 py-4">
                 <Heading
                     title={title}
                     description={description}
@@ -191,7 +190,6 @@ export const MemberForm: React.FC<MemberFormProps> = ({
                 </div>
 
             </div>
-            <Separator />
 
             <Form {...form}>
                 <form id="socio-form" onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">

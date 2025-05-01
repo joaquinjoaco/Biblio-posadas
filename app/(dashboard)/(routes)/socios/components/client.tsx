@@ -6,7 +6,6 @@ import * as XLSX from 'xlsx';
 
 import { Button } from "@/components/ui/button";
 import { Heading } from "@/components/ui/heading";
-import { Separator } from "@/components/ui/separator";
 
 import { MemberColumn, columns } from "./columns";
 import { MembersDataTable } from "@/components/ui/members-data-table";
@@ -52,7 +51,7 @@ export const MembersClient: React.FC<MembersClientProps> = ({
 
     return (
         <>
-            <div className="flex items-center space-x-16 2xl:space-x-0 2xl:justify-between sticky top-0 z-10 bg-background py-4">
+            <div className="flex items-center space-x-16 2xl:space-x-0 2xl:justify-between sticky top-0 z-10 bg-background rounded-md border px-8 shadow-md py-4">
                 <Heading
                     title={`Socios (${data.length})`}
                     description="Administra los socios de la biblioteca"
@@ -68,7 +67,6 @@ export const MembersClient: React.FC<MembersClientProps> = ({
                     </Button>
                 </div>
             </div>
-            <Separator />
             <MembersDataTable columns={columns} data={data} />
         </>
     )

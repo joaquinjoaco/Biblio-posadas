@@ -1,6 +1,6 @@
 "use client";
 
-import { Edit, Eye, Handshake, History, MoreHorizontal } from "lucide-react";
+import { Edit, Eye, Handshake, MoreHorizontal } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 
@@ -28,6 +28,19 @@ export const CellAction: React.FC<CellActionProps> = ({
 
     return (
         <div className="flex items-center space-x-2">
+            <TooltipWrapper
+                content={<MemberCard data={data} />}
+                className="flex flex-row items-center gap-x-2"
+            >
+                <Button
+                    variant="secondary"
+                    size="icon"
+                    className="cursor-help"
+                >
+                    <Eye />
+                </Button>
+            </TooltipWrapper>
+
             <DropdownMenu>
                 <TooltipWrapper content="Acciones">
                     <DropdownMenuTrigger asChild>
@@ -52,19 +65,6 @@ export const CellAction: React.FC<CellActionProps> = ({
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
-
-            <TooltipWrapper
-                content={<MemberCard data={data} />}
-                className="flex flex-row items-center gap-x-2"
-            >
-                <Button
-                    variant="secondary"
-                    size="icon"
-                    className="cursor-none"
-                >
-                    <Eye />
-                </Button>
-            </TooltipWrapper>
 
         </div>
     );
