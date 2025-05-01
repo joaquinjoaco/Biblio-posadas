@@ -31,7 +31,7 @@ export function BooksDataTable<TData, TValue>({
     const [sorting, setSorting] = useState<SortingState>([]);
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-    const [selectedColumn, setSelectedColumn] = useState<string>(columns[1]?.id || "inventario"); // Default to the second column (because in the first one we have the cell actions)
+    const [selectedColumn, setSelectedColumn] = useState<string>(columns[1]?.id || "Nº Inventario"); // Default to the second column (because in the first one we have the cell actions)
 
     const table = useReactTable({
         data,

@@ -51,7 +51,7 @@ export async function POST(
         return NextResponse.json(lending);
 
     } catch (error: any) {
-        console.log('[PRESTAMOS_POST]', error);
+        console.error('[PRESTAMOS_POST]', error.message);
         if (error.code === 'P2002') {
             return new NextResponse("Unique constraint failed", { status: 409 }); // likely unique constraint failed.
         }

@@ -18,12 +18,12 @@ const BooksPage = async () => {
     });
 
     const formattedBooks: BookColumn[] = books.map((book) => ({
-        inventario: book.inventario.toString(),
-        colocacion: book.colocacion,
-        autor: book.autor,
-        titulo: book.titulo,
-        pais: book.pais,
-        descriptores: book.descriptores,
+        "Nº Inventario": book.inventario.toString(),
+        "Colocación": book.colocacion,
+        "Autor": book.autor,
+        "Título": book.titulo,
+        "País": book.pais,
+        "Descriptores": book.descriptores,
 
         isArchived: book.isArchived,
         isArchivedText: book.isArchived ? "Archivado" : "No",

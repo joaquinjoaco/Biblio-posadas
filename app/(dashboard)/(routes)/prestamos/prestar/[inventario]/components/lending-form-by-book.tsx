@@ -148,19 +148,6 @@ export const LendingFormByBookForm: React.FC<LendingFormByBookProps> = ({
                     />
 
                     <div className="flex gap-x-2">
-                        {/* Back button */}
-                        {history.length > 1 &&
-                            <Button
-                                disabled={false}
-                                variant="secondary"
-                                // size="sm"
-                                onClick={() => router.back()}
-                                type="button"
-                            >
-                                <ArrowLeft className="h-4 w-4 mr-2" />
-                                Volver
-                            </Button>
-                        }
                         {/* Submit button */}
                         <Button
                             disabled={loading}

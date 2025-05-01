@@ -49,7 +49,7 @@ export async function PATCH(
 
         return NextResponse.json(lending);
     } catch (error: any) {
-        console.log('[PRESTAMOS_PATCH]', error);
+        console.error('[PRESTAMOS_PATCH]', error.message);
         if (error.code === 'P2002') {
             return new NextResponse("Unique constraint failed", { status: 409 }); // likely unique constraint failed.
         }

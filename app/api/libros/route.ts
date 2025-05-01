@@ -60,7 +60,7 @@ export async function POST(
         return NextResponse.json(book);
 
     } catch (error: any) {
-        console.log('[LIBROS_POST]', error);
+        console.error('[LIBROS_POST]', error.message);
         if (error.code === 'P2002') {
             return new NextResponse("Unique constraint failed", { status: 409 }); // likely unique constraint failed.
         }

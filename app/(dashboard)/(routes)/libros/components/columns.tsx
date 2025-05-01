@@ -6,12 +6,12 @@ import { Button } from "@/components/ui/button";
 import { ArrowUpDown } from "lucide-react";
 
 export type BookColumn = {
-    inventario: string; // String instead of number, necessary to be able to use it as a filterKey in data tables.
-    colocacion: string;
-    autor: string;
-    titulo: string;
-    pais: string;
-    descriptores: string;
+    "Nº Inventario": string; // String instead of number, necessary to be able to use it as a filterKey in data tables.
+    "Colocación": string;
+    "Autor": string;
+    "Título": string;
+    "País": string;
+    "Descriptores": string;
 
     isArchived: boolean;
     isArchivedText: string;
@@ -26,21 +26,21 @@ export const columns: ColumnDef<BookColumn>[] = [
         cell: ({ row }) => <CellAction data={row.original} />,
     },
     {
-        accessorKey: "inventario",
+        accessorKey: "Nº Inventario",
         header: ({ column }) => {
             return (
                 <Button
                     variant="ghost"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
-                    Inventario
+                    Nº Inventario
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
             )
         },
     },
     {
-        accessorKey: "colocacion",
+        accessorKey: "Colocación",
         header: ({ column }) => {
             return (
                 <Button
@@ -54,7 +54,7 @@ export const columns: ColumnDef<BookColumn>[] = [
         },
     },
     {
-        accessorKey: "autor",
+        accessorKey: "Autor",
         header: ({ column }) => {
             return (
                 <Button
@@ -68,7 +68,7 @@ export const columns: ColumnDef<BookColumn>[] = [
         },
     },
     {
-        accessorKey: "titulo",
+        accessorKey: "Título",
         header: ({ column }) => {
             return (
                 <Button
@@ -82,7 +82,7 @@ export const columns: ColumnDef<BookColumn>[] = [
         },
     },
     {
-        accessorKey: "pais",
+        accessorKey: "País",
         header: ({ column }) => {
             return (
                 <Button
@@ -96,7 +96,7 @@ export const columns: ColumnDef<BookColumn>[] = [
         },
     },
     {
-        accessorKey: "descriptores",
+        accessorKey: "Descriptores",
         header: ({ column }) => {
             return (
                 <Button

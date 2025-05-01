@@ -26,12 +26,12 @@ export const BooksClient: React.FC<BooksClientProps> = ({
             // Re-format the already formatted data prop to readable values for a human in a worksheet.
             const formattedArray = arrayOfObjects.map((item) => ({
                 "Archivado": item.isArchivedText,
-                "Inventario": item.inventario,
-                "Colocación": item.colocacion,
-                "Autor": item.autor,
-                "Título": item.titulo,
-                "País": item.pais,
-                "Descriptores": item.descriptores,
+                "Inventario": item["Nº Inventario"],
+                "Colocación": item["Colocación"],
+                "Autor": item["Autor"],
+                "Título": item["Título"],
+                "País": item["País"],
+                "Descriptores": item["Descriptores"],
 
                 "Fecha de registro": item.registro,
                 "Fecha de actualización": item.actualizado,

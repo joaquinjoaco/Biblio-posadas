@@ -41,7 +41,7 @@ export const CellAction: React.FC<CellActionProps> = ({
     const onDelete = async () => {
         try {
             setLoading(true);
-            await axios.delete(`/api/libros/${data.inventario}`);
+            await axios.delete(`/api/libros/${data["Nº Inventario"]}`);
             router.refresh(); // Refresh the component so it refetches the data.
             toast.success("Libro eliminado.");
             router.refresh();
@@ -52,6 +52,8 @@ export const CellAction: React.FC<CellActionProps> = ({
                 } else {
                     toast.error("Ocurrió un error inesperado.");
                 }
+            } else {
+                toast.error("Ocurrió un error inesperado.");
             }
         } finally {
             setLoading(false);
@@ -90,7 +92,7 @@ export const CellAction: React.FC<CellActionProps> = ({
                     <DropdownMenuLabel>
                         Acciones
                     </DropdownMenuLabel>
-                    <DropdownMenuItem disabled={data.isArchived} onClick={() => router.push(`/prestamos/prestar/${data.inventario}`)}>
+                    <DropdownMenuItem disabled={data.isArchived} onClick={() => router.push(`/prestamos/prestar/${data["Nº Inventario"]}`)}>
                         <Handshake className="mr-2 h-4 w-4" />
                         Prestar libro
                     </DropdownMenuItem>
@@ -99,7 +101,7 @@ export const CellAction: React.FC<CellActionProps> = ({
                         <Copy className="mr-2 h-4 w-4" />
                         Copiar Nº de inventario
                     </DropdownMenuItem> */}
-                    <DropdownMenuItem onClick={() => router.push(`/libros/${data.inventario}`)}>
+                    <DropdownMenuItem onClick={() => router.push(`/libros/${data["Nº Inventario"]}`)}>
                         <Edit className="mr-2 h-4 w-4" />
                         Editar
                     </DropdownMenuItem>
@@ -123,7 +125,7 @@ export const CellAction: React.FC<CellActionProps> = ({
                     variant="outline"
                     size="icon"
                     disabled={data.isArchived}
-                    onClick={() => window.open(`/prestamos/prestar/${data.inventario}`)}
+                    onClick={() => window.open(`/prestamos/prestar/${data["Nº Inventario"]}`)}
                 >
                     {/* accesibility feature, screenreaders only 'Prestar libro' */}
                     <span className="sr-only">Prestar libro</span>

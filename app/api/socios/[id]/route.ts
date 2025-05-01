@@ -77,7 +77,7 @@ export async function PATCH(
 
         return NextResponse.json(socio);
     } catch (error: any) {
-        console.log('[SOCIOS_PATCH]', error);
+        console.error('[SOCIOS_PATCH]', error.message);
         if (error.code === 'P2002') {
             return new NextResponse("Unique constraint failed", { status: 409 }); // likely unique constraint failed.
         }
@@ -108,7 +108,7 @@ export async function DELETE(
 
         return NextResponse.json(socio);
     } catch (error: any) {
-        console.log('[SOCIOS_DELETE]', error);
+        console.error('[SOCIOS_DELETE]', error.message);
         if (error.code === 'P2003') {
             return new NextResponse("fk-constraint-failed", { status: 409 }); // FK constraint failed.
         }

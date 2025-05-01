@@ -67,7 +67,7 @@ export async function POST(
         return NextResponse.json(socio);
 
     } catch (error: any) {
-        console.log('[SOCIOS_POST]', error);
+        console.error('[SOCIOS_POST]', error.message);
         if (error.code === 'P2002') {
             return new NextResponse("Unique constraint failed", { status: 409 }); // likely unique constraint failed.
         }

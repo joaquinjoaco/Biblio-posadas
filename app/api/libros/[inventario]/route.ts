@@ -91,6 +91,7 @@ export async function DELETE(
     try {
         const params = await segmentData.params
         const inventario = params.inventario
+        console.log("inventario ", inventario)
         if (!inventario) {
             return new NextResponse("inventario is required", { status: 400 });
         }
@@ -103,8 +104,8 @@ export async function DELETE(
 
         return NextResponse.json(book);
     } catch (error: any) {
-        console.log('[LIBROS_DELETE]', error);
-        if (error.code === 'P2003') {
+        console.error('[LIBROS_DELETE]', error.message);
+        if (error?.code === 'P2003') {
             return new NextResponse("fk-constraint-failed", { status: 409 }); // FK constraint failed.
         }
         return new NextResponse("Internal error", { status: 500 });
@@ -139,7 +140,7 @@ export async function GET(
 
         return NextResponse.json(book);
     } catch (error: any) {
-        console.log("[LIBROS_GET]", error);
+        console.error("[LIBROS_GET]", error.message);
         return new NextResponse("Internal error", { status: 500 });
     }
 }
