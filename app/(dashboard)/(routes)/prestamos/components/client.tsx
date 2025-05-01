@@ -1,7 +1,7 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
-import { FileSpreadsheet } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Check, FileSpreadsheet } from "lucide-react";
 import * as XLSX from 'xlsx';
 
 import { Button } from "@/components/ui/button";
@@ -10,6 +10,8 @@ import { Separator } from "@/components/ui/separator";
 
 import { LendingColumn, columns } from "./columns";
 import { LendingsDataTable } from "@/components/ui/lendings-data-table";
+import { Toggle } from "@/components/ui/toggle";
+import { cn } from "@/lib/utils";
 
 interface LendingsClientProps {
     data: LendingColumn[];
@@ -19,8 +21,8 @@ export const LendingsClient: React.FC<LendingsClientProps> = ({
     data
 }) => {
 
-    // const router = useRouter();
-    const searchParams = useSearchParams();
+    const router = useRouter();
+    const searchParams = useSearchParams()
 
     const status = searchParams.get('status')
     // const title = status === 'activos' ? `Préstamos activos (${data.length})`
@@ -62,6 +64,31 @@ export const LendingsClient: React.FC<LendingsClientProps> = ({
                     description="Administra los préstamos de la biblioteca"
                 />
                 <div className="flex gap-x-2">
+                    <Toggle
+                        variant={"default"}
+                        pressed={status === "activos"}
+                        onPressedChange={(pressed) => pressed.valueOf() ? router.push(`/prestamos?status=activos`) : router.push(`/prestamos`)}
+                    >
+                        <Check className={cn("mr-2 h-4 w-4", status !== "activos" && "hidden")} />
+
+                        Activos
+                    </Toggle>
+                    <Toggle
+                        variant={"default"}
+                        pressed={status === "vencidos"}
+                        onPressedChange={(pressed) => pressed.valueOf() ? router.push(`/prestamos?status=vencidos`) : router.push(`/prestamos`)}
+                    >
+                        <Check className={cn("mr-2 h-4 w-4", status !== "vencidos" && "hidden")} />
+                        Vencidos
+                    </Toggle>
+                    <Toggle
+                        variant={"default"}
+                        pressed={status === "devueltos"}
+                        onPressedChange={(pressed) => pressed.valueOf() ? router.push(`/prestamos?status=devueltos`) : router.push(`/prestamos`)}
+                    >
+                        <Check className={cn("mr-2 h-4 w-4", status !== "devueltos" && "hidden")} />
+                        Devueltos
+                    </Toggle>
                     <Button disabled={data.length === 0} onClick={() => generateSheet()} className="bg-[#107C41] hover:bg-[#1d6e42] dark:text-foreground" >
                         <FileSpreadsheet className="mr-2 h-4 w-4" />
                         Generar archivo

@@ -118,7 +118,7 @@ export function MembersDataTable<TData, TValue>({
             </div>
 
             {/* Table */}
-            <div className="rounded-md border">
+            <div className="rounded-md border shadow-lg">
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (

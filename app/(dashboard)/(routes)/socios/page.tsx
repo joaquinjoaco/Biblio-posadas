@@ -4,6 +4,7 @@ import prismadb from "@/lib/prismadb";
 import { es } from "date-fns/locale";
 import { MemberColumn } from "./components/columns";
 import { MembersClient } from "./components/client";
+import { formatCedula } from "@/lib/utils";
 
 export const metadata = {
     title: "Socios",
@@ -16,11 +17,11 @@ const SociosPage = async () => {
         orderBy: {
             createdAt: 'desc'
         }
-    });
+    })
 
     const formattedMembers: MemberColumn[] = socios.map((socio) => ({
         "ID": socio.id.toString(),
-        "Cédula": socio.ci?.toString() ?? "-",
+        "Cédula": socio.ci ? formatCedula(socio.ci.toString()) : "-",
         "Nombre": socio.nombre,
         "Apellido": socio.apellido,
         "Dirección": socio.direccion,
@@ -32,7 +33,7 @@ const SociosPage = async () => {
 
         "Registro": format(socio.createdAt, "dd MMMM, yyyy", { locale: es }),
         "Actualizado": format(socio.updatedAt, "dd MMMM, yyyy", { locale: es })
-    }));
+    }))
 
     return (
         <>

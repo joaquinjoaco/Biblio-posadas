@@ -25,7 +25,7 @@ export const ListItemBig: React.FC<ListItemBigProps> = ({
             href={href}
             target={`${blank ? "_blank" : "_self"}`}
             className={
-                "flex h-full max-w-[200px] select-none flex-col p-4 no-underline outline-none"
+                "flex h-full w-full select-none flex-col rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md hover:bg-orange-200/50 dark:hover:bg-orange-400 transition-colors"
             }
         >
             {icon}

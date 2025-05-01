@@ -2,6 +2,11 @@ import prismadb from "@/lib/prismadb";
 import { LendingFormByBookForm } from "./components/lending-form-by-book";
 import BookNotFound from "./components/book-not-found";
 
+
+export const metadata = {
+    title: 'Prestar libro'
+}
+
 const BookPage = async (
     props: {
         params: Promise<{ inventario: string }>

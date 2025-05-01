@@ -147,16 +147,6 @@ export function MainNav({
                                         {route.desc}
                                     </ListItemBig>
                                 ))}
-                                {/* {books.map((route) => (
-                                    <ListItem
-                                        key={route.label}
-                                        title={route.label}
-                                        href={route.href}
-                                        icon={route.icon}
-                                    >
-                                        {route.desc}
-                                    </ListItem>
-                                ))} */}
                             </ul>
                         </NavigationMenuContent>
                     </NavigationMenuItem>
@@ -176,17 +166,6 @@ export function MainNav({
                                         {route.desc}
                                     </ListItemBig>
                                 ))}
-
-                                {/* {users.map((route) => (
-                                    <ListItem
-                                        key={route.label}
-                                        title={route.label}
-                                        href={route.href}
-                                        icon={route.icon}
-                                    >
-                                        {route.desc}
-                                    </ListItem>
-                                ))} */}
                             </ul>
                         </NavigationMenuContent>
                     </NavigationMenuItem>

@@ -84,17 +84,12 @@ export const MemberHistoryClient: React.FC<MemberHistoryClientProps> = ({
                     <TooltipWrapper
                         content={historic ? "Clic para ver sólo los préstamos activos y vencidos" : "Clic para ver todos los préstamos del socio"}>
                         <Toggle
-                            variant={"outline"}
+                            variant={"default"}
                             pressed={historic}
                             onPressedChange={(pressed) => pressed.valueOf() ? router.push(`/socios/${member?.id}/historial?historico=true`) : router.push(`/socios/${member?.id}/historial`)}
                         >
-                            {historic ?
-                                <Filter className="mr-2 h-4 w-4" />
-                                :
-                                <Check className="mr-2 h-4 w-4" />
-                            }
-                            {/* <Check className={cn("mr-2 h-4 w-4", !historic && "hidden")} /> */}
-                            Histórico
+                            <Check className={cn("mr-2 h-4 w-4", !historic && "hidden")} />
+                            Mostrar histórico
                         </Toggle>
                     </TooltipWrapper>
                     <Button disabled={data.length === 0} onClick={() => generateSheet()} className="bg-[#107C41] hover:bg-[#1d6e42] dark:text-foreground" >

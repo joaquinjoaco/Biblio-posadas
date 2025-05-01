@@ -1,6 +1,6 @@
 "use client";
 
-import { Edit, Handshake, MoreHorizontal } from "lucide-react";
+import { Edit, Eye, Handshake, History, MoreHorizontal } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 
@@ -14,6 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { MemberColumn } from "./columns";
 import { TooltipWrapper } from "@/components/ui/tooltip-wrapper";
+import MemberCard from "./member-card";
 
 interface CellActionProps {
     data: MemberColumn;
@@ -23,10 +24,10 @@ export const CellAction: React.FC<CellActionProps> = ({
     data
 }) => {
 
-    const router = useRouter();
+    const router = useRouter()
 
     return (
-        <>
+        <div className="flex items-center space-x-2">
             <DropdownMenu>
                 <TooltipWrapper content="Acciones">
                     <DropdownMenuTrigger asChild>
@@ -43,7 +44,7 @@ export const CellAction: React.FC<CellActionProps> = ({
                     </DropdownMenuLabel>
                     <DropdownMenuItem onClick={() => router.push(`/socios/${data["ID"]}/historial`)}>
                         <Handshake className="mr-2 h-4 w-4" />
-                        Préstamos de {data["Nombre"]}
+                        Ver préstamos de {data["Nombre"]}
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => router.push(`/socios/${data["ID"]}`)}>
                         <Edit className="mr-2 h-4 w-4" />
@@ -51,6 +52,20 @@ export const CellAction: React.FC<CellActionProps> = ({
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
-        </>
+
+            <TooltipWrapper
+                content={<MemberCard data={data} />}
+                className="flex flex-row items-center gap-x-2"
+            >
+                <Button
+                    variant="secondary"
+                    size="icon"
+                    className="cursor-none"
+                >
+                    <Eye />
+                </Button>
+            </TooltipWrapper>
+
+        </div>
     );
 };

@@ -65,6 +65,7 @@ export async function PATCH(
                 id: Number(id),
             },
             data: {
+                ci,
                 nombre,
                 apellido,
                 direccion,

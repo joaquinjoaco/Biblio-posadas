@@ -5,15 +5,12 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useRouter } from "next/navigation";
 
 import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-
-
 
 const formSchema = z.object({
     inventario: z.string().min(1, { message: "Debes poporcionar un número de inventario." })
@@ -30,8 +27,6 @@ export const LendModal: React.FC<LendModalProps> = ({
     isOpen,
     onClose,
 }) => {
-
-    const router = useRouter()
 
     const [loading, setLoading] = useState(false)
     const [isMounted, setIsMounted] = useState(false)
