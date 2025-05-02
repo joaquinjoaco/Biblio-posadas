@@ -192,11 +192,8 @@ export const BookSearchModal: React.FC<BookSearchModalProps> = ({
                                                     field.onChange(e)
                                                     setOpenDatePicker(false)
                                                 }}
-                                                fromDate={new Date()}
-                                                // disabled={(date) =>
-                                                //     date < new Date("1900-01-01")
-                                                // }
-                                                initialFocus
+                                            // fromDate={new Date()}
+                                            // initialFocus
                                             />
                                         </PopoverContent>
                                     </Popover>
