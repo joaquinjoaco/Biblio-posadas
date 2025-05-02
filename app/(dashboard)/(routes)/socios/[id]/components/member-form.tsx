@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
+import { cn, formatCedula } from "@/lib/utils";
 import { Command, CommandGroup, CommandItem, CommandList } from "@/components/ui/command";
 import { Checkbox } from "@/components/ui/checkbox";
 
@@ -103,7 +103,12 @@ export const MemberForm: React.FC<MemberFormProps> = ({
 
         } catch (error: any) {
             if (error.response.status === 409) {
-                toast.error(`Ocurrió un error al generar el ID del socio.`);
+                console.log(error)
+                if (error.response.data === "unique-constraint-failed-on-ci") {
+                    toast.error(`Ya existe un socio con la cédula ${formatCedula(data.ci?.toString() ?? "")}`);
+                } else {
+                    toast.error(`Ocurrió un error al generar el ID del socio.`);
+                }
             } else {
                 toast.error("Ocurrió un error inesperado.");
             }
@@ -161,7 +166,7 @@ export const MemberForm: React.FC<MemberFormProps> = ({
                         disabled={false}
                         variant="secondary"
                         // size="sm"
-                        onClick={() => router.push(`/socios`)}
+                        onClick={() => router.back()}
                         type="button"
                     >
                         <ArrowLeft className="h-4 w-4 mr-2" />

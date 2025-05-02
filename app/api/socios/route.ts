@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 
 // local imports.
 import prismadb from "@/lib/prismadb";
+import { Prisma } from "@prisma/client";
 
 export async function POST(
     req: Request,
@@ -51,6 +52,7 @@ export async function POST(
             return new NextResponse("ubicacion is required", { status: 400 });
         }
 
+
         // If all the checks were passed, we can create the library's member.
         const socio = await prismadb.socio.create({
             data: {
@@ -67,10 +69,17 @@ export async function POST(
         return NextResponse.json(socio);
 
     } catch (error: any) {
-        console.error('[SOCIOS_POST]', error.message);
-        if (error.code === 'P2002') {
-            return new NextResponse("Unique constraint failed", { status: 409 }); // likely unique constraint failed.
+        console.error('[SOCIOS_PATCH]', error.message)
+        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+            // The .code property can be accessed in a type-safe manner
+            if (error.code === 'P2002') {
+                if (Array.isArray(error.meta?.target) && error.meta.target[0] === 'ci') {
+                    return new NextResponse(`unique-constraint-failed-on-ci`, { status: 409 }) // likely unique constraint failed.
+                } else {
+                    return new NextResponse(`Unique constraint failed on ${error.meta?.target}`, { status: 409 }) // likely unique constraint failed.
+                }
+            }
         }
-        return new NextResponse("Internal error", { status: 500 });
+        return new NextResponse("Internal error", { status: 500 })
     }
 }
