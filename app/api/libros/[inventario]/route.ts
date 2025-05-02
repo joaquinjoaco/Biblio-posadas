@@ -117,28 +117,48 @@ export async function GET(
     _req: Request, // Not used, but required for API route signature
     segmentData: { params: Params }
 ) {
+    // Fetches a book by its inventory number and returns a boolean indicating if it is lended or not,
+    // and if it is lended it will also return the current lending id.
     try {
         const params = await segmentData.params;
         const inventario = params.inventario;
 
-        // Check for the inventario
+        // Check for the inventario.
         if (!inventario) {
             return new NextResponse("inventario is required", { status: 400 });
         }
 
-        // Fetch the book
+        // Fetch the book.
         const book = await prismadb.libro.findUnique({
             where: {
                 inventario: Number(inventario),
             },
         });
 
-        // Check if book exists
+        // Check if the book exists.
         if (!book) {
             return new NextResponse("Book not found", { status: 404 });
         }
 
-        return NextResponse.json(book);
+
+        // Check for any 'pending' lending for the book.
+        const lendings = await prismadb.prestamo.findMany({
+            where: {
+                idLibro: book.inventario,
+                fechaDevolucionFinal: null, // if the lending has no final return date, then it is considered as currently lended.
+            },
+            include: {
+                socio: true,
+            }
+        })
+        const lended = lendings.length !== 0
+
+        return NextResponse.json({
+            book: book,
+            lended: lended,
+            lendingId: lended ? lendings[0].id : null
+        })
+
     } catch (error: any) {
         console.error("[LIBROS_GET]", error.message);
         return new NextResponse("Internal error", { status: 500 });

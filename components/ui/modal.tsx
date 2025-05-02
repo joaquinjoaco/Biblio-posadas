@@ -10,7 +10,7 @@ import {
 
 interface ModalProps {
     title: string;
-    description: string;
+    description: React.ReactNode;
     isOpen: boolean;
     onClose: () => void;
     children?: React.ReactNode; // ? makes it optional.
@@ -23,6 +23,7 @@ export const Modal: React.FC<ModalProps> = ({
     onClose,
     children
 }) => {
+
     const onChange = (open: boolean) => {
         if (!open) {
             onClose();
@@ -34,14 +35,14 @@ export const Modal: React.FC<ModalProps> = ({
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>{title}</DialogTitle>
-                    <DialogDescription>
+                    <div id="dialog-description" className="text-sm text-muted-foreground">
                         {description}
-                    </DialogDescription>
+                    </div>
                 </DialogHeader>
                 <div>
                     {children}
                 </div>
             </DialogContent>
-        </Dialog>
+        </Dialog >
     )
 }

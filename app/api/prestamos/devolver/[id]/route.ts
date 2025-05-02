@@ -9,10 +9,10 @@ export async function PATCH(
     req: Request,
     segmentData: { params: Params }
 ) {
-
     try {
         const params = await segmentData.params
         const id = params.id
+
         // Check for the id.
         if (!id) {
             return new NextResponse("id is required", { status: 400 });
@@ -21,19 +21,12 @@ export async function PATCH(
         const body = await req.json();
 
         const {
-            fechaPrestado,
-            fechaDevolucionEstipulada,
             fechaDevolucionFinal
         } = body;
 
         // Check for the fechaPrestado.
-        if (!fechaPrestado) {
-            return new NextResponse("fechaPrestado is required", { status: 400 });
-        }
-
-        // Check for the fechaDevolucionEstipulada.
-        if (!fechaDevolucionEstipulada) {
-            return new NextResponse("fechaDevolucionEstipulada is required", { status: 400 });
+        if (!fechaDevolucionFinal) {
+            return new NextResponse("fechaDevolucionFinal is required", { status: 400 });
         }
 
         const lending = await prismadb.prestamo.update({
@@ -41,11 +34,9 @@ export async function PATCH(
                 id: Number(id),
             },
             data: {
-                fechaPrestado: fechaPrestado,
-                fechaDevolucionEstipulada: fechaDevolucionEstipulada,
                 fechaDevolucionFinal: fechaDevolucionFinal
             }
-        });
+        })
 
         return NextResponse.json(lending);
     } catch (error: any) {

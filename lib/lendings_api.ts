@@ -34,7 +34,7 @@ const lendings_api = {
                         idSocio: memberId,
                         fechaDevolucionFinal: null,
                         fechaDevolucionEstipulada: {
-                            lt: new Date(todayDate)
+                            lte: new Date(todayDate)
                         }
                     },
                     orderBy: {
@@ -46,7 +46,7 @@ const lendings_api = {
                     where: {
                         fechaDevolucionFinal: null,
                         fechaDevolucionEstipulada: {
-                            lt: new Date(todayDate)
+                            lte: new Date(todayDate)
                         }
                     },
                     orderBy: {

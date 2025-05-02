@@ -40,8 +40,11 @@ const LendingsPage = async (
         "Socio": lending.idSocio.toString(),
         "Efectuado": format(lending.fechaPrestado, "dd MMMM, yyyy", { locale: es }),
         "Vencimiento": format(lending.fechaDevolucionEstipulada, "dd MMMM, yyyy", { locale: es }),
-        "Devolución": lending.fechaDevolucionFinal ? format(lending.fechaDevolucionFinal, "dd MMMM, yyyy", { locale: es })
-            : today > lending.fechaDevolucionEstipulada ? "VENCIDO" : "ACTIVO",
+        "Devolución": lending.fechaDevolucionFinal ?
+            format(lending.fechaDevolucionFinal, "dd MMMM, yyyy", { locale: es })
+            :
+            today > lending.fechaDevolucionEstipulada ?
+                "VENCIDO" : "ACTIVO",
         "Registro": format(lending.createdAt, "dd MMMM, yyyy", { locale: es }),
         "Actualizado": format(lending.updatedAt, "dd MMMM, yyyy", { locale: es })
     }));
