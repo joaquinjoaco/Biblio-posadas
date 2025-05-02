@@ -1,6 +1,7 @@
 import { getBooksCount } from "@/actions/get-books-count";
 import { getLendingsCount } from "@/actions/get-lendings-count";
 import { getMembersCount } from "@/actions/get-members-count";
+import GridBackground from "@/components/grid-background";
 import CountCard from "@/components/ui/count-card";
 import { TooltipWrapper } from "@/components/ui/tooltip-wrapper";
 import { ArrowUpRight, Book, BookUp2, Handshake, Timer, User } from "lucide-react";
@@ -17,6 +18,18 @@ const DashboardPage = async () => {
 
     return (
         <>
+            <div className="-z-10 absolute top-0 left-0 w-full h-full overflow-hidden">
+                <div
+                    className="absolute inset-0 h-full w-full opacity-20"
+                    style={{
+                        backgroundImage: `
+            linear-gradient(to right, rgba(255, 130, 0, 0.5) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(255, 130, 0, 0.5) 1px, transparent 1px)
+          `,
+                        backgroundSize: "20px 20px",
+                    }}
+                />
+            </div>
             <div className="flex flex-col sm:flex-row gap-x-8 p-8 mt-8">
                 <div className="flex flex-col gap-y-8">
                     <TooltipWrapper

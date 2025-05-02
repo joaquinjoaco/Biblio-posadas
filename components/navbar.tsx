@@ -4,7 +4,7 @@ import QuickActions from "./quick-actions";
 
 const Navbar = async () => {
     return (
-        <div className="rounded-md shadow-md border-b">
+        <div className="rounded-md shadow-md border-b bg-background">
             <div className="flex h-16 items-center px-4" >
                 <MainNav />
                 {/* Prestar / Devolver */}
