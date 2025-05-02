@@ -1,7 +1,6 @@
 import { getBooksCount } from "@/actions/get-books-count";
 import { getLendingsCount } from "@/actions/get-lendings-count";
 import { getMembersCount } from "@/actions/get-members-count";
-import GridBackground from "@/components/grid-background";
 import CountCard from "@/components/ui/count-card";
 import { TooltipWrapper } from "@/components/ui/tooltip-wrapper";
 import { ArrowUpRight, Book, BookUp2, Handshake, Timer, User } from "lucide-react";
