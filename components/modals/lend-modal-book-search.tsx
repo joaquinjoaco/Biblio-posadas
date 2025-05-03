@@ -192,7 +192,7 @@ export const BookSearchModal: React.FC<BookSearchModalProps> = ({
                                                     field.onChange(e)
                                                     setOpenDatePicker(false)
                                                 }}
-                                            // fromDate={new Date()}
+                                                fromDate={new Date()}
                                             // initialFocus
                                             />
                                         </PopoverContent>

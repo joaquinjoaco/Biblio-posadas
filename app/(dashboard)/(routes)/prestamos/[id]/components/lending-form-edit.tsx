@@ -13,7 +13,6 @@ import { useParams, useRouter } from "next/navigation";
 
 import { Heading } from "@/components/ui/heading";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import {
     Form,
     FormControl,
@@ -61,11 +60,11 @@ export const LendingFormEdit: React.FC<LendingFormEditProps> = ({
     const title = `Préstamo Nº ${initialData?.id}`;
     const description = `${initialData?.libro.titulo}, de ${initialData?.libro.autor}` || "";
     const toastMessage = "Préstamo actualizado";
-    const action = "Editar préstamo";
+    const action = "Guardar";
 
     const today = new Date()
     const lendingStatus = initialData ?
-        initialData?.fechaDevolucionFinal ? "devuelto" : today < initialData.fechaDevolucionEstipulada ? "pendiente" : "vencido" : ""
+        initialData?.fechaDevolucionFinal ? "devuelto" : today < initialData.fechaDevolucionEstipulada ? "activo" : "vencido" : ""
 
     const defaultValues = {
         fechaPrestado: initialData?.fechaPrestado,
@@ -124,7 +123,7 @@ export const LendingFormEdit: React.FC<LendingFormEditProps> = ({
                                 </p>
                             </Badge>
                             :
-                            <Badge variant={lendingStatus as "pendiente" | "vencido"} className="max-w-fit">
+                            <Badge variant={lendingStatus as "activo" | "vencido"} className="max-w-fit">
                                 <p>
                                     {lendingStatus.toUpperCase()}
                                 </p>
@@ -153,12 +152,10 @@ export const LendingFormEdit: React.FC<LendingFormEditProps> = ({
                             {action}
                         </Button>
                     </div>
-
                 </div>
-                <Separator />
 
                 <Form {...form}>
-                    <form id="book-form" onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full pt-8">
+                    <form id="book-form" onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
                         <div className="grid grid-cols-2 gap-8">
                             <div className="flex flex-col gap-y-8">
                                 <div className="grid grid-cols-1 gap-8 border p-8 rounded-md">
@@ -270,10 +267,10 @@ export const LendingFormEdit: React.FC<LendingFormEditProps> = ({
                             <div className="flex flex-col border-l-4 border-primary p-8 space-y-2">
                                 <h1 className="text-xl font-semibold">Devolución</h1>
                                 <Badge variant="default" className="max-w-fit">
-                                    <p className="font-semibold">Socio: Nº{initialData.idSocio} {initialData.socio.nombre} {initialData.socio.apellido}</p>
+                                    <p className="font-semibold truncate">Socio: Nº{initialData.idSocio} {initialData.socio.nombre} {initialData.socio.apellido}</p>
                                 </Badge>
                                 <Badge className="max-w-fit">
-                                    <p>Libro: {initialData.libro.titulo}, de {initialData.libro.autor}</p>
+                                    <p className="truncate">Libro: {initialData.libro.titulo}, de {initialData.libro.autor}</p>
                                 </Badge>
 
                                 {/* fechaDevolucionFinal date picker */}
@@ -326,8 +323,8 @@ export const LendingFormEdit: React.FC<LendingFormEditProps> = ({
                                         </FormItem>
                                     )}
                                 />
-
                             </div>
+
                         </div>
                     </form>
                 </Form>

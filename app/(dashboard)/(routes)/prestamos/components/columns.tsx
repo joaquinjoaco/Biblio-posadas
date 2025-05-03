@@ -106,11 +106,11 @@ export const columns: ColumnDef<LendingColumn>[] = [
             )
         },
         cell: ({ row }) => row.original["Devolución"] === "VENCIDO" ?
-            <Badge variant="vencido">VENCIDO</Badge>
-            : row.original["Devolución"] === "PENDIENTE" ?
-                <Badge variant="pendiente">PENDIENTE</Badge>
+            <Badge className="truncate" variant="vencido">VENCIDO</Badge>
+            : row.original["Devolución"] === "ACTIVO" ?
+                <Badge className="truncate" variant="activo">ACTIVO</Badge>
                 :
-                <Badge variant="devuelto">{row.original["Devolución"]}</Badge>
+                <Badge className="truncate" variant="devuelto">{row.original["Devolución"]}</Badge>
     },
     {
         accessorKey: "Registro",

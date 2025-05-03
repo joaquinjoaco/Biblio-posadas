@@ -3,7 +3,7 @@
 
 import { Libro, Prestamo, Socio } from "@prisma/client";
 import * as z from "zod";
-import { ArrowLeft, CalendarIcon, Check, ChevronsUpDown, MapPin, Phone } from "lucide-react";
+import { CalendarIcon, Check, ChevronsUpDown, MapPin, Phone } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
@@ -31,6 +31,7 @@ import { es } from "date-fns/locale";
 import { CommandEmpty } from "cmdk";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
+import LendingSummary from "./lending-summary";
 
 const formSchema = z.object({
     idLibro: z.string().min(1, { message: 'Debes seleccionar un libro' }),
@@ -79,7 +80,9 @@ export const LendingFormByBookForm: React.FC<LendingFormByBookProps> = ({
     const form = useForm<LendingFormByBookValues>({
         resolver: zodResolver(formSchema),
         defaultValues
-    });
+    })
+
+    // const { watch } = form
 
     const onSubmit = async (data: LendingFormByBookValues) => {
         try {
@@ -165,7 +168,6 @@ export const LendingFormByBookForm: React.FC<LendingFormByBookProps> = ({
                     <form id="book-form" onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
                         <div className="grid grid-cols-2 gap-8">
                             <div className="flex flex-col gap-y-8">
-
                                 {/* Socio picker */}
                                 <FormField
                                     control={form.control}
@@ -180,7 +182,7 @@ export const LendingFormByBookForm: React.FC<LendingFormByBookProps> = ({
                                                             variant="outline"
                                                             role="combobox"
                                                             className={cn(
-                                                                "flex justify-between h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+                                                                "flex justify-between h-10 w-[240px] rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
                                                                 !field.value && "text-muted-foreground"
                                                             )}
                                                         >
@@ -328,7 +330,7 @@ export const LendingFormByBookForm: React.FC<LendingFormByBookProps> = ({
                                                                 field.onChange(e)
                                                                 setOpen3(false)
                                                             }}
-                                                            fromDate={new Date()}
+                                                            fromDate={form.watch("fechaPrestado")}
                                                             // disabled={(date) =>
                                                             //     date < new Date("1900-01-01")
                                                             // }
@@ -345,7 +347,15 @@ export const LendingFormByBookForm: React.FC<LendingFormByBookProps> = ({
                                     />
                                 </div>
                             </div>
-
+                            <div className="flex flex-col gap-y-8">
+                                <LendingSummary
+                                    book={book}
+                                    members={members}
+                                    memberId={form.watch("idSocio")}
+                                    fechaPrestado={form.watch("fechaPrestado")}
+                                    fechaDevolucionEstipulada={form.watch("fechaDevolucionEstipulada")}
+                                />
+                            </div>
                         </div>
                     </form>
                 </Form>

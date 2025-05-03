@@ -22,6 +22,8 @@ const badgeVariants = cva(
           "border-transparent bg-yellow-400 text-primary-foreground hover:bg-yellow-400/80",
         devuelto:
           "border-transparent bg-green-500 text-primary-foreground hover:bg-green-500/80",
+        activo:
+          "border-transparent bg-green-500 text-primary-foreground hover:bg-green-500/80",
       },
     },
     defaultVariants: {
